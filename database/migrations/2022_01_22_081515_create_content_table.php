@@ -17,6 +17,7 @@ class CreateContentTable extends Migration
             $table->id();
             $table->bigInteger('menu_id');
             $table->bigInteger('sub_menu_id');
+            $table->string('slug');
             $table->string('title');
             $table->string('sub_title')->nullable();
             $table->string('description')->nullable();
