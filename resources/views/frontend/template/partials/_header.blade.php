@@ -4,10 +4,21 @@
         <div class="logo">
             <h1><a href="index.html"><span>A</span>nanta Mitra Karya</a></h1>
         </div>
-
+        @php
+            $dataMenu = getMenu();
+        @endphp
         <nav id="navbar" class="navbar">
             <ul>
-            <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                @foreach ($dataMenu as $item)
+                <li class="dropdown"><a href="#"><span>{{$item->name}}</span> <i class="bi bi-chevron-right"></i></a>
+                    <ul>
+                        @foreach($item->subMenu as $itemSecond)
+                        <li><a href="#">{{$itemSecond->name}}</a></li>
+                        @endforeach
+                    </ul>
+                </li>
+                @endforeach
+            {{-- <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
             <li><a class="nav-link scrollto" href="#about">About</a></li>
             <li><a class="nav-link scrollto" href="#services">Services</a></li>
             <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
@@ -30,7 +41,7 @@
                 <li><a href="#">Drop Down 4</a></li>
                 </ul>
             </li>
-            <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+            <li><a class="nav-link scrollto" href="#contact">Contact</a></li> --}}
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>

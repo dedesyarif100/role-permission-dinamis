@@ -6,7 +6,7 @@
                 <div class="footer-content">
                 <div class="footer-head">
                     <div class="footer-logo">
-                    <h2><span>e</span>Business</h2>
+                    <h2><span>A</span>nantan Mitra Karya</h2>
                     </div>
 
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
@@ -49,7 +49,7 @@
             <div class="col-md-4">
                 <div class="footer-content">
                 <div class="footer-head">
-                    <h4>Instagram</h4>
+                    <h4>Recent Posts</h4>
                     <div class="flicker-img">
                     <a href="#"><img src="assets/img/portfolio/1.jpg" alt=""></a>
                     <a href="#"><img src="assets/img/portfolio/2.jpg" alt=""></a>
