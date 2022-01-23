@@ -11,4 +11,9 @@ class Menu extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'menu';
     protected $guarded = ['id'];
+
+    public function subMenu()
+    {
+        return $this->hasMany(SubMenu::class, 'menu_id');
+    }
 }

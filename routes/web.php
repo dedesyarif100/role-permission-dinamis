@@ -6,6 +6,8 @@ use App\Http\Controllers\{
     MenuController,
     SubMenuController
 };
+
+use App\Http\Controllers\Frontend\MainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,9 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/', MainController::class);
 
 Route::get('admin', function () {
     return view('menu.index');
