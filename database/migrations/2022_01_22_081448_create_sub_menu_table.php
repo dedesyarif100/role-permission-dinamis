@@ -15,8 +15,8 @@ class CreateSubMenuTable extends Migration
     {
         Schema::create('sub_menu', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->bigInteger('menu_id');
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });

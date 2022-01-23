@@ -3,17 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
-use Illuminate\Support\Facades\Validator;
+use App\Models\SubMenu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class MenuController extends Controller
+class SubMenuController extends Controller
 {
-    public function editorMenu(Request $request)
+    public function editorSubMenu(Request $request)
     {
-        $menu = Menu::find($request->menuId);
-        return view('menu.editor', compact('menu'));
+        $subMenu = SubMenu::find($request->subMenuId);
+        $allMenu = Menu::all();
+        return view('sub-menu.editor', compact('subMenu', 'allMenu'));
     }
 
     /**
@@ -24,19 +26,27 @@ class MenuController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $menu = Menu::orderBy('id', 'DESC')->get();
-            return DataTables::of($menu)
+            $subMenu = SubMenu::orderBy('id', 'DESC')->get();
+            return DataTables::of($subMenu)
             ->addIndexColumn()
-            ->addColumn('action', function($menu) {
-                $action = '<div class="btn-group" role="group"> <button class="btn btn-primary btn-sm" data-id="'.$menu['id'].'" id="edit"> <i class="fas fa-edit"></i> </button>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$menu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
+            ->editColumn('menu', function($subMenu) {
+                return $subMenu->menu->name;
+            })
+            ->addColumn('action', function($subMenu) {
+                $action = '<div class="btn-group" role="group"> <button class="btn btn-primary btn-sm" data-id="'.$subMenu['id'].'" id="edit"> <i class="fas fa-edit"></i> </button>';
+                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])
             ->make(true);
         }
 
-        return view('menu.index');
+        return view('sub-menu.index');
+    }
+
+    public function getSubMenu()
+    {
+
     }
 
     /**
@@ -46,7 +56,7 @@ class MenuController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -58,16 +68,18 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required'
+            'menu_id' => ['required'],
+            'name' => ['required']
         ]);
 
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-            Menu::create([
+            SubMenu::create([
+                'menu_id' => $request->menu_id,
                 'name' => $request->name
             ]);
-            return response()->json(['code' => 1, 'msg' => 'New Menu has been successfully saved']);
+            return response()->json(['code' => 1, 'msg' => 'New Sub Menu has been successfully saved']);
         }
     }
 
@@ -90,7 +102,7 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-
+        //
     }
 
     /**
@@ -103,16 +115,18 @@ class MenuController extends Controller
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
+            'menu_id' => ['required'],
             'name' => ['required']
         ]);
 
         if ($validator->fails()) {
             return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
         } else {
-            Menu::where('id', $id)->update([
-                'name' => $request->name,
+            SubMenu::where('id', $id)->update([
+                'menu_id' => $request->menu_id,
+                'name' => $request->name
             ]);
-            return response()->json(['code' => 1, 'msg' => 'Menu Has Been Updated']);
+            return response()->json(['code' => 1, 'msg' => 'Sub Menu Has Been Updated']);
         }
     }
 
@@ -124,7 +138,7 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        Menu::where('id', $id)->delete();
-        return response()->json(['code' => 1, 'msg' => 'Menu Has Been Deleted']);
+        SubMenu::where('id', $id)->delete();
+        return response()->json(['code' => 1, 'msg' => 'Sub Menu Has Been Deleted']);
     }
 }
