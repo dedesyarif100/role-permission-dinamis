@@ -6,14 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Menu extends Model
+class AboutUs extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $table = 'menu';
     protected $guarded = ['id'];
-
-    public function subMenu()
-    {
-        return $this->hasMany(SubMenu::class, 'menu_id');
-    }
 }

@@ -2,17 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Content;
+use App\Models\Menu;
+use App\Models\SubMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\Facades\DataTables;
 
 class ContentController extends Controller
 {
+    public function editorContent(Request $request)
+    {
+        $menu = Menu::all();
+        $subMenu = SubMenu::all();
+        return view('content.editor', compact('menu', 'subMenu'));
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->ajax()) {
+            $content = Content::orderBy('id', 'DESC')->get();
+            return DataTables::of($content)
+            ->addIndexColumn()
+            ->editColumn('menu', function($content) {
+                return $content->menu->name;
+            })
+            ->editColumn('sub_menu', function($content) {
+                return $content->subMenu->name;
+            })
+            ->addColumn('action', function($content) {
+                $action = '<a href="content/'.Crypt::encrypt($content->id).'/edit" class="btn btn-primary btn-sm me-2" title="Edit"> <i class="fas fa-edit"></i> </a>';
+                $action .= '<button class="btn btn-danger btn-sm"> <i class="fas fa-trash"></i> </button>';
+                return $action;
+            })
+            ->rawColumns(['DT_Row_Index', 'menu', 'sub_menu', 'action'])
+            ->make(true);
+        }
+
         return view('content.index');
     }
 
@@ -34,7 +66,14 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'menu_id' => 'required',
+            'sub_menu_id' => 'required',
+            'title' => 'required',
+            'sub_title' => 'required',
+        ]);
+
+        
     }
 
     /**

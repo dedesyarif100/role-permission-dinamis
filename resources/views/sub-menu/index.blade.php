@@ -1,7 +1,7 @@
 @extends('admin')
 
 @section('content')
-    <h1>Menu</h1>
+    <h1>Sub Menu</h1>
     <div class="row">
         <div class="col-md-12">
             <button class="btn btn-success btn-sm" id="create">Create</button><br><hr>
@@ -9,6 +9,7 @@
                 <thead>
                     <tr>
                         <th class="serial">#</th>
+                        <th>Menu</th>
                         <th>Name</th>
                         <th>Action</th>
                     </tr>
@@ -19,7 +20,7 @@
 @endsection
 
 @section('modal')
-    <div class="modal fade modalMenu" data-backdrop="static" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade modalSubMenu" data-backdrop="static" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
 
@@ -50,6 +51,7 @@
             autoWidth   : false,
             columns     : [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
+                {data: 'menu', name: 'menu.name'},
                 {data: 'name', name: 'name'},
                 {
                     data: 'action',
@@ -63,22 +65,22 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('menu.index') }}";
+            sendData.ajax = "{{ route('sub-menu.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
 
         // CREATE >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#create', function() {
-            $.get('{{ route("editor.menu") }}', function(data) {
-                $('.modalMenu').find('.modal-content').html(data);
-                $('.modalMenu').modal('show');
+            $.get('{{ route("editor.submenu") }}', function(data) {
+                $('.modalSubMenu').find('.modal-content').html(data);
+                $('.modalSubMenu').modal('show');
             });
         });
-        $('.modalMenu').on('shown.bs.modal', function (event) {
+        $('.modalSubMenu').on('shown.bs.modal', function(event) {
             $('input[name="name"]').focus();
         });
-        $('.modalMenu').on('hidden.bs.modal', function (event) {
+        $('.modalSubMenu').on('hidden.bs.modal', function(event) {
             if (submitted) {
                 submitted = false;
             }
@@ -87,20 +89,20 @@
 
         // EDIT >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#edit', function() {
-            let menuId = $(this).data('id');
-            $.get('{{ route("editor.menu") }}', {menuId: menuId}, function(data) {
-                $('.modalMenu').find('.modal-content').html(data);
-                $('.modalMenu').modal('show');
+            let subMenuId = $(this).data('id');
+            $.get('{{ route("editor.submenu") }}', {subMenuId: subMenuId}, function(data) {
+                $('.modalSubMenu').find('.modal-content').html(data);
+                $('.modalSubMenu').modal('show');
             });
         });
         // EDIT >>>>>>>>>>>>>>>>>>
 
         // DELETE >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#delete', function() {
-            let menuId = $(this).data('id');
+            let subMenuId = $(this).data('id');
             swal.fire({
                 title: 'Are you sure?',
-                html: 'You want to <b>delete</b> this Menu ',
+                html: 'You want to <b>delete</b> this Sub Menu',
                 showCancelButton: true,
                 showCloseButton: true,
                 cancelButtonText: 'Cancel',
@@ -113,9 +115,9 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('menu') }}" + '/' + menuId,
+                        url: "{{ url('sub-menu') }}" + '/' + subMenuId,
                         data: {
-                            menuId : menuId,
+                            subMenuId : subMenuId,
                         },
                         success: function(data) {
                             toastr.success(data.msg);

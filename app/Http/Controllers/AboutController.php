@@ -16,6 +16,11 @@ class AboutController extends Controller
         return view('about-us.index');
     }
 
+    public function getAboutUs()
+    {
+        # code...
+    }
+
     /**
      * Show the form for creating a new resource.
      *
