@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', MainController::class);
+Route::get('/', [MainController::class, 'index']);
+Route::get('/{id}/{slug}', [MainController::class, 'service'])->name('services.show');
+Route::get('/{id}/{slug}', [MainController::class, 'news'])->name('news.show');
 
 Route::get('admin', function () {
     return view('menu.index');

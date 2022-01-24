@@ -9,10 +9,10 @@
 <!-- Template Main JS File -->
 <script src="{{asset('frontend/assets/js/main.js')}}"></script>
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(window).on('load', function() {
         setTimeout(function() { 
             $('#exampleModal').modal('show');
         }, 3000);
     });
-</script>
+</script> --}}

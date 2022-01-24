@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Content;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -18,35 +19,16 @@ class MainController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
-     *
-     * @param  int  $id
+     * @param  int      $id
+     * @param  string   $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function service($id, $slug)
     {
-        //
+        $data = Content::where('menu_id', $id)->where('slug', $slug)->first();
+        
+        return view('frontend.services.index', compact('data'));
     }
 
     /**
