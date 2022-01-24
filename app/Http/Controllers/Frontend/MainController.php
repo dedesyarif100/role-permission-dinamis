@@ -32,26 +32,24 @@ class MainController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show List the news.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function news()
     {
-        //
+        return view('frontend.news.index');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Show Detail the news.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  string  $slug
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function newsDetail($slug)
     {
-        //
+        return view('frontend.news.show');
     }
 
     /**
