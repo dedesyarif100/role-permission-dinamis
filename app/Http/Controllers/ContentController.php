@@ -74,7 +74,7 @@ class ContentController extends Controller
 
         $slugContent = Content::generateSlugByTitle($request->title);
 
-        $outputFile = 'images';
+        $outputFile = 'content';
         $path = Storage::disk('public')->put($outputFile, $request->images);
 
         Content::create([
@@ -135,7 +135,7 @@ class ContentController extends Controller
 
         $slugContent = Content::generateSlugByTitle($request->title);
 
-        $outputFile = 'images';
+        $outputFile = 'content';
         $path = Storage::disk('public')->put($outputFile, $request->images);
 
         Content::where('id', $id)->update([
