@@ -1,8 +1,9 @@
 <header id="header" class="fixed-top d-flex align-items-center">
-    <div class="container d-flex">
+    <div class="container d-flex justify-content-between">
 
         <div class="logo">
-            <h1><a href="/"><span>A</span>nanta Mitra Karya</a></h1>
+            {{-- <h1><a href="/"><span>A</span>nanta Mitra Karya</a></h1> --}}
+            <img src="{{ asset('frontend/assets/images/Logo.png') }}" alt="">
         </div>
         @php
             $dataMenu = getMenu();
