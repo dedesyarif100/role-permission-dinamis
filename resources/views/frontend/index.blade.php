@@ -81,9 +81,8 @@
                 <div class="about-move" style="padding-bottom:10px;">
                     <div class="services-details" style="background: rgba(0, 0, 0, 0.8); border-radius:25px;">
                         <div class="single-services">
-                            <a class="services-icon" href="#">
-                            <i class="bi bi-briefcase" style="color: white;"></i>
-                            </a>
+                            <img src="{{asset('frontend/assets/img/testimonials/testimonials-4.jpg')}}" style="width: 30%; border-radius:100px;" class="" alt="">
+                            <br>
                             <h4 style="color: white;">Visa Services</h4>
                             <p style="color:white; padding: 0px 10px 30px 10px;">
                                 The visa process in Indonesia can be challenging; let us help make your life easier. Competitive pricing and ethical practices are the reason we are quickly becoming Indonesia’s favourite agency.
@@ -205,12 +204,11 @@
 <div class="reviews-area">
     <div class="row g-0">
     <div class="col-lg-6">
-        <img src="{{asset('frontend/assets/img/about/2.jpg')}}" alt="" class="img-fluid">
+        <img src="{{asset('frontend/assets/images/ruang-tamu.jpg')}}" alt="" class="img-fluid">
     </div>
     <div class="col-lg-6 work-right-text d-flex align-items-center">
         <div class="px-5 py-5 py-lg-0">
-        <h2>working with us</h2>
-        <h5>Web Design, Ready Home, Construction and Co-operate Outstanding Buildings.</h5>
+        <h5>Welcome to Ananta Mitra Karya, Indonesia’s Most Trusted Visa & Business Consultancy. We are proud to be the trendsetters in what we do, simplifying and improving expatriate services..</h5>
         <a href="#contact" class="ready-btn scrollto">Contact us</a>
         </div>
     </div>

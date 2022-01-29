@@ -260,7 +260,7 @@ div#preloader {
 }
 
 .header-bg {
-  background: url(../img/background/page-header.jpg);
+  background: url(../img/background/content-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-position: top center;
@@ -2222,6 +2222,28 @@ span.email-notes {
   display: none;
 }
 
+.whatsapp-button{
+  position: fixed;
+  bottom: 80px;
+  right: 15px;
+  z-index: 99;
+  background-color: #25d366;
+  border-radius: 50px;
+  color: #ffffff;
+  text-decoration: none;
+  width: 30px;
+  height: 30px;
+  font-size: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  -webkit-box-shadow: 0px 0px 25px -6px rgba(0,0,0,1);
+  -moz-box-shadow: 0px 0px 25px -6px rgba(0,0,0,1);
+  box-shadow: 0px 0px 25px -6px rgba(0,0,0,1);
+  animation: effect 5s infinite ease-in;
+}
+
 /*--------------------------------------------------------------
 # Responsive
 --------------------------------------------------------------*/
@@ -2536,5 +2558,23 @@ span.email-notes {
 @media (max-width: 575px) {
   .slider-content {
     padding: 0;
+  }
+}
+
+@keyframes effect {
+  20%, 100% {
+      width: 50px;
+      height: 50px;
+      font-size: 30px;
+  }
+  0%, 10%{
+      width: 55px;
+      height: 55px;
+      font-size: 35px;
+  }
+  5%{
+      width: 50px;
+      height: 50px;
+      font-size: 30px;
   }
 }

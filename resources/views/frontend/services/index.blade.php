@@ -28,65 +28,25 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="page-head-blog">
                     <div class="single-blog-page">
-                        <form action="#">
-                        <div class="search-option">
-                            <input type="text" placeholder="Search...">
-                            <button class="button" type="submit">
-                            <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-                        </form>
-                    </div>
-                    <div class="single-blog-page">
                         <div class="left-blog">
-                        <h4>popular service</h4>
-                        <div class="recent-post">
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/1.jpg')}}" alt="">
-                                </a>
+                            <h4>popular services</h4>
+                            @foreach ($popular as $item)
+                            @if ($item->slug != Request::segment(3))
+                            <div class="recent-post">
+                                <div class="recent-single-post">
+                                    <div class="post-img">
+                                        <a href="#">
+                                        <img src="{{asset('storage/'. $item->images)}}" alt="" style="width:100%">
+                                        </a>
+                                    </div>
+                                    <div class="pst-content">
+                                        <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/2.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/3.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <!-- End single post -->
-                            <!-- start single post -->
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/4.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <!-- End single post -->
+                            @endif
+                            @endforeach
                         </div>
-                        </div>
-                        <!-- recent end -->
                     </div>
                     </div>
                 </div>
@@ -97,7 +57,7 @@
                         
                         <article class="blog-post-wrapper">
                         <div class="post-thumbnail">
-                            <img src="{{asset('frontend/assets/img/blog/6.jpg')}}" alt="" />
+                            <img src="{{asset('storage/'. $data->images)}}" alt="" style="border-radius: 20px" />
                         </div>
                         <div class="post-information">
                             <h2>{{$data->subMenu->name}}</h2>

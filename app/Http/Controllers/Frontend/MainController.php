@@ -27,8 +27,9 @@ class MainController extends Controller
     public function service($id, $slug)
     {
         $data = Content::where('menu_id', $id)->where('slug', $slug)->first();
+        $popular = Content::orderBy('created_at', 'desc')->limit(5)->get();
         
-        return view('frontend.services.index', compact('data'));
+        return view('frontend.services.index', compact('data', 'popular'));
     }
 
     /**
