@@ -5,7 +5,9 @@
 <div class="content">
     <div class="card-body">
         {!! $content->description !!}
-        {{ $content->images }}
+        @if (!is_null($content->images))
+            <img src="{{ asset('storage/'.$content->images) }}" width="400" height="400" style="object-fit: contain;">
+        @endif
     </div>
 </div>
 @endsection

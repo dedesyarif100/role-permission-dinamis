@@ -17,7 +17,7 @@
             </h1><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($content)) {{ route('content.store') }} @else {{ url('content/'.$content->id) }} @endif" method="POST">
+                    <form action="@if(is_null($content)) {{ route('content.store') }} @else {{ url('content/'.$content->id) }} @endif" method="POST" enctype="multipart/form-data">
                         @if (!is_null($content))
                             @method('PATCH')
                         @endif

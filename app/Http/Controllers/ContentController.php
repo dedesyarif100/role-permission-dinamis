@@ -62,8 +62,6 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->file('image'));
-        // dd($request->all());
         $request->validate([
             'menu_id' => 'required',
             'sub_menu_id' => 'required',
@@ -71,16 +69,13 @@ class ContentController extends Controller
         ], [
             'menu_id.required' => 'This field is required',
             'sub_menu_id.required' => 'This field is required',
-            'title.required' => 'This field is required', 
+            'title.required' => 'This field is required',
         ]);
 
         $slugContent = Content::generateSlugByTitle($request->title);
 
-        // $outputFile = 'images';
-        // $path = Storage::disk('public')->put($outputFile, $request->images);
-        // $request->images->storeAs(
-        //     'images' => $request->images,
-        // );
+        $outputFile = 'images';
+        $path = Storage::disk('public')->put($outputFile, $request->images);
 
         Content::create([
             'menu_id' => $request->menu_id,
@@ -89,7 +84,7 @@ class ContentController extends Controller
             'slug' => $slugContent,
             'sub_title' => $request->sub_title,
             'description' => $request->description,
-            'images' => $request->images
+            'images' => $path
         ]);
 
         return redirect('content')->with('status', 'Data success created!');
@@ -140,6 +135,9 @@ class ContentController extends Controller
 
         $slugContent = Content::generateSlugByTitle($request->title);
 
+        $outputFile = 'images';
+        $path = Storage::disk('public')->put($outputFile, $request->images);
+
         Content::where('id', $id)->update([
             'menu_id' => $request->menu_id,
             'sub_menu_id' => $request->sub_menu_id,
@@ -147,7 +145,7 @@ class ContentController extends Controller
             'slug' => $slugContent,
             'sub_title' => $request->sub_title,
             'description' => $request->description,
-            'images' => $request->images
+            'images' => $path
         ]);
 
         return redirect('content')->with('status', 'Data success updated!');
