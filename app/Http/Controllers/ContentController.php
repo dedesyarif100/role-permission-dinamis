@@ -71,7 +71,7 @@ class ContentController extends Controller
         ], [
             'menu_id.required' => 'This field is required',
             'sub_menu_id.required' => 'This field is required',
-            'title.required' => 'This field is required',
+            'title.required' => 'This field is required', 
         ]);
 
         $slugContent = Content::generateSlugByTitle($request->title);

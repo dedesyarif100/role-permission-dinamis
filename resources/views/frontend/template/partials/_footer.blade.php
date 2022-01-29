@@ -6,7 +6,7 @@
                 <div class="footer-content">
                 <div class="footer-head">
                     <div class="footer-logo">
-                    <h2><span>A</span>nantan Mitra Karya</h2>
+                    <h2><img src="{{ asset('frontend/assets/images/Logo.png') }}" alt="Logo" style="width: 50%"></h2>
                     </div>
 
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>

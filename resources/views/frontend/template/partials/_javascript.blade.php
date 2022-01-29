@@ -9,6 +9,9 @@
 <!-- Template Main JS File -->
 <script src="{{asset('frontend/assets/js/main.js')}}"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+<script src="{{asset('frontend/assets/js/trustedBy.js')}}"></script>
+@yield('js')
 {{-- <script type="text/javascript">
     $(window).on('load', function() {
         setTimeout(function() { 

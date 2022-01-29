@@ -201,152 +201,6 @@
         </div>
     </div>
 
-
-    <div id="team" class="our-team-area area-padding">
-        <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="section-headline text-center">
-                <h2>Our special Team</h2>
-            </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="single-team-member">
-                <div class="team-img">
-                <a href="#">
-                    <img src="{{asset('frontend/assets/img/team/1.jpg')}}" alt="">
-                </a>
-                <div class="team-social-icon text-center">
-                    <ul>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-instagram"></i>
-                        </a>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-                <div class="team-content text-center">
-                <h4>Jhon Mickel</h4>
-                <p>Seo</p>
-                </div>
-            </div>
-            </div>
-            <!-- End column -->
-            <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="single-team-member">
-                <div class="team-img">
-                <a href="#">
-                    <img src="{{asset('frontend/assets/img/team/2.jpg')}}" alt="">
-                </a>
-                <div class="team-social-icon text-center">
-                    <ul>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-instagram"></i>
-                        </a>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-                <div class="team-content text-center">
-                <h4>Andrew Arnold</h4>
-                <p>Web Developer</p>
-                </div>
-            </div>
-            </div>
-            <!-- End column -->
-            <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="single-team-member">
-                <div class="team-img">
-                <a href="#">
-                    <img src="{{asset('frontend/assets/img/team/3.jpg')}}" alt="">
-                </a>
-                <div class="team-social-icon text-center">
-                    <ul>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-instagram"></i>
-                        </a>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-                <div class="team-content text-center">
-                <h4>Lellien Linda</h4>
-                <p>Web Design</p>
-                </div>
-            </div>
-            </div>
-            <!-- End column -->
-            <div class="col-md-3 col-sm-3 col-xs-12">
-            <div class="single-team-member">
-                <div class="team-img">
-                <a href="#">
-                    <img src="{{asset('frontend/assets/img/team/4.jpg')}}" alt="">
-                </a>
-                <div class="team-social-icon text-center">
-                    <ul>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                        <i class="bi bi-instagram"></i>
-                        </a>
-                    </li>
-                    </ul>
-                </div>
-                </div>
-                <div class="team-content text-center">
-                <h4>Jhon Powel</h4>
-                <p>Seo Expert</p>
-                </div>
-            </div>
-            </div>
-        </div>
-        </div>
-    </div>
-
 <!-- ======= Rviews Section ======= -->
 <div class="reviews-area">
     <div class="row g-0">
@@ -377,73 +231,21 @@
         <div class="container ">
             <div class="row">
             <!-- Start contact icon column -->
-            <div class="col-md-4">
-                <div class="contact-icon text-center">
-                <div class="single-icon">
-                    <i class="bi bi-phone"></i>
-                    <p>
-                    Call: +1 5589 55488 55<br>
-                    <span>Monday-Friday (9am-5pm)</span>
-                    </p>
-                </div>
-                </div>
-            </div>
-            <!-- Start contact icon column -->
-            <div class="col-md-4">
-                <div class="contact-icon text-center">
-                <div class="single-icon">
-                    <i class="bi bi-envelope"></i>
-                    <p>
-                    Email: info@example.com<br>
-                    <span>Web: www.example.com</span>
-                    </p>
-                </div>
+                <div class="col-md-12">
+                    <section class="customer-logos slider">
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/luxury-letter-e-logo-design_1017-8903.jpg"></div>
+                        <div class="slide"><img src="http://www.webcoderskull.com/img/logo.png"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/3d-box-logo_1103-876.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/blue-tech-logo_1103-822.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/colors-curl-logo-template_23-2147536125.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/abstract-cross-logo_23-2147536124.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/football-logo-background_1195-244.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/background-of-spots-halftone_1035-3847.jpg"></div>
+                        <div class="slide"><img src="https://image.freepik.com/free-vector/retro-label-on-rustic-background_82147503374.jpg"></div>
+                    </section>
                 </div>
             </div>
-            <!-- Start contact icon column -->
-            <div class="col-md-4">
-                <div class="contact-icon text-center">
-                <div class="single-icon">
-                    <i class="bi bi-geo-alt"></i>
-                    <p>
-                    Location: A108 Adam Street<br>
-                    <span>NY 535022, USA</span>
-                    </p>
-                </div>
-                </div>
-            </div>
-            </div>
-            <div class="row">
-    
-            <!-- Start Google Map -->
-            <div class="col-md-6">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-            <div class="col-md-6">
-                <div class="form contact-form">
-                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
-                    <div class="form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
-                    </div>
-                    <div class="form-group mt-3">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
-                    </div>
-                    <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group mt-3">
-                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-                    </div>
-                    <div class="my-3">
-                    <div class="loading">Loading</div>
-                    <div class="error-message"></div>
-                    <div class="sent-message">Your message has been sent. Thank you!</div>
-                    </div>
-                    <div class="text-center"><button type="submit">Send Message</button></div>
-                </form>
-                </div>
-            </div>
-            </div>
+                <hr>
         </div>
     </div>
     </div>
@@ -707,31 +509,38 @@
         </div>
         <div class="row">
 
-        <!-- Start Google Map -->
         <div class="col-md-6">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
         <div class="col-md-6">
             <div class="form contact-form">
-            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+            <form action="{{route('contact_our.store')}}" method="post" role="form">
+                @csrf
                 <div class="form-group">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
                 </div>
                 <div class="form-group mt-3">
-                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
                 </div>
                 <div class="form-group mt-3">
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" required>
                 </div>
                 <div class="form-group mt-3">
-                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                </div>
+                <div class="form-group mt-3">
+                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
                 </div>
                 <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
+                @if (Session::has('success'))
+                <div class="alert alert-success" role="alert">
+                    Your message has been sent. Thank you!
                 </div>
-                <div class="text-center"><button type="submit">Send Message</button></div>
+                @endif
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-block btn-info">Send Message</button>
+                </div>
             </form>
             </div>
         </div>
@@ -742,4 +551,11 @@
 
 </main>
 
+@endsection
+
+@section('js')
+
+<script type="text/javascript">
+
+</script>
 @endsection
