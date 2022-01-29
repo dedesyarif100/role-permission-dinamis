@@ -25,17 +25,17 @@
         </div>
     @endif
 
-    <h1>Menu</h1>
+    <h1>Service</h1>
     <div class="row">
         <div class="col-md-12">
-            <a href="{{ route('menu.create') }}" class="btn btn-success btn-sm">
+            <a href="{{ route('service.create') }}" class="btn btn-success btn-sm">
                 <i class="fas fa-plus"></i> Create
             </a>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
                         <th class="serial">#</th>
-                        <th>Name</th>
+                        <th>Title</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -64,7 +64,7 @@
             autoWidth   : false,
             columns     : [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                {data: 'name', name: 'name'},
+                {data: 'title', name: 'title'},
                 {
                     data: 'action',
                     name: 'action',
@@ -77,17 +77,17 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('menu.index') }}";
+            sendData.ajax = "{{ route('service.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
 
         // DELETE >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#delete', function() {
-            let menuId = $(this).data('id');
+            let serviceId = $(this).data('id');
             swal.fire({
                 title: 'Are you sure?',
-                html: 'You want to <b>delete</b> this Menu ',
+                html: 'You want to <b>delete</b> this Service ',
                 showCancelButton: true,
                 showCloseButton: true,
                 cancelButtonText: 'Cancel',
@@ -100,9 +100,9 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('menu') }}" + '/' + menuId,
+                        url: "{{ url('service') }}" + '/' + serviceId,
                         data: {
-                            menuId : menuId,
+                            serviceId : serviceId,
                         },
                         success: function(data) {
                             toastr.success(data.msg);

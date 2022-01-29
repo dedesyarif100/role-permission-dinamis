@@ -11,6 +11,9 @@
     .serial {
         float: left;
     }
+    .dataTables_empty {
+        text-align: center;
+    }
 </style>
 @endsection
 

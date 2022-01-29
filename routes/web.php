@@ -4,6 +4,8 @@ use App\Http\Controllers\{
     AboutController,
     ContentController,
     MenuController,
+    ServiceController,
+    SlideShowController,
     SubMenuController
 };
 
@@ -44,3 +46,6 @@ Route::resource('content', ContentController::class);
 
 Route::resource('about-us', AboutController::class);
 
+Route::resource('slide-show', SlideShowController::class);
+
+Route::resource('service', ServiceController::class);

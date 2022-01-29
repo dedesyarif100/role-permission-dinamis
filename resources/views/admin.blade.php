@@ -24,7 +24,7 @@
 <body class="">
     <header id="header" class="header fixed-top d-flex align-items-center">
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="{{ route('menu.index') }}" class="logo d-flex align-items-center">
                 <img src="assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Ananta Mitra Karya</span>
             </a>
@@ -82,6 +82,18 @@
                 <a class="nav-link collapsed" href="{{ route('about-us.index') }}">
                     <i class="bi bi-envelope"></i>
                     <span>About Us</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('slide-show.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Slide Show</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('service.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Service</span>
                 </a>
             </li>
         </ul>
