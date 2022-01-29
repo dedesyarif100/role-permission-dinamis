@@ -7,7 +7,11 @@ use App\Http\Controllers\{
     SubMenuController
 };
 
-use App\Http\Controllers\Frontend\MainController;
+use App\Http\Controllers\Frontend\{
+    MainController,
+    ConsultationController,
+    ContactOurController
+};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +29,8 @@ Route::get('/', [MainController::class, 'index']);
 Route::get('services/{id}/{slug}', [MainController::class, 'service'])->name('services.show');
 Route::get('news', [MainController::class, 'news'])->name('news.list');
 Route::get('news/{slug}', [MainController::class, 'newsDetail'])->name('news.detail');
+Route::post('contact_our', [ContactOurController::class, 'store'])->name('contact_our.store');
+Route::post('consultation', [ConsultationController::class, 'store'])->name('consultation.store');
 
 Route::get('admin', function () {
     return view('menu.index');
