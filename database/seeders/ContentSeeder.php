@@ -22,7 +22,6 @@ class ContentSeeder extends Seeder
                 'title' => 'Title Menu',
                 'sub_title' => 'New Year 2022',
                 'description' => 'New year 2022, this is amazing',
-                'images' => null,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -33,7 +32,6 @@ class ContentSeeder extends Seeder
                 'title' => 'Title Menu',
                 'sub_title' => 'Software Engineer',
                 'description' => 'I`am a Software Engineer',
-                'images' => null,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -44,7 +42,6 @@ class ContentSeeder extends Seeder
                 'title' => 'Title Menu',
                 'sub_title' => 'Travelling in Singapura',
                 'description' => 'Singapura, country is amazing',
-                'images' => null,
                 'created_at' => now(),
                 'updated_at' => now()
             ],

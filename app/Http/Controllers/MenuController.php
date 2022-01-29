@@ -5,17 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Yajra\DataTables\Facades\DataTables;
 
 class MenuController extends Controller
 {
-    public function editorMenu(Request $request)
-    {
-        $menu = Menu::find($request->menuId);
-        return view('menu.editor', compact('menu'));
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +21,7 @@ class MenuController extends Controller
             return DataTables::of($menu)
             ->addIndexColumn()
             ->addColumn('action', function($menu) {
-                $action = '<div class="btn-group" role="group"> <button class="btn btn-primary btn-sm" data-id="'.$menu['id'].'" id="edit"> <i class="fas fa-edit"></i> </button>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('menu/'.$menu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$menu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
                 return $action;
             })
@@ -46,7 +39,8 @@ class MenuController extends Controller
      */
     public function create()
     {
-
+        $menu = null;
+        return view('menu.editor', compact('menu'));
     }
 
     /**
@@ -57,18 +51,15 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'name' => 'required'
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        } else {
-            Menu::create([
-                'name' => $request->name
-            ]);
-            return response()->json(['code' => 1, 'msg' => 'New Menu has been successfully saved']);
-        }
+        Menu::create([
+            'name' => $request->name
+        ]);
+
+        return view('menu.index');
     }
 
     /**
@@ -88,9 +79,9 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Menu $menu)
     {
-
+        return view('menu.editor', compact('menu'));
     }
 
     /**
@@ -102,18 +93,15 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'name' => ['required']
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        } else {
-            Menu::where('id', $id)->update([
-                'name' => $request->name,
-            ]);
-            return response()->json(['code' => 1, 'msg' => 'Menu Has Been Updated']);
-        }
+        Menu::where('id', $id)->update([
+            'name' => $request->name,
+        ]);
+
+        return view('menu.index');
     }
 
     /**

@@ -20,8 +20,7 @@ class CreateContentTable extends Migration
             $table->string('slug');
             $table->string('title');
             $table->string('sub_title')->nullable();
-            $table->string('description')->nullable();
-            $table->string('images')->nullable();
+            $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

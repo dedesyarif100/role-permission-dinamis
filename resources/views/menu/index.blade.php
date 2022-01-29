@@ -1,10 +1,23 @@
 @extends('admin')
 
+@section('css')
+<style>
+    .dataTables_paginate, .dataTables_filter, .btn-group, .sorting_disabled {
+        float: right;
+    }
+    a, button {
+        margin: 3px;
+    }
+</style>
+@endsection
+
 @section('content')
     <h1>Menu</h1>
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-success btn-sm" id="create">Create</button><br><hr>
+            <a href="{{ route('menu.create') }}" class="btn btn-success btn-sm">
+                <i class="fas fa-plus"></i> Create
+            </a>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
@@ -18,26 +31,14 @@
     </div>
 @endsection
 
-@section('modal')
-    <div class="modal fade modalMenu" data-backdrop="static" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-
-            </div>
-        </div>
-    </div>
-@endsection
-
 @section('js')
 <script>
-    let submitted = false;
-    let process;
     let table;
     let cell;
 
     $.ajaxSetup({
         headers: {
-            'X-CSRF-TOKEN' : $('meta[name="csrf-token"]').attr('content')
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
 
@@ -67,33 +68,6 @@
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
-
-        // CREATE >>>>>>>>>>>>>>>>>>
-        $(document).on('click', '#create', function() {
-            $.get('{{ route("editor.menu") }}', function(data) {
-                $('.modalMenu').find('.modal-content').html(data);
-                $('.modalMenu').modal('show');
-            });
-        });
-        $('.modalMenu').on('shown.bs.modal', function (event) {
-            $('input[name="name"]').focus();
-        });
-        $('.modalMenu').on('hidden.bs.modal', function (event) {
-            if (submitted) {
-                submitted = false;
-            }
-        });
-        // CREATE >>>>>>>>>>>>>>>>>>
-
-        // EDIT >>>>>>>>>>>>>>>>>>
-        $(document).on('click', '#edit', function() {
-            let menuId = $(this).data('id');
-            $.get('{{ route("editor.menu") }}', {menuId: menuId}, function(data) {
-                $('.modalMenu').find('.modal-content').html(data);
-                $('.modalMenu').modal('show');
-            });
-        });
-        // EDIT >>>>>>>>>>>>>>>>>>
 
         // DELETE >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#delete', function() {

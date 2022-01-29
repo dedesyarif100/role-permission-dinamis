@@ -5,19 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class SubMenuController extends Controller
 {
-    public function editorSubMenu(Request $request)
-    {
-        $subMenu = SubMenu::find($request->subMenuId);
-        $allMenu = Menu::all();
-        return view('sub-menu.editor', compact('subMenu', 'allMenu'));
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -33,7 +25,7 @@ class SubMenuController extends Controller
                 return $subMenu->menu->name;
             })
             ->addColumn('action', function($subMenu) {
-                $action = '<div class="btn-group" role="group"> <button class="btn btn-primary btn-sm" data-id="'.$subMenu['id'].'" id="edit"> <i class="fas fa-edit"></i> </button>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('sub-menu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
                 return $action;
             })
@@ -44,11 +36,6 @@ class SubMenuController extends Controller
         return view('sub-menu.index');
     }
 
-    public function getSubMenu()
-    {
-
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -56,7 +43,9 @@ class SubMenuController extends Controller
      */
     public function create()
     {
-        //
+        $subMenu = null;
+        $allMenu = Menu::all();
+        return view('sub-menu.editor', compact('subMenu', 'allMenu'));
     }
 
     /**
@@ -67,20 +56,17 @@ class SubMenuController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'menu_id' => ['required'],
             'name' => ['required']
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        } else {
-            SubMenu::create([
-                'menu_id' => $request->menu_id,
-                'name' => $request->name
-            ]);
-            return response()->json(['code' => 1, 'msg' => 'New Sub Menu has been successfully saved']);
-        }
+        SubMenu::create([
+            'menu_id' => $request->menu_id,
+            'name' => $request->name
+        ]);
+
+        return view('sub-menu.index');
     }
 
     /**
@@ -100,9 +86,10 @@ class SubMenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(SubMenu $subMenu)
     {
-        //
+        $allMenu = Menu::all();
+        return view('sub-menu.editor', compact('subMenu', 'allMenu'));
     }
 
     /**
@@ -114,20 +101,17 @@ class SubMenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
+        Validator::make($request->all(), [
             'menu_id' => ['required'],
             'name' => ['required']
         ]);
 
-        if ($validator->fails()) {
-            return response()->json(['code' => 0, 'error' => $validator->errors()->toArray()]);
-        } else {
-            SubMenu::where('id', $id)->update([
-                'menu_id' => $request->menu_id,
-                'name' => $request->name
-            ]);
-            return response()->json(['code' => 1, 'msg' => 'Sub Menu Has Been Updated']);
-        }
+        SubMenu::where('id', $id)->update([
+            'menu_id' => $request->menu_id,
+            'name' => $request->name
+        ]);
+
+        return view('sub-menu.index');
     }
 
     /**

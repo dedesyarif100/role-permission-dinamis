@@ -1,10 +1,23 @@
 @extends('admin')
 
+@section('css')
+<style>
+    .dataTables_paginate, .dataTables_filter, .btn-group, .sorting_disabled {
+        float: right;
+    }
+    a, button {
+        margin: 3px;
+    }
+</style>
+@endsection
+
 @section('content')
     <h1>Content</h1>
     <div class="row">
         <div class="col-md-12">
-            <button class="btn btn-success btn-sm" id="create">Create</button><br><hr>
+            <a href="{{ route('content.create') }}" class="btn btn-success btn-sm">
+                <i class="fas fa-plus"></i> Create
+            </a>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
@@ -14,8 +27,7 @@
                         <th>Slug</th>
                         <th>Title</th>
                         <th>Sub Title</th>
-                        <th>Description</th>
-                        <th>Images</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
             </table>
@@ -23,22 +35,16 @@
     </div>
 @endsection
 
-@section('modal')
-    <div class="modal fade modalContent" data-backdrop="static" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-
-            </div>
-        </div>
-    </div>
-@endsection
-
 @section('js')
 <script>
-    let submitted = false;
-    let process;
     let table;
     let cell;
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     $(document).ready(function() {
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
@@ -54,8 +60,6 @@
                 {data: 'slug', name: 'slug'},
                 {data: 'title', name: 'title'},
                 {data: 'sub_title', name: 'sub_title'},
-                {data: 'description', name: 'description'},
-                {data: 'images', name: 'images'},
                 {
                     data: 'action',
                     name: 'action',
@@ -64,7 +68,7 @@
                     searchabe: false
                 },
             ]
-        });
+        };
         reload();
 
         function reload() {
@@ -73,29 +77,37 @@
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
 
-        // CREATE >>>>>>>>>>>>>>>>>>
-        $(document).on('click', '#create', function() {
-            $.get('{{ route("editor.content") }}', function(data) {
-                $('.modalContent').find('.modal-content').html(data);
-                $('.modalContent').show('modal');
+        // DELETE >>>>>>>>>>>>>>>>>>
+        $(document).on('click', '#delete', function() {
+            let contentId = $(this).data('id');
+            swal.fire({
+                title: 'Are you sure?',
+                html: 'You want to <b>delete</b> this Content ',
+                showCancelButton: true,
+                showCloseButton: true,
+                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Yes, Delete',
+                cancelButtonColor: '#556ee6',
+                confirmButtonColor: '#d33',
+                width: 300,
+                allowOutsideClick: false
+            }).then(function(result) {
+                if (result.value) {
+                    $.ajax({
+                        type: 'DELETE',
+                        url: "{{ url('content') }}" + '/' + contentId,
+                        data: {
+                            contentId : contentId,
+                        },
+                        success: function(data) {
+                            toastr.success(data.msg);
+                            cell = table.cell( this );
+                            cell.data( cell.data() + 1 ).draw();
+                        }
+                    });
+                }
             });
         });
-        $('.modalContent').on('shown.bs.modal', function(event) {
-            $('input[name="name"]').focus();
-        });
-        $('.modalContent').on('hidden.bs.modal', function(event) {
-            if (submitted) {
-                submitted = false;
-            }
-        });
-        // CREATE >>>>>>>>>>>>>>>>>>
-
-        // EDIT >>>>>>>>>>>>>>>>>>
-        
-        // EDIT >>>>>>>>>>>>>>>>>>
-
-        // DELETE >>>>>>>>>>>>>>>>>>
-
         // DELETE >>>>>>>>>>>>>>>>>>
     });
 </script>
