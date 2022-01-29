@@ -6,7 +6,7 @@ use App\Models\Content;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\Facades\DataTables;
 
 class ContentController extends Controller
@@ -62,25 +62,37 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
+        // dd($request->file('image'));
+        // dd($request->all());
+        $request->validate([
             'menu_id' => 'required',
             'sub_menu_id' => 'required',
             'title' => 'required',
-            'sub_title' => 'required',
+        ], [
+            'menu_id.required' => 'This field is required',
+            'sub_menu_id.required' => 'This field is required',
+            'title.required' => 'This field is required',
         ]);
 
-        // dd($request->description);
+        $slugContent = Content::generateSlugByTitle($request->title);
+
+        // $outputFile = 'images';
+        // $path = Storage::disk('public')->put($outputFile, $request->images);
+        // $request->images->storeAs(
+        //     'images' => $request->images,
+        // );
 
         Content::create([
             'menu_id' => $request->menu_id,
             'sub_menu_id' => $request->sub_menu_id,
-            'slug' => $request->title,
             'title' => $request->title,
+            'slug' => $slugContent,
             'sub_title' => $request->sub_title,
-            'description' => $request->description
+            'description' => $request->description,
+            'images' => $request->images
         ]);
 
-        return view('content.index');
+        return redirect('content')->with('status', 'Data success created!');
     }
 
     /**
@@ -116,23 +128,29 @@ class ContentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Validator::make($request->all(), [
+        $request->validate([
             'menu_id' => 'required',
             'sub_menu_id' => 'required',
             'title' => 'required',
-            'sub_title' => 'required',
+        ], [
+            'menu_id.required' => 'This field is required',
+            'sub_menu_id.required' => 'This field is required',
+            'title.required' => 'This field is required',
         ]);
+
+        $slugContent = Content::generateSlugByTitle($request->title);
 
         Content::where('id', $id)->update([
             'menu_id' => $request->menu_id,
             'sub_menu_id' => $request->sub_menu_id,
-            'slug' => $request->title,
             'title' => $request->title,
+            'slug' => $slugContent,
             'sub_title' => $request->sub_title,
-            'description' => $request->description
+            'description' => $request->description,
+            'images' => $request->images
         ]);
 
-        return view('content.index');
+        return redirect('content')->with('status', 'Data success updated!');
     }
 
     /**

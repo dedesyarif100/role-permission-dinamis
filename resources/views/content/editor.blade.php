@@ -1,5 +1,9 @@
 @extends('admin')
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css"/>
+@endsection
+
 @section('content')
 <div class="content mt-3">
     <div class="animated fadeIn">
@@ -20,7 +24,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="">Menu</label>
-                            <select name="menu_id" class="form-control" id="menu_id">
+                            <select name="menu_id" class="form-control @error('menu_id') is-invalid @enderror" id="menu_id">
                                 <option value="">- PILIH -</option>
                                 @foreach ($allMenu as $item)
                                     @if (empty($content))
@@ -30,11 +34,15 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <span class="text-danger error-text menu_id_error"></span>
+                            @error('menu_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div><br>
                         <div class="form-group">
                             <label for="">Sub Menu</label>
-                            <select name="sub_menu_id" class="form-control" id="sub_menu_id">
+                            <select name="sub_menu_id" class="form-control @error('sub_menu_id') is-invalid @enderror" id="sub_menu_id">
                                 <option value="">- PILIH -</option>
                                 @foreach ($allSubMenu as $item)
                                     @if (empty($content))
@@ -44,17 +52,40 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <span class="text-danger error-text sub_menu_id_error"></span>
+                            @error('sub_menu_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div><br>
                         <div class="form-group">
                             <label>Title</label><br>
-                            <input type="text" class="form-control" name="title" @if(!is_null($content)) value="{{ $content->title }}" @endif>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($content)) value="{{ $content->title }}" @endif>
+                            @error('title')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div><br>
                         <div class="form-group">
                             <label>Sub Title</label><br>
                             <input type="text" class="form-control" name="sub_title" @if(!is_null($content)) value="{{ $content->sub_title }}" @endif>
                         </div><br>
-                        <textarea name="description" id="editor1" rows="10" cols="80">@if(!is_null($content)) {{ $content->description }}@endif</textarea><br>
+                        <div class="form-group">
+                            <label>Description</label><br>
+                            <textarea name="description" id="editor1" rows="10" cols="80">@if(!is_null($content)) {{ $content->description }}@endif</textarea><br>
+                        </div><br>
+                        <div class="custom-file-container" data-upload-id="myUniqueUploadId">
+                            <label for="image">Upload File
+                                <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">&times;</a>
+                            </label>
+                            <label class="custom-file-container__custom-file">
+                                <input type="file" name="images" class="custom-file-container__custom-file__custom-file-input" accept="image/*" aria-label="Choose File"/>
+                                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                <span class="custom-file-container__custom-file__custom-file-control"></span>
+                            </label>
+                            <div class="custom-file-container__image-preview" style="width: 400px; height: 300px; object-fit: contain;"></div>
+                        </div>
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" id="submit" class="btn btn-block btn-success">
                                 <span class="submit" role="status" aria-hidden="true"></span> Save Changes
@@ -70,7 +101,9 @@
 
 @section('js')
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
+<script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
 <script>
     CKEDITOR.replace( 'editor1' );
+    var upload = new FileUploadWithPreview("myUniqueUploadId");
 </script>
 @endsection

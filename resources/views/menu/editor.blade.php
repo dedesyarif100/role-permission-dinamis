@@ -20,7 +20,12 @@
                         @csrf
                         <div class="form-group">
                             <label>Name</label><br>
-                            <input type="text" class="form-control" name="name" @if(!is_null($menu)) value="{{ $menu->name }}" @endif>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" @if(!is_null($menu)) value="{{ $menu->name }}" @endif>
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div><br>
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" id="submit" class="btn btn-block btn-success">

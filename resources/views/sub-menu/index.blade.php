@@ -8,10 +8,20 @@
     a, button {
         margin: 3px;
     }
+    .serial {
+        float: left;
+    }
 </style>
 @endsection
 
 @section('content')
+    {{-- Flash Message Laravel --}}
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <h1>Sub Menu</h1>
     <div class="row">
         <div class="col-md-12">

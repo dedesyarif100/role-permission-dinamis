@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
 class SubMenuController extends Controller
@@ -56,9 +55,12 @@ class SubMenuController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
-            'menu_id' => ['required'],
-            'name' => ['required']
+        $request->validate([
+            'menu_id' => 'required',
+            'name' => 'required'
+        ], [
+            'menu_id.required' => 'This field is required',
+            'name.required' => 'This field is required'
         ]);
 
         SubMenu::create([
@@ -66,7 +68,7 @@ class SubMenuController extends Controller
             'name' => $request->name
         ]);
 
-        return view('sub-menu.index');
+        return redirect('sub-menu')->with('status', 'Data success created!');
     }
 
     /**
@@ -101,9 +103,12 @@ class SubMenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Validator::make($request->all(), [
-            'menu_id' => ['required'],
-            'name' => ['required']
+        $request->validate([
+            'menu_id' => 'required',
+            'name' => 'required'
+        ], [
+            'menu_id.required' => 'This field is required',
+            'name.required' => 'This field is required'
         ]);
 
         SubMenu::where('id', $id)->update([
@@ -111,7 +116,7 @@ class SubMenuController extends Controller
             'name' => $request->name
         ]);
 
-        return view('sub-menu.index');
+        return redirect('sub-menu')->with('status', 'Data success updated!');
     }
 
     /**

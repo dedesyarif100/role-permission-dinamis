@@ -20,7 +20,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="">Menu</label>
-                            <select name="menu_id" class="form-control" id="menu_id">
+                            <select name="menu_id" class="form-control @error('menu_id') is-invalid @enderror" id="menu_id">
                                 <option value="">- PILIH -</option>
                                 @foreach ($allMenu as $item)
                                     @if (empty($subMenu))
@@ -30,12 +30,20 @@
                                     @endif
                                 @endforeach
                             </select>
-                            <span class="text-danger error-text menu_id_error"></span>
+                            @error('menu_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div><br>
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Enter name" @if ( !empty($subMenu) ) value="{{ $subMenu->name }}" @endif>
-                            <span class="text-danger error-text name_error"></span>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter name" @if ( !empty($subMenu) ) value="{{ $subMenu->name }}" @endif>
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div><br>
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" id="submit" class="btn btn-block btn-success">

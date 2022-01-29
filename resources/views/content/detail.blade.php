@@ -5,10 +5,7 @@
 <div class="content">
     <div class="card-body">
         {!! $content->description !!}
+        {{ $content->images }}
     </div>
 </div>
-@endsection
-
-@section('js')
-
 @endsection

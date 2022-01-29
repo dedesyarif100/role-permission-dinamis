@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -51,15 +50,17 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        Validator::make($request->all(), [
+        $request->validate([
             'name' => 'required'
+        ], [
+            'name.required' => 'This field is required'
         ]);
 
         Menu::create([
             'name' => $request->name
         ]);
 
-        return view('menu.index');
+        return redirect('menu')->with('status', 'Data success created!');
     }
 
     /**
@@ -93,15 +94,17 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        Validator::make($request->all(), [
-            'name' => ['required']
+        $request->validate([
+            'name' => 'required'
+        ], [
+            'name.required' => 'This field is required'
         ]);
 
         Menu::where('id', $id)->update([
             'name' => $request->name,
         ]);
 
-        return view('menu.index');
+        return redirect('menu')->with('status', 'Data success updated!');
     }
 
     /**

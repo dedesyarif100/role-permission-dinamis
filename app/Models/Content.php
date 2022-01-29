@@ -31,4 +31,15 @@ class Content extends Model
     {
         return $this->belongsTo(SubMenu::class, 'sub_menu_id', 'id')->withDefault();
     }
+
+    public static function generateSlugByTitle(string $title)
+    {
+        $slugContent = \Str::slug($title);
+        $totalContent = self::withTrashed()->where('slug', 'like', '%' . $slugContent . '%')->latest('id')->count();
+        // dd($totalContent);
+        if ($totalContent > 0) {
+            $slugContent .= '-'. $totalContent;
+        }
+        return $slugContent;
+    }
 }
