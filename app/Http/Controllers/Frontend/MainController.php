@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Service;
 use App\Models\Content;
+use App\Models\SlideShow;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,7 +17,10 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('frontend.index');
+        $data['slideshow'] = SlideShow::all();
+        $data['service'] = Service::all();
+
+        return view('frontend.index', $data);
     }
 
     /**
@@ -24,12 +29,24 @@ class MainController extends Controller
      * @param  string   $slug
      * @return \Illuminate\Http\Response
      */
-    public function service($id, $slug)
+    public function services($id, $slug)
     {
         $data = Content::where('menu_id', $id)->where('slug', $slug)->first();
         $popular = Content::orderBy('created_at', 'desc')->limit(5)->get();
         
         return view('frontend.services.index', compact('data', 'popular'));
+    }
+
+    /**
+     * Display the specified resource.
+     * @param  string   $slug
+     * @return \Illuminate\Http\Response
+     */
+    public function serviceSingle($slug)
+    {
+        $data = Service::where('slug', $slug)->first();
+        
+        return view('frontend.service.index', compact('data'));
     }
 
     /**
