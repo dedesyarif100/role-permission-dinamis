@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAboutUsTable extends Migration
+class AddColumnImageToContent extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,8 @@ class CreateAboutUsTable extends Migration
      */
     public function up()
     {
-        Schema::create('about_us', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->longText('description');
-            $table->text('image');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('content', function (Blueprint $table) {
+            $table->text('image')->after('description')->nullable();
         });
     }
 
@@ -30,6 +25,8 @@ class CreateAboutUsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('about_us');
+        Schema::table('content', function (Blueprint $table) {
+            $table->dropColumn('images');
+        });
     }
 }

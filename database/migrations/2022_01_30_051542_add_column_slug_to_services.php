@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnImagesToContent extends Migration
+class AddColumnSlugToServices extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddColumnImagesToContent extends Migration
      */
     public function up()
     {
-        Schema::table('content', function (Blueprint $table) {
-            $table->string('images')->nullable();
+        Schema::table('services', function (Blueprint $table) {
+            $table->string('slug')->after('title');
         });
     }
 
@@ -25,8 +25,8 @@ class AddColumnImagesToContent extends Migration
      */
     public function down()
     {
-        Schema::table('content', function (Blueprint $table) {
-            $table->dropColumn('images');
+        Schema::table('services', function (Blueprint $table) {
+            //
         });
     }
 }

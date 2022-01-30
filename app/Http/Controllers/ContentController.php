@@ -111,6 +111,7 @@ class ContentController extends Controller
     {
         $allMenu = Menu::all();
         $allSubMenu = SubMenu::all();
+        dd($content);
         return view('content.editor', compact('content', 'allMenu', 'allSubMenu'));
     }
 
