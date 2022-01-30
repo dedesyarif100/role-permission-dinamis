@@ -46,7 +46,7 @@
 
                         <div class="form-group">
                             <label>Title</label><br>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($service)) value="{{ $service->title }}" @endif>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($service)) value="{{ old('title', $service->title) }}" @else value="{{ old('title') }}" @endif>
                             @error('title')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -56,7 +56,7 @@
 
                         <div class="form-group">
                             <label>Short Description</label><br>
-                            <textarea name="short_description" class="form-control @error('short_description') is-invalid @enderror" id="short_description" rows="10" cols="80">@if(!is_null($service)) {{ $service->short_description }}@endif</textarea>
+                            <textarea name="short_description" class="form-control @error('short_description') is-invalid @enderror" id="short_description" rows="10" cols="80">@if(!is_null($service)){{ old('short_description', $service->short_description) }}@else{{ old('short_description') }}@endif</textarea>
                             @error('short_description')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -66,7 +66,7 @@
 
                         <div class="form-group">
                             <label>Long Description</label><br>
-                            <textarea name="long_description" class="form-control @error('long_description') is-invalid @enderror" id="long_description" rows="10" cols="80">@if(!is_null($service)) {{ $service->long_description }}@endif</textarea>
+                            <textarea name="long_description" class="form-control @error('long_description') is-invalid @enderror" id="long_description" rows="10" cols="80">@if(!is_null($service)){{ old('service->long_description', $service->long_description) }}@else{{ old('long_description') }}@endif</textarea>
                             @error('long_description')
                                 <div class="invalid-feedback">
                                     {{ $message }}

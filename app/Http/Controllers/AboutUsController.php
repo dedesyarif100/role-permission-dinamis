@@ -68,6 +68,10 @@ class AboutUsController extends Controller
         AboutUs::create([
             'title' => $request->title,
             'description' => $request->description,
+            'whatsapp_number' => $request->whatsapp_number,
+            'instagram' => $request->instagram,
+            'linkedin' => $request->linkedin,
+            'facebook' => $request->facebook,
             'image' => $path
         ]);
 
@@ -128,6 +132,10 @@ class AboutUsController extends Controller
         AboutUs::where('id', $id)->update([
             'title' => $request->title,
             'description' => $request->description,
+            'whatsapp_number' => $request->whatsapp_number,
+            'instagram' => $request->instagram,
+            'linkedin' => $request->linkedin,
+            'facebook' => $request->facebook,
             'image' => $path
         ]);
 

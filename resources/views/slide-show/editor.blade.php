@@ -29,7 +29,7 @@
                         @csrf
                         <div class="form-group">
                             <label>Description</label><br>
-                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($slideShow)) {{ $slideShow->description }}@endif</textarea>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($slideShow)){{ old('description', $slideShow->description) }}@else{{ old('description') }}@endif</textarea>
                             @error('description')
                                 <div class="invalid-feedback">
                                     {{ $message }}

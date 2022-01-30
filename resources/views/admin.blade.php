@@ -123,6 +123,12 @@
                     <span>News</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('faq.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Faq</span>
+                </a>
+            </li>
         </ul>
     </aside>
     <main id="main" class="main">

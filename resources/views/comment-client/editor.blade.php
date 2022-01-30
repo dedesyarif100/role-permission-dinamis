@@ -47,7 +47,7 @@
 
                         <div class="form-group">
                             <label>Name</label><br>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" @if(!is_null($commentClient)) value="{{ $commentClient->name }}" @endif>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" @if(!is_null($commentClient)) value="{{ old('name', $commentClient->name) }}" @else value="{{ old('name') }}" @endif>
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -57,7 +57,7 @@
 
                         <div class="form-group">
                             <label>Title</label><br>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($commentClient)) value="{{ $commentClient->title }}" @endif>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($commentClient)) value="{{ old('title', $commentClient->title) }}" @else value="{{ old('title') }}" @endif>
                             @error('title')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -67,7 +67,7 @@
 
                         <div class="form-group">
                             <label>Message</label><br>
-                            <textarea name="message" class="form-control @error('message') is-invalid @enderror" id="message" rows="10" cols="80">@if(!is_null($commentClient)) {{ $commentClient->message }}@endif</textarea>
+                            <textarea name="message" class="form-control @error('message') is-invalid @enderror" id="message" rows="10" cols="80">@if(!is_null($commentClient)){{ old('message', $commentClient->message) }}@else{{ old('message') }}@endif</textarea>
                             @error('message')
                                 <div class="invalid-feedback">
                                     {{ $message }}

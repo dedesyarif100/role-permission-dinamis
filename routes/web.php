@@ -5,6 +5,7 @@ use App\Http\Controllers\{
     CategoryNewsController,
     CommentClientController,
     ContentController,
+    FaqController,
     MenuController,
     NewsController,
     ServiceController,
@@ -56,4 +57,5 @@ Route::middleware('auth')->group(function () {
     Route::resource('comment-client', CommentClientController::class);
     Route::resource('category-news', CategoryNewsController::class);
     Route::resource('news-list', NewsController::class);
+    Route::resource('faq', FaqController::class);
 });

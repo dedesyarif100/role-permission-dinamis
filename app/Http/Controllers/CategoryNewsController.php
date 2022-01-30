@@ -61,8 +61,11 @@ class CategoryNewsController extends Controller
             'title.required' => 'Thid field is required'
         ]);
 
+        $slugCategoryNews = CategoryNews::generateSlugByTitle($request->title);
+
         CategoryNews::create([
-            'title' => $request->title
+            'title' => $request->title,
+            'slug' => $slugCategoryNews
         ]);
 
         return redirect('category-news')->with('status', 'Data success created !');
@@ -105,8 +108,11 @@ class CategoryNewsController extends Controller
             'title.required' => 'Thid field is required'
         ]);
 
+        $slugCategoryNews = CategoryNews::generateSlugByTitle($request->title);
+
         CategoryNews::where('id', $id)->update([
-            'title' => $request->title
+            'title' => $request->title,
+            'slug' => $slugCategoryNews
         ]);
 
         return redirect('category-news')->with('status', 'Data success updated !');

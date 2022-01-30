@@ -49,7 +49,7 @@
 
                         <div class="form-group">
                             <label>Title</label><br>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($news)) value="{{ $news->title }}" @endif>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($news)) value="{{ old('title', $news->title) }}" @else value="{{ old('title') }}" @endif>
                             @error('title')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -59,7 +59,7 @@
 
                         <div class="form-group">
                             <label>Description</label><br>
-                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($news)) {{ $news->description }}@endif</textarea>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($news)){{ old('description', $news->description) }}@else{{ old('description') }}@endif</textarea>
                             @error('description')
                                 <div class="invalid-feedback">
                                     {{ $message }}

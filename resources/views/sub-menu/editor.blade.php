@@ -38,7 +38,7 @@
                         </div><br>
                         <div class="form-group">
                             <label for="">Name</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter name" @if ( !empty($subMenu) ) value="{{ $subMenu->name }}" @endif>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" placeholder="Enter name" @if ( !empty($subMenu) ) value="{{ old('name', $subMenu->name) }}" @else value="{{ old('name') }}" @endif>
                             @error('name')
                                 <div class="invalid-feedback">
                                     {{ $message }}

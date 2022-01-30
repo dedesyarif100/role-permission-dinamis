@@ -65,7 +65,7 @@
                         </div><br>
                         <div class="form-group">
                             <label>Title</label><br>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($content)) value="{{ $content->title }}" @endif>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($content)) value="{{ old('title', $content->title) }}" @else value="{{ old('title') }}" @endif>
                             @error('title')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -74,11 +74,11 @@
                         </div><br>
                         <div class="form-group">
                             <label>Sub Title</label><br>
-                            <input type="text" class="form-control" name="sub_title" @if(!is_null($content)) value="{{ $content->sub_title }}" @endif>
+                            <input type="text" class="form-control" name="sub_title" @if(!is_null($content)) value="{{ old('sub_title', $content->sub_title) }}" @else value="{{ old('sub_title') }}" @endif>
                         </div><br>
                         <div class="form-group">
                             <label>Description</label><br>
-                            <textarea name="description" id="description" rows="10" cols="80">@if(!is_null($content)) {{ $content->description }}@endif</textarea><br>
+                            <textarea name="description" id="description" rows="10" cols="80">@if(!is_null($content)){{ old('description', $content->description) }}@else{{ old('description') }}@endif</textarea><br>
                         </div><br>
                         <div class="custom-file-container" data-upload-id="myUniqueUploadId">
                             <label for="image">Upload File

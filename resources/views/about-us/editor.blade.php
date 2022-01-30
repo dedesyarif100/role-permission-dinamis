@@ -30,7 +30,7 @@
 
                         <div class="form-group">
                             <label>Title</label><br>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($aboutUs)) value="{{ $aboutUs->title }}" @endif>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($aboutUs)) value="{{ old('title', $aboutUs->title) }}" @else value="{{ old('title') }}" @endif>
                             @error('title')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -39,8 +39,48 @@
                         </div><br>
 
                         <div class="form-group">
+                            <label>Whatshapp Number</label><br>
+                            <input type="text" class="form-control @error('whatsapp_number') is-invalid @enderror" name="whatsapp_number" @if(!is_null($aboutUs)) value="{{ old('whatsapp_number', $aboutUs->whatsapp_number) }}" @else value="{{ old('whatsapp_number') }}" @endif>
+                            @error('whatsapp_number')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div><br>
+
+                        <div class="form-group">
+                            <label>Instagram</label><br>
+                            <input type="text" class="form-control @error('instagram') is-invalid @enderror" name="instagram" @if(!is_null($aboutUs)) value="{{ old('instagram', $aboutUs->instagram) }}" @else value="{{ old('instagram') }}" @endif>
+                            @error('instagram')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div><br>
+
+                        <div class="form-group">
+                            <label>Linked In</label><br>
+                            <input type="text" class="form-control @error('linkedin') is-invalid @enderror" name="linkedin" @if(!is_null($aboutUs)) value="{{ old('linkedin', $aboutUs->linkedin) }}" @else value="{{ old('linkedin') }}" @endif>
+                            @error('linkedin')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div><br>
+
+                        <div class="form-group">
+                            <label>Facebook</label><br>
+                            <input type="text" class="form-control @error('facebook') is-invalid @enderror" name="facebook" @if(!is_null($aboutUs)) value="{{ old('facebook', $aboutUs->facebook) }}" @else value="{{ old('facebook') }}" @endif>
+                            @error('facebook')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div><br>
+
+                        <div class="form-group">
                             <label>Description</label><br>
-                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($aboutUs)) {{ $aboutUs->description }}@endif</textarea>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($aboutUs)) {{ old('description', $aboutUs->description) }} @else {{ old('description') }} @endif</textarea>
                             @error('description')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -53,7 +93,7 @@
                                 <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">&times;</a>
                             </label>
                             <label class="custom-file-container__custom-file">
-                                <input type="file" name="image" class="custom-file-container__custom-file__custom-file-input" accept="image/*" aria-label="Choose File"/>
+                                <input type="file" name="image" @if(!is_null($aboutUs)) value="{{ old('image', $aboutUs->image) }}" @endif class="custom-file-container__custom-file__custom-file-input" accept="image/*" aria-label="Choose File"/>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                                 <span class="custom-file-container__custom-file__custom-file-control form-control @error('image') is-invalid @enderror"></span>
                                 @error('image')

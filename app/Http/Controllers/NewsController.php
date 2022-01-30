@@ -95,8 +95,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(News $news)
+    public function show($id)
     {
+        $news = News::find($id);
         return view('news-list.detail', compact('news'));
     }
 
@@ -106,9 +107,10 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(News $news)
+    public function edit($id)
     {
         $categoryNews = CategoryNews::all();
+        $news = News::find($id);
         return view('news-list.editor', compact('news', 'categoryNews'));
     }
 
