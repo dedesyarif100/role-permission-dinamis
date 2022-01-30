@@ -7,6 +7,7 @@
         </div>
         @php
             $dataMenu = getMenu();
+            $dataCategoryNews = getCategoryNews();
         @endphp
         <nav id="navbar" class="navbar" style="margin-left:50px;">
             <ul>
@@ -26,10 +27,9 @@
                 <li class="dropdown"><a href="#"><span>News</span> <i class="bi bi-chevron-right"></i></a>
                     <ul>
                         <li><a href="{{ route('news.list') }}" target="_blank">All</a></li>
-                        <li><a href="" target="_blank">Company Establishment & Tax</a></li>
-                        <li><a href="" target="_blank">Real Estate</a></li>
-                        <li><a href="" target="_blank">Relocation</a></li>
-                        <li><a href="" target="_blank">Videos</a></li>
+                        @foreach ($dataCategoryNews as $item)
+                        <li><a href="{{ route('news.index', $item->slug) }}" target="_blank">{{ $item->title }}</a></li>
+                        @endforeach
                     </ul>
                 </li>
             </ul>
