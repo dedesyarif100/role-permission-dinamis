@@ -22,35 +22,17 @@
 
         <div class="carousel-inner" role="listbox">
 
-            <div class="carousel-item active" style="background-image: url({{ asset('frontend/assets/img/hero-carousel/1.jpg') }})">
+            @foreach ($slideshow as $item)
+            <div class="carousel-item {{ ($item->is_active) ? 'active' : '' }}" style="background-image: url({{ asset('storage/'.$item->image) }})">
                 <div class="carousel-container">
                 <div class="container">
-                    <h2 class="animate__animated animate__fadeInDown">The Best Business Information </h2>
-                    <p class="animate__animated animate__fadeInUp">We're In The Business Of Helping You Start Your Business</p>
+                    <h2 class="animate__animated animate__fadeInDown">Ananta Mitra Karya</h2>
+                    <h6 style="color: white; margin-left:50px;margin-right:50px;" class="animate__animated animate__fadeInUp">{{$item->description}}</h6>
                     <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
                 </div>
                 </div>
             </div>
-
-            <div class="carousel-item" style="background-image: url({{ asset('frontend/assets/img/hero-carousel/2.jpg') }})">
-                <div class="carousel-container">
-                <div class="container">
-                    <h2 class="animate__animated animate__fadeInDown">At vero eos et accusamus</h2>
-                    <p class="animate__animated animate__fadeInUp">Helping Business Security & Peace of Mind for Your Family</p>
-                    <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
-                </div>
-                </div>
-            </div>
-
-            <div class="carousel-item" style="background-image: url({{ asset('frontend/assets/img/hero-carousel/3.jpg') }})">
-                <div class="carousel-container">
-                <div class="container">
-                    <h2 class="animate__animated animate__fadeInDown">Temporibus autem quibusdam</h2>
-                    <p class="animate__animated animate__fadeInUp">Beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem</p>
-                    <a href="#about" class="btn-get-started scrollto animate__animated animate__fadeInUp">Get Started</a>
-                </div>
-                </div>
-            </div>
+            @endforeach
 
         </div>
 
@@ -71,76 +53,30 @@
     <!-- ======= Services Section ======= -->
     <div id="services" class="services-area area-padding">
         <div class="container">
-        <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12">
-            
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                
+                </div>
             </div>
-        </div>
-        <div class="row text-center">
-            <div class="col-md-3 col-sm-3 col-xs-12">
-                <div class="about-move" style="padding-bottom:10px;">
-                    <div class="services-details" style="background: rgba(0, 0, 0, 0.8); border-radius:25px;">
-                        <div class="single-services">
-                            <img src="{{asset('frontend/assets/img/testimonials/testimonials-4.jpg')}}" style="width: 30%; border-radius:100px;" class="" alt="">
-                            <br>
-                            <h4 style="color: white;">Visa Services</h4>
-                            <p style="color:white; padding: 0px 10px 30px 10px;">
-                                The visa process in Indonesia can be challenging; let us help make your life easier. Competitive pricing and ethical practices are the reason we are quickly becoming Indonesia’s favourite agency.
-                            </p>
-                            <a href="#about" class="btn btn-default scrollto animate__animated animate__fadeInUp" style="background-color:#3ec1d5;">Find Out More</a>
+            <div class="row text-center">
+                @foreach ($service as $item)
+                <div class="col-md-3 col-sm-3 col-xs-12">
+                    <div class="about-move" style="padding-bottom:10px;">
+                        <div class="services-details" style="background: rgba(0, 0, 0, 0.8); border-radius:25px;">
+                            <div class="single-services">
+                                <img src="{{asset('storage/'.$item->image)}}" style="width: 30%; border-radius:100px;" class="" alt="">
+                                <br>
+                                <h4 style="color: white;">{{$item->title}}</h4>
+                                <p style="color:white; padding: 0px 10px 30px 10px;">
+                                    {{ $item->short_description }}
+                                </p>
+                                <a href="{{route('service_single.show', $item->slug)}}" class="btn btn-default scrollto animate__animated animate__fadeInUp" style="background-color:#3ec1d5;">Find Out More</a>
+                            </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
-            <div class="col-md-3 col-sm-3 col-xs-12">
-                <div class="about-move" style="padding-bottom:10px;">
-                    <div class="services-details" style="background: rgba(0, 0, 0, 0.8); border-radius:25px;">
-                        <div class="single-services">
-                            <a class="services-icon" href="#">
-                            <i class="bi bi-briefcase" style="color: white;"></i>
-                            </a>
-                            <h4 style="color: white;">Company Establishment</h4>
-                            <p style="color:white; padding: 0px 10px 40px 10px;">
-                                The visa process in Indonesia can be challenging; let us help make your life easier. Competitive pricing and ethical practices are the reason we are quickly becoming Indonesia’s favourite agency.
-                            </p>
-                            <a href="#about" class="btn btn-default scrollto animate__animated animate__fadeInUp" style="background-color:#3ec1d5;">Find Out More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-12">
-                <div class="about-move" style="padding-bottom:10px;">
-                    <div class="services-details" style="background: rgba(0, 0, 0, 0.8); border-radius:25px;">
-                        <div class="single-services">
-                            <a class="services-icon" href="#">
-                            <i class="bi bi-briefcase" style="color: white;"></i>
-                            </a>
-                            <h4 style="color: white;">Tax & Accountancy</h4>
-                            <p style="color:white; padding: 0px 10px 40px 10px;">
-                                The visa process in Indonesia can be challenging; let us help make your life easier. Competitive pricing and ethical practices are the reason we are quickly becoming Indonesia’s favourite agency.
-                            </p>
-                            <a href="#about" class="btn btn-default scrollto animate__animated animate__fadeInUp" style="background-color:#3ec1d5;">Find Out More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-3 col-xs-12">
-                <div class="about-move" style="padding-bottom:10px;">
-                    <div class="services-details" style="background: rgba(0, 0, 0, 0.8); border-radius:25px;">
-                        <div class="single-services">
-                            <a class="services-icon" href="#">
-                            <i class="bi bi-briefcase" style="color: white;"></i>
-                            </a>
-                            <h4 style="color: white;">Real Estate</h4>
-                            <p style="color:white; padding: 0px 10px 40px 10px;">
-                                The visa process in Indonesia can be challenging; let us help make your life easier. Competitive pricing and ethical practices are the reason we are quickly becoming Indonesia’s favourite agency.
-                            </p>
-                            <a href="#about" class="btn btn-default scrollto animate__animated animate__fadeInUp" style="background-color:#3ec1d5;">Find Out More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
 
@@ -149,53 +85,31 @@
         <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="section-headline text-center">
-                <h2>About Ananta Mitra Karya</h2>
-            </div>
+                <div class="section-headline text-center">
+                    <h2>About Ananta Mitra Karya</h2>
+                </div>
             </div>
         </div>
         <div class="row">
-            <!-- single-well start-->
             <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="well-left">
-                <div class="single-well">
-                <a href="#">
-                    <img src="{{asset('frontend/assets/img/about/1.jpg')}}" alt="">
-                </a>
+                <div class="well-left">
+                    <div class="single-well">
+                    <a href="#">
+                        <img src="{{asset('storage/'.$about->image)}}" alt="">
+                    </a>
+                    </div>
                 </div>
             </div>
-            </div>
-            <!-- single-well end-->
             <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="well-middle">
-                <div class="single-well">
-                <a href="#">
-                    <h4 class="sec-head">project Maintenance</h4>
-                </a>
-                <p>
-                    Redug Lagre dolor sit amet, consectetur adipisicing elit. Itaque quas officiis iure aspernatur sit adipisci quaerat unde at nequeRedug Lagre dolor sit amet, consectetur adipisicing elit. Itaque quas officiis iure
-                </p>
-                <ul>
-                    <li>
-                    <i class="bi bi-check"></i> Interior design Package
-                    </li>
-                    <li>
-                    <i class="bi bi-check"></i> Building House
-                    </li>
-                    <li>
-                    <i class="bi bi-check"></i> Reparing of Residentail Roof
-                    </li>
-                    <li>
-                    <i class="bi bi-check"></i> Renovaion of Commercial Office
-                    </li>
-                    <li>
-                    <i class="bi bi-check"></i> Make Quality Products
-                    </li>
-                </ul>
+                <div class="well-middle">
+                    <div class="single-well">
+                    <a href="#">
+                        <h4 class="sec-head">{{$about->title}}</h4>
+                    </a>
+                    {!! $about->description !!}
+                    </div>
                 </div>
             </div>
-            </div>
-            <!-- End col-->
         </div>
         </div>
     </div>
@@ -508,7 +422,7 @@
         <div class="row">
 
         <div class="col-md-6">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d22864.11283411948!2d-73.96468908098944!3d40.630720240038435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY%2C+USA!5e0!3m2!1sen!2sbg!4v1540447494452" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+            <iframe src="https://maps.google.com/maps?q=ananta%20mitra%20karya&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
         </div>
         <div class="col-md-6">
             <div class="form contact-form">
