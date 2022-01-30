@@ -35,22 +35,25 @@
             <ul class="d-flex align-items-center">
                 <li class="nav-item dropdown pe-3">
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-                        <span class="d-none d-md-block dropdown-toggle ps-2">Dede Syarifudin</span>
+                        <img src="{{ 'https://ui-avatars.com/api/?name='.Auth::user()->email }}" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->email }}</span>
                     </a>
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile" style="">
                         <li class="dropdown-header">
-                            <h6>Dede Syarifudin</h6>
+                            <h6>{{ Auth::user()->email }}</h6>
                             <span>Web Designer</span>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <i class="bi bi-box-arrow-right"></i>
-                                <span>Sign Out</span>
-                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button class="btn btn-block" style="background-color: #f5f5f5">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Sign Out</span>
+                                </button>
+                            </form>
                         </li>
                     </ul>
                 </li>
@@ -106,6 +109,18 @@
                 <a class="nav-link collapsed" href="{{ route('comment-client.index') }}">
                     <i class="bi bi-envelope"></i>
                     <span>Comment Client</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('category-news.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Category News</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('news-list.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>News</span>
                 </a>
             </li>
         </ul>

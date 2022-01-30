@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\{
     AboutUsController,
+    CategoryNewsController,
     CommentClientController,
     ContentController,
     MenuController,
+    NewsController,
     ServiceController,
     SlideShowController,
     SubMenuController,
@@ -29,6 +31,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+require __DIR__.'/auth.php';
+
 Route::get('/', [MainController::class, 'index']);
 Route::get('services/{id}/{slug}', [MainController::class, 'services'])->name('services.show');
 Route::get('service/{slug}', [MainController::class, 'serviceSingle'])->name('service_single.show');
@@ -41,18 +45,15 @@ Route::get('admin', function () {
     return view('menu.index');
 });
 
-Route::resource('menu', MenuController::class);
-
-Route::resource('sub-menu', SubMenuController::class);
-
-Route::resource('content', ContentController::class);
-
-Route::resource('about-us', AboutUsController::class);
-
-Route::resource('slide-show', SlideShowController::class);
-
-Route::resource('service', ServiceController::class);
-
-Route::resource('trusted', TrustedController::class);
-
-Route::resource('comment-client', CommentClientController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('menu', MenuController::class);
+    Route::resource('sub-menu', SubMenuController::class);
+    Route::resource('content', ContentController::class);
+    Route::resource('about-us', AboutUsController::class);
+    Route::resource('slide-show', SlideShowController::class);
+    Route::resource('service', ServiceController::class);
+    Route::resource('trusted', TrustedController::class);
+    Route::resource('comment-client', CommentClientController::class);
+    Route::resource('category-news', CategoryNewsController::class);
+    Route::resource('news-list', NewsController::class);
+});

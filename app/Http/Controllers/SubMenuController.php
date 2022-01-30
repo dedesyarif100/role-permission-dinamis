@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Content;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
@@ -25,7 +26,11 @@ class SubMenuController extends Controller
             })
             ->addColumn('action', function($subMenu) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('sub-menu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
+                if ( Content::where('sub_menu_id', $subMenu->id)->exists() ) {
+                    $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
+                } else {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])
