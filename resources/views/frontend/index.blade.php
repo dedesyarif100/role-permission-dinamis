@@ -114,133 +114,70 @@
         </div>
     </div>
 
-<!-- ======= Rviews Section ======= -->
-<div class="reviews-area">
-    <div class="row g-0">
-    <div class="col-lg-6">
-        <img src="{{asset('frontend/assets/images/ruang-tamu.jpg')}}" alt="" class="img-fluid">
-    </div>
-    <div class="col-lg-6 work-right-text d-flex align-items-center">
-        <div class="px-5 py-5 py-lg-0">
-        <h5>Welcome to Ananta Mitra Karya, Indonesia’s Most Trusted Visa & Business Consultancy. We are proud to be the trendsetters in what we do, simplifying and improving expatriate services..</h5>
-        <a href="#contact" class="ready-btn scrollto">Contact us</a>
+    <div class="reviews-area">
+        <div class="row g-0">
+        <div class="col-lg-6">
+            <img src="{{asset('frontend/assets/images/ruang-tamu.jpg')}}" alt="" class="img-fluid">
+        </div>
+        <div class="col-lg-6 work-right-text d-flex align-items-center">
+            <div class="px-5 py-5 py-lg-0">
+            <h5>Welcome to Ananta Mitra Karya, Indonesia’s Most Trusted Visa & Business Consultancy. We are proud to be the trendsetters in what we do, simplifying and improving expatriate services..</h5>
+            <a href="#contact" class="ready-btn scrollto">Contact us</a>
+            </div>
+        </div>
         </div>
     </div>
-    </div>
-</div><!-- End Rviews Section -->
 
-<!-- ======= Pricing Section ======= -->
-<div id="pricing" class="pricing-area area-padding">
-    <div class="container">
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-        <div class="section-headline text-center">
-            <h2>Trusted By</h2>
-        </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="container ">
+
+    <div id="pricing" class="pricing-area area-padding">
+        <div class="container">
             <div class="row">
-            <!-- Start contact icon column -->
-                <div class="col-md-12">
-                    <section class="customer-logos slider">
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/luxury-letter-e-logo-design_1017-8903.jpg"></div>
-                        <div class="slide"><img src="http://www.webcoderskull.com/img/logo.png"></div>
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/3d-box-logo_1103-876.jpg"></div>
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/blue-tech-logo_1103-822.jpg"></div>
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/colors-curl-logo-template_23-2147536125.jpg"></div>
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/abstract-cross-logo_23-2147536124.jpg"></div>
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/football-logo-background_1195-244.jpg"></div>
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/background-of-spots-halftone_1035-3847.jpg"></div>
-                        <div class="slide"><img src="https://image.freepik.com/free-vector/retro-label-on-rustic-background_82147503374.jpg"></div>
-                    </section>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="section-headline text-center">
+                        <h2>Trusted By</h2>
+                    </div>
                 </div>
             </div>
-                <hr>
+            <div class="row">
+                <div class="container ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <section class="customer-logos slider">
+                                @foreach($trusted as $item)
+                                <div class="slide"><img src="{{asset('storage/'. $item->image)}}"></div>
+                                @endforeach
+                            </section>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
         </div>
     </div>
-    </div>
-</div><!-- End Pricing Section -->
 
-<!-- ======= Testimonials Section ======= -->
-<div id="testimonials" class="testimonials">
-    <div class="container">
-
-    <div class="testimonials-slider swiper">
-        <div class="swiper-wrapper">
-
-        <div class="swiper-slide">
-            <div class="testimonial-item">
-            <img src="{{asset('frontend/assets/img/testimonials/testimonials-1.jpg')}}" class="testimonial-img" alt="">
-            <h3>Saul Goodman</h3>
-            <h4>Ceo &amp; Founder</h4>
-            <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
+    <div id="testimonials" class="testimonials">
+        <div class="container">
+            <div class="testimonials-slider swiper">
+                <div class="swiper-wrapper">
+                    @foreach ($comment_client as $item)
+                    <div class="swiper-slide">
+                        <div class="testimonial-item">
+                            <img src="{{asset('storage/'. $item->image)}}" class="testimonial-img" alt="">
+                            <h3>{{$item->name}}</h3>
+                            <h4>{{$item->title}}</h4>
+                            <p>
+                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                                {{$item->message}}
+                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                            </p>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+                <div class="swiper-pagination"></div>
             </div>
-        </div><!-- End testimonial item -->
-
-        <div class="swiper-slide">
-            <div class="testimonial-item">
-            <img src="{{asset('frontend/assets/img/testimonials/testimonials-2.jpg')}}" class="testimonial-img" alt="">
-            <h3>Sara Wilsson</h3>
-            <h4>Designer</h4>
-            <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            </div>
-        </div><!-- End testimonial item -->
-
-        <div class="swiper-slide">
-            <div class="testimonial-item">
-            <img src="{{asset('frontend/assets/img/testimonials/testimonials-3.jpg')}}" class="testimonial-img" alt="">
-            <h3>Jena Karlis</h3>
-            <h4>Store Owner</h4>
-            <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            </div>
-        </div><!-- End testimonial item -->
-
-        <div class="swiper-slide">
-            <div class="testimonial-item">
-            <img src="{{asset('frontend/assets/img/testimonials/testimonials-4.jpg')}}" class="testimonial-img" alt="">
-            <h3>Matt Brandon</h3>
-            <h4>Freelancer</h4>
-            <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            </div>
-        </div><!-- End testimonial item -->
-
-        <div class="swiper-slide">
-            <div class="testimonial-item">
-            <img src="{{asset('frontend/assets/img/testimonials/testimonials-5.jpg')}}" class="testimonial-img" alt="">
-            <h3>John Larson</h3>
-            <h4>Entrepreneur</h4>
-            <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-            </p>
-            </div>
-        </div><!-- End testimonial item -->
-
         </div>
-        <div class="swiper-pagination"></div>
     </div>
-
-    </div>
-</div><!-- End Testimonials Section -->
 
 <!-- ======= Blog Section ======= -->
 <div id="blog" class="blog-area">

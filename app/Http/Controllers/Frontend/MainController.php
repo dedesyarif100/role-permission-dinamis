@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Trusted;
 use App\Models\Service;
 use App\Models\Content;
 use App\Models\AboutUs;
 use App\Models\SlideShow;
+use App\Models\CommentClient;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -21,6 +23,8 @@ class MainController extends Controller
         $data['slideshow'] = SlideShow::all();
         $data['service'] = Service::all();
         $data['about'] = AboutUs::first();
+        $data['trusted'] = Trusted::all();
+        $data['comment_client'] = CommentClient::all();
 
         return view('frontend.index', $data);
     }
