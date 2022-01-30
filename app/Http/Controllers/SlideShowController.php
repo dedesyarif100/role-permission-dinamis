@@ -29,7 +29,7 @@ class SlideShowController extends Controller
                 return $is_active;
             })
             ->addColumn('action', function($slideShow) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('slide-show/'.$slideShow['id']).'" class="btn btn-primary btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('slide-show/'.$slideShow['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
                 $action .= '<a href="'.url('slide-show/'.$slideShow['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$slideShow['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
                 return $action;
@@ -119,9 +119,17 @@ class SlideShowController extends Controller
             'image.required' => 'This field is required'
         ]);
 
+        $slideShow = SlideShow::find($id);
+
+        $outputFile = 'slide-show';
+        Storage::disk('public')->delete($outputFile, $slideShow->image);
+
+        $outputFile = 'slide-show';
+        $path = Storage::disk('public')->put($outputFile, $request->image);
+
         SlideShow::where('id', $id)->update([
             'description' => $request->description,
-            'image' => $request->image,
+            'image' => $path,
             'is_active' => is_null($request->is_active) ? '0' : '1'
         ]);
 
@@ -134,9 +142,11 @@ class SlideShowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(SlideShow $slideShow)
     {
-        SlideShow::where('id', $id)->delete();
+        $outputFile = 'slide-show';
+        Storage::disk('public')->delete($outputFile, $slideShow->image);
+        SlideShow::where('id', $slideShow->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
     }
 }

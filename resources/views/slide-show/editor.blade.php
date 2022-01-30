@@ -2,6 +2,11 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.css"/>
+<style>
+    .custom-file-container__image-preview {
+        overflow: hidden;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -24,7 +29,7 @@
                         @csrf
                         <div class="form-group">
                             <label>Description</label><br>
-                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($slideShow)) {{ $slideShow->description }}@endif</textarea><br>
+                            <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($slideShow)) {{ $slideShow->description }}@endif</textarea>
                             @error('description')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -75,7 +80,7 @@
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
 <script>
-    CKEDITOR.replace( 'description' );
+    // CKEDITOR.replace( 'description' );
     let upload = new FileUploadWithPreview("myUniqueUploadId");
     $(function() {
         $(document).on('change', '#is_active', function() {

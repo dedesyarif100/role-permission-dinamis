@@ -56,7 +56,7 @@
 
                         <div class="form-group">
                             <label>Short Description</label><br>
-                            <textarea name="short_description" class="form-control @error('short_description') is-invalid @enderror" id="short_description" rows="10" cols="80">@if(!is_null($service)) {{ $service->short_description }}@endif</textarea><br>
+                            <textarea name="short_description" class="form-control @error('short_description') is-invalid @enderror" id="short_description" rows="10" cols="80">@if(!is_null($service)) {{ $service->short_description }}@endif</textarea>
                             @error('short_description')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -66,7 +66,7 @@
 
                         <div class="form-group">
                             <label>Long Description</label><br>
-                            <textarea name="long_description" class="form-control @error('long_description') is-invalid @enderror" id="long_description" rows="10" cols="80">@if(!is_null($service)) {{ $service->long_description }}@endif</textarea><br>
+                            <textarea name="long_description" class="form-control @error('long_description') is-invalid @enderror" id="long_description" rows="10" cols="80">@if(!is_null($service)) {{ $service->long_description }}@endif</textarea>
                             @error('long_description')
                                 <div class="invalid-feedback">
                                     {{ $message }}

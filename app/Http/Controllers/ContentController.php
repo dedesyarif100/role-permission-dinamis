@@ -29,7 +29,7 @@ class ContentController extends Controller
                 return $content->subMenu->name;
             })
             ->addColumn('action', function($content) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('content/'.$content['id']).'" class="btn btn-primary btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('content/'.$content['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
                 $action .= '<a href="'.url('content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button>';
                 return $action;
@@ -135,6 +135,11 @@ class ContentController extends Controller
 
         $slugContent = Content::generateSlugByTitle($request->title);
 
+        $content = Content::find($id);
+
+        $outputFile = 'content';
+        Storage::disk('public')->delete($outputFile, $content->images);
+
         $outputFile = 'content';
         $path = Storage::disk('public')->put($outputFile, $request->images);
 
@@ -157,9 +162,11 @@ class ContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Content $content)
     {
-        Content::where('id', $id)->delete();
+        $outputFile = 'content';
+        Storage::disk('public')->delete($outputFile, $content->images);
+        Content::where('id', $content->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Content Has Been Deleted']);
     }
 }

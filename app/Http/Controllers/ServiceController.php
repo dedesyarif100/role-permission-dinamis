@@ -21,7 +21,7 @@ class ServiceController extends Controller
             return DataTables::of($service)
             ->addIndexColumn()
             ->addColumn('action', function($service) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('service/'.$service['id']).'" class="btn btn-primary btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('service/'.$service['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
                 $action .= '<a href="'.url('service/'.$service['id']).'/edit" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$service['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
                 return $action;
@@ -120,8 +120,16 @@ class ServiceController extends Controller
             'long_description.required' => 'This field is required'
         ]);
 
+        $service = Service::find($id);
+
+        $outputFile = 'service';
+        Storage::disk('public')->delete($outputFile, $service->image);
+
+        $outputFile = 'service';
+        $path = Storage::disk('public')->put($outputFile, $request->image);
+
         Service::where('id', $id)->update([
-            'image' => $request->image,
+            'image' => $path,
             'title' => $request->title,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description
@@ -136,9 +144,11 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Service $service)
     {
-        Service::where('id', $id)->delete();
+        $outputFile = 'service';
+        Storage::disk('public')->delete($outputFile, $service->image);
+        Service::where('id', $service->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
     }
 }
