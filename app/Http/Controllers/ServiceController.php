@@ -64,12 +64,15 @@ class ServiceController extends Controller
             'long_description.required' => 'This field is required'
         ]);
 
+        $slugService = Service::generateSlugByTitle($request->title);
+
         $outputFile = 'service';
         $path = Storage::disk('public')->put($outputFile, $request->image);
 
         Service::create([
             'image' => $path,
             'title' => $request->title,
+            'slug' => $slugService,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description
         ]);
@@ -120,6 +123,8 @@ class ServiceController extends Controller
             'long_description.required' => 'This field is required'
         ]);
 
+        $slugService = Service::generateSlugByTitle($request->title);
+
         $service = Service::find($id);
 
         $outputFile = 'service';
@@ -131,6 +136,7 @@ class ServiceController extends Controller
         Service::where('id', $id)->update([
             'image' => $path,
             'title' => $request->title,
+            'slug' => $slugService,
             'short_description' => $request->short_description,
             'long_description' => $request->long_description
         ]);

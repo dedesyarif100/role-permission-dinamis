@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\{
-    AboutController,
+    AboutUsController,
     ContentController,
     MenuController,
     ServiceController,
@@ -44,7 +44,7 @@ Route::resource('sub-menu', SubMenuController::class);
 
 Route::resource('content', ContentController::class);
 
-Route::resource('about-us', AboutController::class);
+Route::resource('about-us', AboutUsController::class);
 
 Route::resource('slide-show', SlideShowController::class);
 

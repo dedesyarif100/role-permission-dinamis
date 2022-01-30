@@ -36,7 +36,6 @@ class Content extends Model
     {
         $slugContent = \Str::slug($title);
         $totalContent = self::withTrashed()->where('slug', 'like', '%' . $slugContent . '%')->latest('id')->count();
-        // dd($totalContent);
         if ($totalContent > 0) {
             $slugContent .= '-'. $totalContent;
         }

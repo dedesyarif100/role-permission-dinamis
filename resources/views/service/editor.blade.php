@@ -91,7 +91,6 @@
 <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script>
 <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
 <script>
-    CKEDITOR.replace( 'short_description' );
     CKEDITOR.replace( 'long_description' );
     let upload = new FileUploadWithPreview("myUniqueUploadId");
     $(function() {
