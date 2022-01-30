@@ -31,7 +31,7 @@ class ContentController extends Controller
             ->addColumn('action', function($content) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('content/'.$content['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
                 $action .= '<a href="'.url('content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button>';
+                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'menu', 'sub_menu', 'action'])
@@ -75,7 +75,7 @@ class ContentController extends Controller
         $slugContent = Content::generateSlugByTitle($request->title);
 
         $outputFile = 'content';
-        $path = Storage::disk('public')->put($outputFile, $request->images);
+        $path = Storage::disk('public')->put($outputFile, $request->image);
 
         Content::create([
             'menu_id' => $request->menu_id,
@@ -84,7 +84,7 @@ class ContentController extends Controller
             'slug' => $slugContent,
             'sub_title' => $request->sub_title,
             'description' => $request->description,
-            'images' => $path
+            'image' => $path
         ]);
 
         return redirect('content')->with('status', 'Data success created!');
@@ -111,7 +111,6 @@ class ContentController extends Controller
     {
         $allMenu = Menu::all();
         $allSubMenu = SubMenu::all();
-        dd($content);
         return view('content.editor', compact('content', 'allMenu', 'allSubMenu'));
     }
 
@@ -139,10 +138,10 @@ class ContentController extends Controller
         $content = Content::find($id);
 
         $outputFile = 'content';
-        Storage::disk('public')->delete($outputFile, $content->images);
+        Storage::disk('public')->delete($outputFile, $content->image);
 
         $outputFile = 'content';
-        $path = Storage::disk('public')->put($outputFile, $request->images);
+        $path = Storage::disk('public')->put($outputFile, $request->image);
 
         Content::where('id', $id)->update([
             'menu_id' => $request->menu_id,
@@ -151,7 +150,7 @@ class ContentController extends Controller
             'slug' => $slugContent,
             'sub_title' => $request->sub_title,
             'description' => $request->description,
-            'images' => $path
+            'image' => $path
         ]);
 
         return redirect('content')->with('status', 'Data success updated!');
@@ -166,7 +165,7 @@ class ContentController extends Controller
     public function destroy(Content $content)
     {
         $outputFile = 'content';
-        Storage::disk('public')->delete($outputFile, $content->images);
+        Storage::disk('public')->delete($outputFile, $content->image);
         Content::where('id', $content->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Content Has Been Deleted']);
     }

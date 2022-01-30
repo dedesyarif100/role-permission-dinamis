@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\{
     AboutUsController,
+    CommentClientController,
     ContentController,
     MenuController,
     ServiceController,
     SlideShowController,
-    SubMenuController
+    SubMenuController,
+    TrustedController
 };
 
 use App\Http\Controllers\Frontend\{
@@ -49,3 +51,7 @@ Route::resource('about-us', AboutUsController::class);
 Route::resource('slide-show', SlideShowController::class);
 
 Route::resource('service', ServiceController::class);
+
+Route::resource('trusted', TrustedController::class);
+
+Route::resource('comment-client', CommentClientController::class);

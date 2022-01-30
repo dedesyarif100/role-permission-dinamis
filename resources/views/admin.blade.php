@@ -96,6 +96,18 @@
                     <span>Service</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('trusted.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Trusted</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('comment-client.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Comment Client</span>
+                </a>
+            </li>
         </ul>
     </aside>
     <main id="main" class="main">

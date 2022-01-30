@@ -85,7 +85,7 @@
                                 <a href="javascript:void(0)" class="custom-file-container__image-clear" title="Clear Image">&times;</a>
                             </label>
                             <label class="custom-file-container__custom-file">
-                                <input type="file" name="images" class="custom-file-container__custom-file__custom-file-input" accept="image/*" aria-label="Choose File"/>
+                                <input type="file" name="image" class="custom-file-container__custom-file__custom-file-input" accept="image/*" aria-label="Choose File"/>
                                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                                 <span class="custom-file-container__custom-file__custom-file-control"></span>
                             </label>
