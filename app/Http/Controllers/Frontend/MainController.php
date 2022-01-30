@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\Service;
 use App\Models\Content;
+use App\Models\AboutUs;
 use App\Models\SlideShow;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class MainController extends Controller
     {
         $data['slideshow'] = SlideShow::all();
         $data['service'] = Service::all();
+        $data['about'] = AboutUs::first();
 
         return view('frontend.index', $data);
     }
