@@ -78,7 +78,7 @@
                         </div><br>
                         <div class="form-group">
                             <label>Description</label><br>
-                            <textarea name="description" id="description" rows="10" cols="80">@if(!is_null($content)){{ old('description', $content->description) }}@else{{ old('description') }}@endif</textarea><br>
+                            <textarea name="description" id="description" rows="20" cols="80">@if(!is_null($content)){{ old('description', $content->description) }}@else{{ old('description') }}@endif</textarea><br>
                         </div><br>
                         <div class="custom-file-container" data-upload-id="myUniqueUploadId">
                             <label for="image">Upload File

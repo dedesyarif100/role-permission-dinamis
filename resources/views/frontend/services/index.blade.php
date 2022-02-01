@@ -92,8 +92,8 @@
                                     <div class="col-lg-8 col-md-8">
                                         <p>Consultation Type <span style="color:red">*</span></p>
                                         <span style="magin-top:15px; "></span>
-                                        <input type="radio" name="consultation_type"> Phone Consultation  &nbsp;&nbsp;
-                                        <input type="radio" name="consultation_type"> Office Consultation
+                                        <input type="radio" name="consultation_type" value="phone consultation"> Phone Consultation  &nbsp;&nbsp;
+                                        <input type="radio" name="consultation_type" value="office consultation"> Office Consultation
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 comment-form-comment">
                                         <p>Message <span style="color:red">*</span></p>

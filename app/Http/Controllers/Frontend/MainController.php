@@ -12,6 +12,7 @@ use App\Models\ContactUs;
 use App\Models\SlideShow;
 use App\Models\CommentClient;
 use App\Http\Controllers\Controller;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class MainController extends Controller
 {
@@ -22,10 +23,13 @@ class MainController extends Controller
      */
     public function index()
     {
-        $data['slideshow'] = SlideShow::all();
+        SEOTools::setTitle('Ananta Mitra Karya');
+        SEOTools::setDescription('Ananta, Mitra, Karya, Ananta Mitra, Ananta Mitra Karya, VISA, Visa - Company Establishment - Tax & Accounting - Real Estate');
+
         $data['service'] = Service::all();
         $data['about'] = AboutUs::first();
         $data['trusted'] = Trusted::all();
+        $data['slideshow'] = SlideShow::all();
         $data['comment_client'] = CommentClient::all();
         $data['news'] = News::orderBy('created_at', 'asc')->limit(3)->get();
         $data['contact'] = ContactUs::orderBy('created_at', 'asc')->limit(3)->get();
@@ -35,14 +39,16 @@ class MainController extends Controller
 
     /**
      * Display the specified resource.
-     * @param  int      $id
      * @param  string   $slug
      * @return \Illuminate\Http\Response
      */
-    public function services($id, $slug)
+    public function services($slug)
     {
-        $data = Content::where('menu_id', $id)->where('slug', $slug)->first();
+        $data = Content::where('slug', $slug)->first();
         $popular = Content::orderBy('created_at', 'desc')->limit(5)->get();
+        
+        SEOTools::setTitle('Ananta Mitra Karya');
+        SEOTools::setDescription($data->title);
         
         return view('frontend.services.index', compact('data', 'popular'));
     }
@@ -55,6 +61,9 @@ class MainController extends Controller
     public function serviceSingle($slug)
     {
         $data = Service::where('slug', $slug)->first();
+
+        SEOTools::setTitle('Ananta Mitra Karya');
+        SEOTools::setDescription($data->title);
         
         return view('frontend.service.index', compact('data'));
     }
@@ -87,6 +96,9 @@ class MainController extends Controller
     {
         $data = AboutUs::first();
 
+        SEOTools::setTitle('Ananta Mitra Karya');
+        SEOTools::setDescription('About us Ananta Mitra Karya');
+
         return view('frontend.about.index', compact('data'));
     }
 
@@ -96,6 +108,9 @@ class MainController extends Controller
     public function faq()
     {
         $data = Faq::orderBy('created_at', 'asc')->get();
+
+        SEOTools::setTitle('Ananta Mitra Karya');
+        SEOTools::setDescription('FAQ Ananta Mitra Karya');
 
         return view('frontend.faq.index', compact('data'));
     }
