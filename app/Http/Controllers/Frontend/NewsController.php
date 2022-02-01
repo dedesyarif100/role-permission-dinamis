@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\News;
 use App\Models\CategoryNews;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class NewsController extends Controller
 {
@@ -24,6 +24,9 @@ class NewsController extends Controller
         } else {
             $data = News::where('category_news_id', $newsId->id)->orderBy('created_at', 'desc')->get();
         }
+
+        SEOTools::setTitle('Ananta Mitra Karya');
+        SEOTools::setDescription('News Ananta Mitra Karya');
         
         $popular = News::orderBy('created_at', 'asc')->limit(5)->get();
 
@@ -39,6 +42,9 @@ class NewsController extends Controller
     public function show($slug)
     {
         $data = News::where('slug', $slug)->first();
+
+        SEOTools::setTitle('Ananta Mitra Karya');
+        SEOTools::setDescription($data->title);
 
         $popular = News::orderBy('created_at', 'asc')->limit(5)->get();
 

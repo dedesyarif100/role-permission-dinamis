@@ -12,11 +12,11 @@
         <nav id="navbar" class="navbar" style="margin-left:50px;">
             <ul>
                 @foreach ($dataMenu as $item)
-                <li class="dropdown"><a href="#"><span>{{$item->name}}</span> <i class="bi bi-chevron-right"></i></a>
+                <li class="dropdown"><a href="#" class="nav-link"><span>{{$item->name}}</span> <i class="bi bi-chevron-right"></i></a>
                     <ul>
                         @foreach($item->subMenu as $itemSecond)
                             @if ($itemSecond->content)
-                            <li><a href="{{ route('services.show', [$itemSecond->menu_id, $itemSecond->content->slug]) }}" target="_blank">{{$itemSecond->name}}</a></li>
+                            <li><a href="{{ route('services.show', $itemSecond->content->slug) }}" target="_blank">{{$itemSecond->name}}</a></li>
                             @endif
                         @endforeach
                     </ul>

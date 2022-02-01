@@ -38,7 +38,7 @@ use Illuminate\Support\Facades\Route;
 require __DIR__.'/auth.php';
 
 Route::get('/', [MainController::class, 'index']);
-Route::get('services/{id}/{slug}', [MainController::class, 'services'])->name('services.show');
+Route::get('services/{slug}', [MainController::class, 'services'])->name('services.show');
 Route::get('service/{slug}', [MainController::class, 'serviceSingle'])->name('service_single.show');
 Route::get('news', [MainController::class, 'news'])->name('news.list');
 Route::get('faqs', [MainController::class, 'faq'])->name('faqs.show');
