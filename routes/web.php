@@ -54,17 +54,17 @@ Route::get('admin', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::resource('menu', MenuController::class);
-    Route::resource('sub-menu', SubMenuController::class);
-    Route::resource('content', ContentController::class);
-    Route::resource('about-us', AboutUsController::class);
-    Route::resource('slide-show', SlideShowController::class);
-    Route::resource('service', ServiceController::class);
-    Route::resource('trusted', TrustedController::class);
-    Route::resource('comment-client', CommentClientController::class);
-    Route::resource('category-news', CategoryNewsController::class);
-    Route::resource('news-list', NewsController::class);
-    Route::resource('faq', FaqController::class);
-    Route::resource('contact-us', ContactUsController::class);
-    Route::resource('information', InformationController::class);
+    Route::resource('menu',             MenuController::class);
+    Route::resource('sub-menu',         SubMenuController::class);
+    Route::resource('content',          ContentController::class);
+    Route::resource('about-us',         AboutUsController::class);
+    Route::resource('slide-show',       SlideShowController::class);
+    Route::resource('service',          ServiceController::class);
+    Route::resource('trusted',          TrustedController::class);
+    Route::resource('comment-client',   CommentClientController::class);
+    Route::resource('category-news',    CategoryNewsController::class);
+    Route::resource('news-list',        NewsController::class);
+    Route::resource('faq',              FaqController::class);
+    Route::resource('contact-us',       ContactUsController::class);
+    Route::resource('information',      InformationController::class);
 });

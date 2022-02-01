@@ -19,7 +19,7 @@
                 @else
                     Edit Category News
                 @endif
-            </h1><br>
+            </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
                     <form action="@if(is_null($categoryNews)) {{ route('category-news.store') }} @else {{ url('category-news/'.$categoryNews->id) }} @endif" method="POST" enctype="multipart/form-data">
@@ -29,13 +29,19 @@
                         @csrf
 
                         <div class="form-group">
-                            <label>Title</label><br>
-                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($categoryNews)) value="{{ $categoryNews->title }}" @endif>
-                            @error('title')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Title</label>
                                 </div>
-                            @enderror
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($categoryNews)) value="{{ $categoryNews->title }}" @endif>
+                                    @error('title')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div><br>
 
                         <div class="form-group d-flex justify-content-end">

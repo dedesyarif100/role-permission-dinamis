@@ -19,7 +19,7 @@
                 @else
                     Edit Contact Us
                 @endif
-            </h1><br>
+            </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
                     <form action="@if(is_null($contactUs)) {{ route('contact-us.store') }} @else {{ url('contact-us/'.$contactUs->id) }} @endif" method="POST" enctype="multipart/form-data">
@@ -29,33 +29,51 @@
                         @csrf
 
                         <div class="form-group">
-                            <label>Email</label><br>
-                            <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" @if(!is_null($contactUs)) value="{{ old('email', $contactUs->email) }}" @else value="{{ old('email') }}" @endif>
-                            @error('email')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Email</label>
                                 </div>
-                            @enderror
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control @error('email') is-invalid @enderror" name="email" @if(!is_null($contactUs)) value="{{ old('email', $contactUs->email) }}" @else value="{{ old('email') }}" @endif>
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div><br>
 
                         <div class="form-group">
-                            <label>Phone Number</label><br>
-                            <input type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" @if(!is_null($contactUs)) value="{{ old('phone_number', $contactUs->phone_number) }}" @else value="{{ old('phone_number') }}" @endif>
-                            @error('phone_number')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Phone Number</label>
                                 </div>
-                            @enderror
+                                <div class="col-md-10">
+                                    <input type="text" class="form-control @error('phone_number') is-invalid @enderror" name="phone_number" @if(!is_null($contactUs)) value="{{ old('phone_number', $contactUs->phone_number) }}" @else value="{{ old('phone_number') }}" @endif>
+                                    @error('phone_number')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div><br>
 
                         <div class="form-group">
-                            <label>Address</label><br>
-                            <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" rows="10" cols="80">@if(!is_null($contactUs)){{ old('address', $contactUs->address) }}@else{{ old('address') }}@endif</textarea>
-                            @error('address')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label>Address</label>
                                 </div>
-                            @enderror
+                                <div class="col-md-10">
+                                    <textarea name="address" class="form-control @error('address') is-invalid @enderror" id="address" rows="10" cols="80">@if(!is_null($contactUs)){{ old('address', $contactUs->address) }}@else{{ old('address') }}@endif</textarea>
+                                    @error('address')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
                         </div><br>
 
                         <div class="form-group d-flex justify-content-end">
