@@ -39,6 +39,8 @@ Route::get('/', [MainController::class, 'index']);
 Route::get('services/{id}/{slug}', [MainController::class, 'services'])->name('services.show');
 Route::get('service/{slug}', [MainController::class, 'serviceSingle'])->name('service_single.show');
 Route::get('news', [MainController::class, 'news'])->name('news.list');
+Route::get('faqs', [MainController::class, 'faq'])->name('faqs.show');
+Route::get('about', [MainController::class, 'about'])->name('about.show');
 Route::get('news/{slug}', [MainController::class, 'newsDetail'])->name('news.detail');
 Route::post('contact_our', [ContactOurController::class, 'store'])->name('contact_our.store');
 Route::post('consultation', [ConsultationController::class, 'store'])->name('consultation.store');

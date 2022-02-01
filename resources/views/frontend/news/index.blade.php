@@ -28,63 +28,25 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4">
                     <div class="page-head-blog">
-                    <div class="single-blog-page">
-                        <!-- recent start -->
-                        <div class="left-blog">
-                        <h4>interesting news</h4>
-                        <div class="recent-post">
-                            <!-- start single post -->
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/1.jpg')}}" alt="">
-                                </a>
+                        <div class="single-blog-page">
+                            <div class="left-blog">
+                            <h4>interesting news</h4>
+                                <div class="recent-post">
+                                    @foreach ($popular as $item)
+                                    <div class="recent-single-post">
+                                        <div class="post-img">
+                                            <a href="{{ route('news.show', $item->slug) }}">
+                                            <img src="{{ asset('storage/'.$item->image) }}" alt="" style="border-radius:10px;">
+                                            </a>
+                                        </div>
+                                        <div class="pst-content">
+                                            <p><a href="{{ route('news.show', $item->slug) }}">{{$item->title}}</a></p>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
                             </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <!-- End single post -->
-                            <!-- start single post -->
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/2.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <!-- End single post -->
-                            <!-- start single post -->
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/3.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <!-- End single post -->
-                            <!-- start single post -->
-                            <div class="recent-single-post">
-                            <div class="post-img">
-                                <a href="#">
-                                <img src="{{asset('frontend/assets/img/blog/4.jpg')}}" alt="">
-                                </a>
-                            </div>
-                            <div class="pst-content">
-                                <p><a href="#"> Redug Lerse dolor sit amet consect adipis elit.</a></p>
-                            </div>
-                            </div>
-                            <!-- End single post -->
                         </div>
-                        </div>
-                        <!-- recent end -->
-                    </div>
                     </div>
                 </div>
                 <div class="col-md-8 col-sm-8 col-xs-12">

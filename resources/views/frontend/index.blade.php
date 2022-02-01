@@ -50,7 +50,6 @@
 
 <main id="main">
 
-    <!-- ======= Services Section ======= -->
     <div id="services" class="services-area area-padding">
         <div class="container">
             <div class="row">
@@ -70,7 +69,7 @@
                                 <p style="color:white; padding: 0px 10px 30px 10px;">
                                     {{ $item->short_description }}
                                 </p>
-                                <a href="{{route('service_single.show', $item->slug)}}" class="btn btn-default scrollto animate__animated animate__fadeInUp" style="background-color:#3ec1d5;">Find Out More</a>
+                                <a href="{{ route('service_single.show', $item->slug) }}" class="btn btn-default scrollto animate__animated animate__fadeInUp" style="background-color:#3ec1d5;">Find Out More</a>
                             </div>
                         </div>
                     </div>
@@ -79,7 +78,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="about" class="about-area area-padding">
         <div class="container">
@@ -109,6 +107,8 @@
                     {!! $about->description !!}
                     </div>
                 </div>
+                <br>
+                <a href="">Find Out More..</a>
             </div>
         </div>
         </div>
@@ -116,15 +116,15 @@
 
     <div class="reviews-area">
         <div class="row g-0">
-        <div class="col-lg-6">
-            <img src="{{asset('frontend/assets/images/ruang-tamu.jpg')}}" alt="" class="img-fluid">
-        </div>
-        <div class="col-lg-6 work-right-text d-flex align-items-center">
-            <div class="px-5 py-5 py-lg-0">
-            <h5>Welcome to Ananta Mitra Karya, Indonesia’s Most Trusted Visa & Business Consultancy. We are proud to be the trendsetters in what we do, simplifying and improving expatriate services..</h5>
-            <a href="#contact" class="ready-btn scrollto">Contact us</a>
+            <div class="col-lg-6">
+                <img src="{{asset('frontend/assets/images/ruang-tamu.jpg')}}" alt="" class="img-fluid">
             </div>
-        </div>
+            <div class="col-lg-6 work-right-text d-flex align-items-center">
+                <div class="px-5 py-5 py-lg-0">
+                <h5>Welcome to Ananta Mitra Karya, Indonesia’s Most Trusted Visa & Business Consultancy. We are proud to be the trendsetters in what we do, simplifying and improving expatriate services..</h5>
+                <a href="#contact" class="ready-btn scrollto">Contact us</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -179,132 +179,57 @@
         </div>
     </div>
 
-<!-- ======= Blog Section ======= -->
-<div id="blog" class="blog-area">
-    <div class="blog-inner area-padding">
-    <div class="blog-overly"></div>
-    <div class="container ">
-        <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="section-headline text-center">
-            <h2>Latest News</h2>
+    <div id="blog" class="blog-area">
+        <div class="blog-inner area-padding">
+            <div class="blog-overly"></div>
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="section-headline text-center">
+                        <h2>Latest News</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @foreach ($news as $item)
+                    <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="single-blog">
+                            <div class="single-blog-img">
+                                <a href="{{ route('news.show', $item->slug) }}">
+                                <img src="{{ asset('storage/'.$item->image) }}" alt="">
+                                </a>
+                            </div>
+                            <div class="blog-text">
+                                <hr>
+                                <h4>
+                                    <a href="{{ route('news.show', $item->slug) }}">{{ $item->title }}</a>
+                                </h4>
+                            </div>
+                            <span>
+                                <a href="{{ route('news.show', $item->slug) }}" class="ready-btn">Read more</a>
+                            </span>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
             </div>
-        </div>
-        </div>
-        <div class="row">
-        <!-- Start Left Blog -->
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="single-blog">
-            <div class="single-blog-img">
-                <a href="blog.html">
-                <img src="{{ asset('frontend/assets/img/blog/1.jpg') }}" alt="">
-                </a>
-            </div>
-            <div class="blog-meta">
-                <span class="comments-type">
-                <i class="fa fa-comment-o"></i>
-                <a href="#">13 comments</a>
-                </span>
-                <span class="date-type">
-                <i class="fa fa-calendar"></i>2016-03-05 / 09:10:16
-                </span>
-            </div>
-            <div class="blog-text">
-                <h4>
-                <a href="blog.html">Assumenda repud eum veniam</a>
-                </h4>
-                <p>
-                Lorem ipsum dolor sit amet conse adipis elit Assumenda repud eum veniam optio modi sit explicabo nisi magnam quibusdam.sit amet conse adipis elit Assumenda repud eum veniam optio modi sit explicabo nisi magnam quibusdam.
-                </p>
-            </div>
-            <span>
-                <a href="blog.html" class="ready-btn">Read more</a>
-            </span>
-            </div>
-            <!-- Start single blog -->
-        </div>
-        <!-- End Left Blog-->
-        <!-- Start Left Blog -->
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="single-blog">
-            <div class="single-blog-img">
-                <a href="blog.html">
-                <img src="{{asset('frontend/assets/img/blog/2.jpg')}}" alt="">
-                </a>
-            </div>
-            <div class="blog-meta">
-                <span class="comments-type">
-                <i class="fa fa-comment-o"></i>
-                <a href="#">130 comments</a>
-                </span>
-                <span class="date-type">
-                <i class="fa fa-calendar"></i>2016-03-05 / 09:10:16
-                </span>
-            </div>
-            <div class="blog-text">
-                <h4>
-                <a href="blog.html">Explicabo magnam quibusdam.</a>
-                </h4>
-                <p>
-                Lorem ipsum dolor sit amet conse adipis elit Assumenda repud eum veniam optio modi sit explicabo nisi magnam quibusdam.sit amet conse adipis elit Assumenda repud eum veniam optio modi sit explicabo nisi magnam quibusdam.
-                </p>
-            </div>
-            <span>
-                <a href="blog.html" class="ready-btn">Read more</a>
-            </span>
-            </div>
-            <!-- Start single blog -->
-        </div>
-        <!-- End Left Blog-->
-        <!-- Start Right Blog-->
-        <div class="col-md-4 col-sm-4 col-xs-12">
-            <div class="single-blog">
-            <div class="single-blog-img">
-                <a href="blog.html">
-                <img src="{{asset('frontend/assets/img/blog/3.jpg')}}" alt="">
-                </a>
-            </div>
-            <div class="blog-meta">
-                <span class="comments-type">
-                <i class="fa fa-comment-o"></i>
-                <a href="#">10 comments</a>
-                </span>
-                <span class="date-type">
-                <i class="fa fa-calendar"></i>2016-03-05 / 09:10:16
-                </span>
-            </div>
-            <div class="blog-text">
-                <h4>
-                <a href="blog.html">Lorem ipsum dolor sit amet</a>
-                </h4>
-                <p>
-                Lorem ipsum dolor sit amet conse adipis elit Assumenda repud eum veniam optio modi sit explicabo nisi magnam quibusdam.sit amet conse adipis elit Assumenda repud eum veniam optio modi sit explicabo nisi magnam quibusdam.
-                </p>
-            </div>
-            <span>
-                <a href="blog.html" class="ready-btn">Read more</a>
-            </span>
-            </div>
-        </div>
-        <!-- End Right Blog-->
         </div>
     </div>
-    </div>
-</div><!-- End Blog Section -->
 
-<!-- ======= Suscribe Section ======= -->
-<div class="suscribe-area">
-    <div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs=12">
-        <div class="suscribe-text text-center">
-            <h3>Welcome to our eBusiness company</h3>
-            <a class="sus-btn" href="#">Get A quote</a>
-        </div>
+    <div class="suscribe-area">
+        <div class="container">
+            <div class="row">
+                @foreach ($service as $item)
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="suscribe-text text-center">
+                        <p style="color:white;font-size:20px;">{{$item->title}}</p>
+                        <a class="sus-btn" style="margin-left:0px; !important" href="{{ route('service_single.show', $item->slug) }}">Find Out More</a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
         </div>
     </div>
-    </div>
-</div><!-- End Suscribe Section -->
 
 <!-- ======= Contact Section ======= -->
 <div id="contact" class="contact-area">

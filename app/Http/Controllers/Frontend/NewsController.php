@@ -19,9 +19,15 @@ class NewsController extends Controller
     {
         $newsId = CategoryNews::where('slug', $slug)->first();
 
-        $data = News::where('category_news_id', $newsId->id)->get();
+        if ($slug == 'all') {
+            $data = News::orderBy('created_at', 'desc')->get();
+        } else {
+            $data = News::where('category_news_id', $newsId->id)->orderBy('created_at', 'desc')->get();
+        }
+        
+        $popular = News::orderBy('created_at', 'asc')->limit(5)->get();
 
-        return view('frontend.news.index', compact('data'));
+        return view('frontend.news.index', compact('data', 'popular'));
     }
 
     /**
@@ -34,19 +40,9 @@ class NewsController extends Controller
     {
         $data = News::where('slug', $slug)->first();
 
-        return view('frontend.news.show', compact('data'));
-    }
+        $popular = News::orderBy('created_at', 'asc')->limit(5)->get();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return view('frontend.news.show', compact('data', 'popular'));
     }
 
     /**

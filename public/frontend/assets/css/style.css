@@ -281,6 +281,28 @@ div#preloader {
   }
 }
 
+.header-bg-about {
+  background: url(../img/background/content-bg-about.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  padding: 120px 0 60px;
+}
+.header-bg-about::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+@media (min-width: 1025px) {
+  .header-bg-about {
+    background-attachment: fixed;
+  }
+}
+
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
@@ -1665,6 +1687,7 @@ div#preloader {
   display: inline-block;
   float: left;
   width: 65%;
+  margin-top: 20px;
 }
 
 .pst-content p a:hover, .left-blog ul li a:hover {

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Models\Faq;
+use App\Models\News;
 use App\Models\Trusted;
 use App\Models\Service;
 use App\Models\Content;
@@ -9,7 +11,6 @@ use App\Models\AboutUs;
 use App\Models\SlideShow;
 use App\Models\CommentClient;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class MainController extends Controller
 {
@@ -25,6 +26,7 @@ class MainController extends Controller
         $data['about'] = AboutUs::first();
         $data['trusted'] = Trusted::all();
         $data['comment_client'] = CommentClient::all();
+        $data['news'] = News::orderBy('created_at', 'asc')->limit(3)->get();
 
         return view('frontend.index', $data);
     }
@@ -77,13 +79,22 @@ class MainController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Show About More.
      */
-    public function destroy($id)
+    public function about()
     {
-        //
+        $data = AboutUs::first();
+
+        return view('frontend.about.index', compact('data'));
+    }
+
+    /**
+     * Show FAQ More.
+     */
+    public function faq()
+    {
+        $data = Faq::orderBy('created_at', 'asc')->get();
+
+        return view('frontend.faq.index', compact('data'));
     }
 }
