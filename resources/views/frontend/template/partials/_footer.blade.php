@@ -11,19 +11,21 @@
                             </div>
 
                             <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+                            @php
+                                $getFacebook = getFacebook();
+                                $getInstagram = getInstagram();
+                                $getLinkedin = getLinkedin();
+                            @endphp
                             <div class="footer-icons">
                                 <ul>
                                     <li>
-                                    <a href="#"><i class="bi bi-facebook"></i></a>
+                                        <a href="{{$getFacebook->link}}"><i class="bi bi-{{$getFacebook->icon}}" target="_blank"></i></a>
                                     </li>
                                     <li>
-                                    <a href="#"><i class="bi bi-twitter"></i></a>
+                                        <a href="{{$getInstagram->link}}"><i class="bi bi-{{$getInstagram->icon}}" target="_blank"></i></a>
                                     </li>
                                     <li>
-                                    <a href="#"><i class="bi bi-instagram"></i></a>
-                                    </li>
-                                    <li>
-                                    <a href="#"><i class="bi bi-linkedin"></i></a>
+                                        <a href="{{$getLinkedin->link}}"><i class="bi bi-{{$getLinkedin->icon}}" target="_blank"></i></a>
                                     </li>
                                 </ul>
                             </div>
