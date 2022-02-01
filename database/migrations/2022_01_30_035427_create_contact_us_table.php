@@ -15,9 +15,9 @@ class CreateContactUsTable extends Migration
     {
         Schema::create('contact_us', function (Blueprint $table) {
             $table->id();
-            $table->string('icon');
+            $table->string('icon')->nullable();
             $table->string('title');
-            $table->string('sub_title');
+            $table->string('sub_title')->nullable();
             $table->string('description');
             $table->timestamps();
             $table->softDeletes();
