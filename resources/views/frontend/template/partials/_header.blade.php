@@ -12,7 +12,7 @@
         <nav id="navbar" class="navbar" style="margin-left:50px;">
             <ul>
                 @foreach ($dataMenu as $item)
-                <li class="dropdown"><a href="#" class="nav-link active"><span>{{$item->name}}</span> <i class="bi bi-chevron-right"></i></a>
+                <li class="dropdown"><a href="#" class="nav-link"><span>{{$item->name}}</span> <i class="bi bi-chevron-right"></i></a>
                     <ul>
                         @foreach($item->subMenu as $itemSecond)
                             @if ($itemSecond->content)
