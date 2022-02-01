@@ -129,6 +129,18 @@
                     <span>Faq</span>
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('contact-us.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact Us</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('information.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Information</span>
+                </a>
+            </li>
         </ul>
     </aside>
     <main id="main" class="main">
