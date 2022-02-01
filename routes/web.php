@@ -4,8 +4,10 @@ use App\Http\Controllers\{
     AboutUsController,
     CategoryNewsController,
     CommentClientController,
+    ContactUsController,
     ContentController,
     FaqController,
+    InformationController,
     MenuController,
     NewsController,
     ServiceController,
@@ -61,4 +63,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('category-news', CategoryNewsController::class);
     Route::resource('news-list', NewsController::class);
     Route::resource('faq', FaqController::class);
+    Route::resource('contact-us', ContactUsController::class);
+    Route::resource('information', InformationController::class);
 });
