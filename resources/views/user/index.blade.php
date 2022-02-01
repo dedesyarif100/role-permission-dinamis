@@ -29,22 +29,21 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-1">
-                    <a href="{{ route('contact-us.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                    <a href="{{ route('user.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
                         <i class="fas fa-plus"></i> Create
                     </a>
                 </div>
                 <div class="col-md-10 align-self-end">
-                    <h1>Contact Us</h1>
+                    <h1>User</h1>
                 </div>
             </div><hr>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
                         <th class="serial">#</th>
-                        <th>Icon</th>
-                        <th>Title</th>
-                        <th>Link</th>
-                        <th>Description</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -73,10 +72,9 @@
             autoWidth   : false,
             columns     : [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                {data: 'icon', name: 'icon'},
-                {data: 'title', name: 'title'},
-                {data: 'link', name: 'link'},
-                {data: 'description', name: 'description'},
+                {data: 'name', name: 'name'},
+                {data: 'email', name: 'email'},
+                {data: 'role', name: 'role'},
                 {
                     data: 'action',
                     name: 'action',
@@ -89,17 +87,17 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('contact-us.index') }}";
+            sendData.ajax = "{{ route('user.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
 
         // DELETE >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#delete', function() {
-            let contactUsId = $(this).data('id');
+            let userId = $(this).data('id');
             swal.fire({
                 title: 'Are you sure?',
-                html: 'You want to <b>delete</b> this Contact Us ',
+                html: 'You want to <b>delete</b> this User ',
                 showCancelButton: true,
                 showCloseButton: true,
                 cancelButtonText: 'Cancel',
@@ -112,9 +110,9 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('contact-us') }}" + '/' + contactUsId,
+                        url: "{{ url('user') }}" + '/' + userId,
                         data: {
-                            contactUsId : contactUsId,
+                            userId : userId,
                         },
                         success: function(data) {
                             toastr.success(data.msg);

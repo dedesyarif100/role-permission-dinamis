@@ -13,7 +13,8 @@ use App\Http\Controllers\{
     ServiceController,
     SlideShowController,
     SubMenuController,
-    TrustedController
+    TrustedController,
+    UserController
 };
 
 use App\Http\Controllers\Frontend\{
@@ -54,6 +55,7 @@ Route::get('admin', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::resource('user',             UserController::class);
     Route::resource('menu',             MenuController::class);
     Route::resource('sub-menu',         SubMenuController::class);
     Route::resource('content',          ContentController::class);
@@ -67,4 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('faq',              FaqController::class);
     Route::resource('contact-us',       ContactUsController::class);
     Route::resource('information',      InformationController::class);
+    Route::resource('consultation',     ConsultationController::class);
+    Route::resource('contact-our',      ContactOurController::class);
 });

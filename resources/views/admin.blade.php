@@ -68,6 +68,14 @@
 
     <aside id="sidebar" class="sidebar">
         <ul class="sidebar-nav" id="sidebar-nav">
+            @if( auth()->user()->userRole->role_id === 1 )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('user.index') }}">
+                        <i class="bi bi-person"></i>
+                        <span>User</span>
+                    </a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('menu.index') }}">
                     <i class="bi bi-person"></i>
@@ -144,6 +152,16 @@
                 <a class="nav-link collapsed" href="{{ route('information.index') }}">
                     <i class="bi bi-envelope"></i>
                     <span>Information</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                @php
+                    $consultations = \App\Models\Consultations::where('read_at', null)->count();
+                @endphp
+                <a class="nav-link collapsed" href="{{ route('consultation.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Consultation</span>
+                    <span class="badge bg-primary"> {{ $consultations }} </span>
                 </a>
             </li>
         </ul>

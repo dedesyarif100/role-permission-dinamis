@@ -51,19 +51,19 @@ class ContactUsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'email' => 'required',
-            'address' => 'required',
-            'phone_number' => 'required'
+            'title' => 'required',
+            'description' => 'required',
         ], [
-            'email.required' => 'This field is required',
-            'address.required' => 'This field is required',
-            'phone_number.required' => 'This field is required'
+            'title.required' => 'This field is required',
+            'description.required' => 'This field is required'
         ]);
 
         ContactUs::create([
-            'email' => $request->email,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number
+            'icon' => $request->icon,
+            'title' => $request->title,
+            'sub_title' => $request->sub_title,
+            'description' => $request->description,
+            'link' => $request->link
         ]);
 
         return redirect('contact-us')->with('status', 'Data success created !');
@@ -102,19 +102,19 @@ class ContactUsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'email' => 'required',
-            'address' => 'required',
-            'phone_number' => 'required'
+            'title' => 'required',
+            'description' => 'required',
         ], [
-            'email.required' => 'This field is required',
-            'address.required' => 'This field is required',
-            'phone_number.required' => 'This field is required'
+            'title.required' => 'This field is required',
+            'description.required' => 'This field is required'
         ]);
 
         ContactUs::where('id', $id)->update([
-            'email' => $request->email,
-            'address' => $request->address,
-            'phone_number' => $request->phone_number
+            'icon' => $request->icon,
+            'title' => $request->title,
+            'sub_title' => $request->sub_title,
+            'description' => $request->description,
+            'link' => $request->link
         ]);
 
         return redirect('contact-us')->with('status', 'Data success updated !');
