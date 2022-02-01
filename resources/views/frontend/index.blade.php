@@ -231,97 +231,93 @@
         </div>
     </div>
 
-<!-- ======= Contact Section ======= -->
-<div id="contact" class="contact-area">
-    <div class="contact-inner area-padding">
-    <div class="contact-overly"></div>
-    <div class="container ">
-        <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="section-headline text-center">
-            <h2>Contact us</h2>
-            </div>
-        </div>
-        </div>
-        <div class="row">
-        <!-- Start contact icon column -->
-        <div class="col-md-4">
-            <div class="contact-icon text-center">
-            <div class="single-icon">
-                <i class="bi bi-phone"></i>
-                <p>
-                Call: +1 5589 55488 55<br>
-                <span>Monday-Friday (9am-5pm)</span>
-                </p>
-            </div>
-            </div>
-        </div>
-        <!-- Start contact icon column -->
-        <div class="col-md-4">
-            <div class="contact-icon text-center">
-            <div class="single-icon">
-                <i class="bi bi-envelope"></i>
-                <p>
-                Email: info@example.com<br>
-                <span>Web: www.example.com</span>
-                </p>
-            </div>
-            </div>
-        </div>
-        <!-- Start contact icon column -->
-        <div class="col-md-4">
-            <div class="contact-icon text-center">
-            <div class="single-icon">
-                <i class="bi bi-geo-alt"></i>
-                <p>
-                Location: A108 Adam Street<br>
-                <span>NY 535022, USA</span>
-                </p>
-            </div>
-            </div>
-        </div>
-        </div>
-        <div class="row">
-
-        <div class="col-md-6">
-            <iframe src="https://maps.google.com/maps?q=ananta%20mitra%20karya&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
-        </div>
-        <div class="col-md-6">
-            <div class="form contact-form">
-            <form action="{{route('contact_our.store')}}" method="post" role="form">
-                @csrf
-                <div class="form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+    <div id="contact" class="contact-area">
+        <div class="contact-inner area-padding">
+            <div class="contact-overly"></div>
+            <div class="container ">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="section-headline text-center">
+                        <h2>Contact us</h2>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group mt-3">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                <div class="row">
+                    @foreach($contact as $item) 
+                    <div class="col-md-4">
+                        <div class="contact-icon text-center">
+                            <div class="single-icon">
+                                <i class="bi bi-{{$item->icon}}"></i>
+                                <p>
+                                {{$item->title}}: {{$item->description}}<br>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                    {{-- <div class="col-md-4">
+                        <div class="contact-icon text-center">
+                            <div class="single-icon">
+                                <i class="bi bi-envelope"></i>
+                                <p>
+                                Email: info@example.com<br>
+                                <span>Web: www.example.com</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="contact-icon text-center">
+                            <div class="single-icon">
+                                <i class="bi bi-geo-alt"></i>
+                                <p>
+                                Location: A108 Adam Street<br>
+                                <span>NY 535022, USA</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div> --}}
                 </div>
-                <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" required>
+                <div class="row">
+                    <div class="col-md-6">
+                        <iframe src="https://maps.google.com/maps?q=ananta%20mitra%20karya&t=&z=13&ie=UTF8&iwloc=&output=embed" width="100%" height="380" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form contact-form">
+                        <form action="{{route('contact_our.store')}}" method="post" role="form">
+                            @csrf
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="text" class="form-control" name="phone" id="phone" placeholder="Your Phone" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                            </div>
+                            <div class="my-3">
+                            @if (Session::has('success'))
+                            <div class="alert alert-success" role="alert">
+                                Your message has been sent. Thank you!
+                            </div>
+                            @endif
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-block btn-info">Send Message</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group mt-3">
-                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
-                </div>
-                <div class="form-group mt-3">
-                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
-                </div>
-                <div class="my-3">
-                @if (Session::has('success'))
-                <div class="alert alert-success" role="alert">
-                    Your message has been sent. Thank you!
-                </div>
-                @endif
-                </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-block btn-info">Send Message</button>
-                </div>
-            </form>
             </div>
-        </div>
         </div>
     </div>
-    </div>
-</div>
 
 </main>
 

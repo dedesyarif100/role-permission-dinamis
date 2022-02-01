@@ -19,6 +19,7 @@ class CreateContactUsTable extends Migration
             $table->string('title');
             $table->string('sub_title')->nullable();
             $table->string('description');
+            $table->string('link')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

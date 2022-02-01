@@ -8,6 +8,7 @@ use App\Models\Trusted;
 use App\Models\Service;
 use App\Models\Content;
 use App\Models\AboutUs;
+use App\Models\ContactUs;
 use App\Models\SlideShow;
 use App\Models\CommentClient;
 use App\Http\Controllers\Controller;
@@ -27,6 +28,7 @@ class MainController extends Controller
         $data['trusted'] = Trusted::all();
         $data['comment_client'] = CommentClient::all();
         $data['news'] = News::orderBy('created_at', 'asc')->limit(3)->get();
+        $data['contact'] = ContactUs::orderBy('created_at', 'asc')->limit(3)->get();
 
         return view('frontend.index', $data);
     }
