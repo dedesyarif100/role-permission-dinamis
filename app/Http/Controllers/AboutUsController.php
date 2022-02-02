@@ -21,9 +21,7 @@ class AboutUsController extends Controller
             return DataTables::of($aboutUs)
             ->addIndexColumn()
             ->addColumn('action', function($aboutUs) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/about-us/'.$aboutUs['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('admin/about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$aboutUs['id'].'" id="delete"> <i class="fas fa-trash"></i> </button>';
+                $action = '<a href="'.url('admin/about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm" id="edit"> <i class="fa fa-edit"></i> </a>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])
@@ -40,8 +38,7 @@ class AboutUsController extends Controller
      */
     public function create()
     {
-        $aboutUs = null;
-        return view('about-us.editor', compact('aboutUs'));
+        
     }
 
     /**
@@ -52,30 +49,7 @@ class AboutUsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'image' => 'required'
-        ], [
-            'title.required' => 'This field is required',
-            'description.required' => 'This field is required',
-            'image.required' => 'This field is required'
-        ]);
-
-        $outputFile = 'about-us';
-        $path = Storage::disk('public')->put($outputFile, $request->image);
-
-        AboutUs::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'whatsapp_number' => $request->whatsapp_number,
-            'instagram' => $request->instagram,
-            'linkedin' => $request->linkedin,
-            'facebook' => $request->facebook,
-            'image' => $path
-        ]);
-
-        return redirect('admin/about-us')->with('status', 'Data success created !');
+        
     }
 
     /**
@@ -86,8 +60,7 @@ class AboutUsController extends Controller
      */
     public function show($id)
     {
-        $aboutUs = AboutUs::find($id);
-        return view('about-us.detail', compact('aboutUs'));
+        
     }
 
     /**
@@ -150,10 +123,6 @@ class AboutUsController extends Controller
      */
     public function destroy($id)
     {
-        $aboutUs = AboutUs::find($id);
-        $outputFile = 'about-us';
-        Storage::disk('public')->delete($outputFile, $aboutUs->image);
-        AboutUs::where('id', $aboutUs->id)->delete();
-        return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+        
     }
 }

@@ -1,7 +1,11 @@
 @extends('admin')
 
-@section('content')
+@section('css')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+@endsection
 
+@section('content')
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="card-body">
@@ -65,7 +69,13 @@
                                         <label>Password : </label>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter password" @if ( !empty($user) ) value="{{ old('password', $user->password) }}" @else value="{{ old('password') }}" @endif>
+                                        <div class="input-group-append">
+                                            <input type="password" class="input form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Enter password" @if ( !empty($user) ) value="{{ old('password', $user->password) }}" @else value="{{ old('password') }}" @endif aria-label="password" aria-describedby="basic-addon1" >
+                                            <span class="input-group-text" onclick="password_show_hide();" style="cursor: pointer;">
+                                                <i class="fas fa-eye" id="show_eye"></i>
+                                                <i class="fas fa-eye-slash d-none" id="hide_eye"></i>
+                                            </span>
+                                        </div>
                                         @error('password')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -81,7 +91,13 @@
                                         <label>Password Confirmation : </label>
                                     </div>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" placeholder="Enter password confirmation" @if ( !empty($user) ) value="{{ old('password', $user->password) }}" @else value="{{ old('password') }}" @endif>
+                                        <div class="input-group-append">
+                                            <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation" name="password_confirmation" placeholder="Enter password confirmation" @if ( !empty($user) ) value="{{ old('password', $user->password) }}" @else value="{{ old('password') }}" @endif>
+                                            <span class="input-group-text" onclick="password_confirmation_show_hide();" style="cursor: pointer;">
+                                                <i class="fas fa-eye" id="password_confirmation_show_eye"></i>
+                                                <i class="fas fa-eye-slash d-none" id="password_confirmation_hide_eye"></i>
+                                            </span>
+                                        </div>
                                         @error('password_confirmation')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -157,4 +173,40 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    function password_show_hide() {
+        var x = document.getElementById("password");
+        var show_eye = document.getElementById("show_eye");
+        var hide_eye = document.getElementById("hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+            x.type = "text";
+            show_eye.style.display = "none";
+            hide_eye.style.display = "block";
+        } else {
+            x.type = "password";
+            show_eye.style.display = "block";
+            hide_eye.style.display = "none";
+        }
+    }
+
+    function password_confirmation_show_hide() {
+        var x = document.getElementById("password_confirmation");
+        var show_eye = document.getElementById("password_confirmation_show_eye");
+        var hide_eye = document.getElementById("password_confirmation_hide_eye");
+        hide_eye.classList.remove("d-none");
+        if (x.type === "password") {
+            x.type = "text";
+            show_eye.style.display = "none";
+            hide_eye.style.display = "block";
+        } else {
+            x.type = "password";
+            show_eye.style.display = "block";
+            hide_eye.style.display = "none";
+        }
+    }
+</script>
 @endsection

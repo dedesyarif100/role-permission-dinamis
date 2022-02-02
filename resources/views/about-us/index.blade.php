@@ -2,7 +2,7 @@
 
 @section('css')
 <style>
-    .dataTables_paginate, .dataTables_filter, .btn-group, .sorting_disabled {
+    .dataTables_paginate, .dataTables_filter, .btn-group, .sorting_disabled, #edit {
         float: right;
     }
     a, button {
@@ -27,16 +27,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-1">
-                    <a href="{{ route('about-us.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
-                        <i class="fas fa-plus"></i> Create
-                    </a>
-                </div>
-                <div class="col-md-10 align-self-end">
-                    <h1>About Us</h1>
-                </div>
-            </div><hr>
+            <h1>About Us</h1><hr>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
@@ -87,39 +78,6 @@
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
-
-        // DELETE >>>>>>>>>>>>>>>>>>
-        $(document).on('click', '#delete', function() {
-            let aboutUsId = $(this).data('id');
-            swal.fire({
-                title: 'Are you sure?',
-                html: 'You want to <b>delete</b> this About Us ',
-                showCancelButton: true,
-                showCloseButton: true,
-                cancelButtonText: 'Cancel',
-                confirmButtonText: 'Yes, Delete',
-                cancelButtonColor: '#556ee6',
-                confirmButtonColor: '#d33',
-                width: 300,
-                allowOutsideClick: false
-            }).then(function(result) {
-                if (result.value) {
-                    $.ajax({
-                        type: 'DELETE',
-                        url: "{{ url('admin/about-us') }}" + '/' + aboutUsId,
-                        data: {
-                            aboutUsId : aboutUsId,
-                        },
-                        success: function(data) {
-                            toastr.success(data.msg);
-                            cell = table.cell( this );
-                            cell.data( cell.data() + 1 ).draw();
-                        }
-                    });
-                }
-            });
-        });
-        // DELETE >>>>>>>>>>>>>>>>>>
     });
 </script>
 @endsection

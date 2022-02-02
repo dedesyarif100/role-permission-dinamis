@@ -27,16 +27,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="row">
-                <div class="col-md-1">
-                    <a href="{{ route('information.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
-                        <i class="fas fa-plus"></i> Create
-                    </a>
-                </div>
-                <div class="col-md-10 align-self-end">
-                    <h1>Information</h1>
-                </div>
-            </div><hr>
+            <h1>Information</h1><hr>
             <table class="table" id="datatable">
                 <thead>
                     <tr>

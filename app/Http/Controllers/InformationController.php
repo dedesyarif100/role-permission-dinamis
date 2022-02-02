@@ -23,8 +23,7 @@ class InformationController extends Controller
                     return $information->description;
                 })
                 ->addColumn('action', function($information) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/information/'.$information['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$information['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    $action = '<a href="'.url('admin/information/'.$information['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                     return $action;
                 })
                 ->rawColumns(['DT_Row_Index', 'description', 'action'])
@@ -40,8 +39,7 @@ class InformationController extends Controller
      */
     public function create()
     {
-        $information = null;
-        return view('information.editor', compact('information'));
+        
     }
 
     /**
@@ -52,16 +50,7 @@ class InformationController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'description' => 'required'
-        ], [
-            'description.required' => 'This field is required'
-        ]);
         
-        Information::create([
-            'description' => $request->description
-        ]);
-        return redirect('admin/information')->with('status', 'Data success created !');
     }
 
     /**
@@ -115,7 +104,6 @@ class InformationController extends Controller
      */
     public function destroy($id)
     {
-        Information::where('id', $id)->delete();
-        return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+        
     }
 }

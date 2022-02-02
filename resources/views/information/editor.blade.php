@@ -4,19 +4,11 @@
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="card-body">
-            <h1>
-                @if (is_null($information))
-                    Create Information
-                @else
-                    Edit Information
-                @endif
-            </h1><hr><br>
+            <h1>Edit Information</h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($information)) {{ route('information.store') }} @else {{ url('admin/information/'.$information->id) }} @endif" method="POST" enctype="multipart/form-data">
-                        @if (!is_null($information))
-                            @method('PATCH')
-                        @endif
+                    <form action="{{ url('admin/information/'.$information->id) }}" method="POST" enctype="multipart/form-data">
+                        @method('PATCH')
                         @csrf
 
                         <div class="form-group">
@@ -25,7 +17,7 @@
                                     <label>Description</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($information)){{ old('information->description', $information->description) }}@else{{ old('description') }}@endif</textarea>
+                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">{{ old('information->description', $information->description) }}</textarea>
                                     @error('description')
                                         <div class="invalid-feedback">
                                             {{ $message }}

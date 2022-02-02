@@ -13,19 +13,11 @@
 <div class="content mt-3">
     <div class="animated fadeIn">
         <div class="card-body">
-            <h1>
-                @if (is_null($aboutUs))
-                    Create About Us
-                @else
-                    Edit About Us
-                @endif
-            </h1><hr><br>
+            <h1>Edit About Us</h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($aboutUs)) {{ route('about-us.store') }} @else {{ url('admin/about-us/'.$aboutUs->id) }} @endif" method="POST" enctype="multipart/form-data">
-                        @if (!is_null($aboutUs))
-                            @method('PATCH')
-                        @endif
+                    <form action="{{ url('admin/about-us/'.$aboutUs->id) }}" method="POST" enctype="multipart/form-data">
+                        @method('PATCH')
                         @csrf
 
                         <div class="form-group">
@@ -34,7 +26,7 @@
                                     <label>Title</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" @if(!is_null($aboutUs)) value="{{ old('title', $aboutUs->title) }}" @else value="{{ old('title') }}" @endif>
+                                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $aboutUs->title) }}">
                                     @error('title')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -50,7 +42,7 @@
                                     <label>Whatshapp Number</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control @error('whatsapp_number') is-invalid @enderror" name="whatsapp_number" @if(!is_null($aboutUs)) value="{{ old('whatsapp_number', $aboutUs->whatsapp_number) }}" @else value="{{ old('whatsapp_number') }}" @endif>
+                                    <input type="text" class="form-control @error('whatsapp_number') is-invalid @enderror" name="whatsapp_number" value="{{ old('whatsapp_number', $aboutUs->whatsapp_number) }}">
                                     @error('whatsapp_number')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -66,7 +58,7 @@
                                     <label>Instagram</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control @error('instagram') is-invalid @enderror" name="instagram" @if(!is_null($aboutUs)) value="{{ old('instagram', $aboutUs->instagram) }}" @else value="{{ old('instagram') }}" @endif>
+                                    <input type="text" class="form-control @error('instagram') is-invalid @enderror" name="instagram" value="{{ old('instagram', $aboutUs->instagram) }}">
                                     @error('instagram')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -82,7 +74,7 @@
                                     <label>Linked In</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control @error('linkedin') is-invalid @enderror" name="linkedin" @if(!is_null($aboutUs)) value="{{ old('linkedin', $aboutUs->linkedin) }}" @else value="{{ old('linkedin') }}" @endif>
+                                    <input type="text" class="form-control @error('linkedin') is-invalid @enderror" name="linkedin" value="{{ old('linkedin', $aboutUs->linkedin) }}">
                                     @error('linkedin')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -98,7 +90,7 @@
                                     <label>Facebook</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <input type="text" class="form-control @error('facebook') is-invalid @enderror" name="facebook" @if(!is_null($aboutUs)) value="{{ old('facebook', $aboutUs->facebook) }}" @else value="{{ old('facebook') }}" @endif>
+                                    <input type="text" class="form-control @error('facebook') is-invalid @enderror" name="facebook" value="{{ old('facebook', $aboutUs->facebook) }}">
                                     @error('facebook')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -114,7 +106,7 @@
                                     <label>Description</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($aboutUs)) {{ old('description', $aboutUs->description) }} @else {{ old('description') }} @endif</textarea>
+                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">{{ old('description', $aboutUs->description) }}</textarea>
                                     @error('description')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -165,6 +157,6 @@
 <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
 <script>
     CKEDITOR.replace( 'description' );
-    var upload = new FileUploadWithPreview("myUniqueUploadId");
+    let upload = new FileUploadWithPreview("myUniqueUploadId");
 </script>
 @endsection
