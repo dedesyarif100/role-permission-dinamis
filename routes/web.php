@@ -54,7 +54,7 @@ Route::get('admin', function () {
     return view('menu.index');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->prefix('admin')->group(function () {
     Route::resource('user',             UserController::class);
     Route::resource('menu',             MenuController::class);
     Route::resource('sub-menu',         SubMenuController::class);
@@ -69,6 +69,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('faq',              FaqController::class);
     Route::resource('contact-us',       ContactUsController::class);
     Route::resource('information',      InformationController::class);
-    Route::resource('consultation',     ConsultationController::class);
+    Route::resource('consultations',    ConsultationController::class);
     Route::resource('contact-our',      ContactOurController::class);
 });

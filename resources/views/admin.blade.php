@@ -158,10 +158,22 @@
                 @php
                     $consultations = \App\Models\Consultations::where('read_at', null)->count();
                 @endphp
-                <a class="nav-link collapsed" href="{{ route('consultation.index') }}">
+                <a class="nav-link collapsed" href="{{ route('consultations.index') }}">
                     <i class="bi bi-envelope"></i>
                     <span>Consultation</span>
+                    <span> | </span>
                     <span class="badge bg-primary"> {{ $consultations }} </span>
+                </a>
+            </li>
+            <li class="nav-item">
+                @php
+                    $contactOur = \App\Models\ContactOur::where('read_at', null)->count();
+                @endphp
+                <a class="nav-link collapsed" href="{{ route('contact-our.index') }}">
+                    <i class="bi bi-envelope"></i>
+                    <span>Contact Our</span>
+                    <span class="d-flex justify-content-end"> | </span>
+                    <span class="badge bg-primary"> {{ $contactOur }} </span>
                 </a>
             </li>
         </ul>

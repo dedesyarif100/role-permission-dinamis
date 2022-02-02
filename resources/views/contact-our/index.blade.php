@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-10 align-self-end">
-                    <h1>Consultation</h1>
+                    <h1>Contact Our</h1>
                 </div>
             </div><hr>
             <table class="table" id="datatable">
@@ -38,8 +38,8 @@
                         <th class="serial">#</th>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Company</th>
-                        <th>Consultation Type</th>
+                        <th>Phone</th>
+                        <th>Subject</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -68,10 +68,10 @@
             autoWidth   : false,
             columns     : [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
-                {data: 'name', name: 'name', type: 'html'},
+                {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
-                {data: 'company', name: 'company'},
-                {data: 'consultation_type', name: 'consultation_type'},
+                {data: 'phone', name: 'phone'},
+                {data: 'subject', name: 'subject'},
                 {
                     data: 'action',
                     name: 'action',
@@ -84,17 +84,17 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('consultations.index') }}";
+            sendData.ajax = "{{ route('contact-our.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
 
         // DELETE >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#delete', function() {
-            let consultationId = $(this).data('id');
+            let contactOurId = $(this).data('id');
             swal.fire({
                 title: 'Are you sure?',
-                html: 'You want to <b>delete</b> this Consultation',
+                html: 'You want to <b>delete</b> this Contact Our ',
                 showCancelButton: true,
                 showCloseButton: true,
                 cancelButtonText: 'Cancel',
@@ -107,9 +107,9 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('consultations') }}" + '/' + consultationId,
+                        url: "{{ url('contact-our') }}" + '/' + contactOurId,
                         data: {
-                            consultationId : consultationId,
+                            contactOurId : contactOurId,
                         },
                         success: function(data) {
                             toastr.success(data.msg);

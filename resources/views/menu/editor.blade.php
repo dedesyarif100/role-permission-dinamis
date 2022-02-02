@@ -13,7 +13,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($menu)) {{ route('menu.store') }} @else {{ url('menu/'.$menu->id) }} @endif" method="POST">
+                    <form action="@if(is_null($menu)) {{ route('menu.store') }} @else {{ url('admin/menu/'.$menu->id) }} @endif" method="POST">
                         @if (!is_null($menu))
                             @method('PATCH')
                         @endif

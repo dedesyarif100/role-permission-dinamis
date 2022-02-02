@@ -74,7 +74,7 @@
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'name', name: 'name'},
                 {data: 'email', name: 'email'},
-                {data: 'role', name: 'role'},
+                {data: 'role', name: 'role', type: 'html'},
                 {
                     data: 'action',
                     name: 'action',
@@ -110,7 +110,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('user') }}" + '/' + userId,
+                        url: "{{ url('admin/user') }}" + '/' + userId,
                         data: {
                             userId : userId,
                         },

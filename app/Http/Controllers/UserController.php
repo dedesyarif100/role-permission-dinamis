@@ -23,15 +23,22 @@ class UserController extends Controller
             return DataTables::of($user)
                 ->addIndexColumn()
                 ->addColumn('role', function($user) {
-                    return $user->userRole->role->name;
+                    if ( $user->userRole->role->name == 'admin' ) {
+                        return '<span class="name badge bg-success" style="color: white;">'.$user->userRole->role->name.'</span>';
+                    } else {
+                        return '<span class="name badge bg-primary" style="color: white;">'.$user->userRole->role->name.'</span>';
+                    }
                 })
                 ->addColumn('action', function($user) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('user/'.$user['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                    $action .= '<a href="'.url('user/'.$user['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$user['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/user/'.$user['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    if (auth()->user()->id === $user->id) {
+                        $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fas fa-trash"></i> </button> </div>';
+                    } else {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$user['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    }
                     return $action;
                 })
-                ->rawColumns(['DT_Raw_Column', 'action'])
+                ->rawColumns(['DT_Raw_Column', 'role', 'action'])
                 ->make(true);
         }
         return view('user.index');
@@ -57,18 +64,24 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'email' => 'required',
             'password' => 'required',
+            'password_confirmation' => 'required',
             'role_id' => 'required'
         ], [
             'name.required' => 'This field is required',
             'email.required' => 'This field is required',
             'password.required' => 'This field is required',
+            'password_confirmation.required' => 'This field is required',
             'role_id.required' => 'This field is required',
         ]);
+
+        // dd($request->all());
+        if ($request->password !== $request->password_confirmation) {
+            return redirect()->back()->with('status', 'Password Confirmasi harus sama');
+        }
         
         $user = User::create([
             'name' => $request->name,
@@ -81,7 +94,7 @@ class UserController extends Controller
             'role_id' => $request->role_id
         ]);
 
-        return redirect('user')->with('status', 'Data success created !');
+        return redirect('admin/user')->with('status', 'Data success created !');
     }
 
     /**
@@ -101,9 +114,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $roles = Role::all();
+        return view('user.editor', compact('user', 'roles'));
     }
 
     /**
@@ -115,7 +129,27 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'role_id' => 'required'
+        ], [
+            'name.required' => 'This field is required',
+            'email.required' => 'This field is required',
+            'role_id.required' => 'This field is required',
+        ]);
+
+        User::where('id', $id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+        $user = User::find($id);
+
+        UserRole::where('user_id', $user->id)->update([
+            'role_id' => $request->role_id
+        ]);
+
+        return redirect('admin/user')->with('status', 'Data success updated !');
     }
 
     /**
@@ -126,6 +160,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::where('id', $id)->delete();
+        return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
     }
 }

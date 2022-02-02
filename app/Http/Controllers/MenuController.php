@@ -22,7 +22,7 @@ class MenuController extends Controller
             return DataTables::of($menu)
             ->addIndexColumn()
             ->addColumn('action', function($menu) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('menu/'.$menu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/menu/'.$menu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 if ( SubMenu::where('menu_id', $menu->id)->exists() || Content::where('menu_id', $menu->id)->exists() ) {
                     $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
                 } else {
@@ -66,7 +66,7 @@ class MenuController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect('menu')->with('status', 'Data success created!');
+        return redirect('admin/menu')->with('status', 'Data success created!');
     }
 
     /**
@@ -110,7 +110,7 @@ class MenuController extends Controller
             'name' => $request->name,
         ]);
 
-        return redirect('menu')->with('status', 'Data success updated!');
+        return redirect('admin/menu')->with('status', 'Data success updated!');
     }
 
     /**
