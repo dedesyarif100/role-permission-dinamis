@@ -23,7 +23,7 @@ class InformationController extends Controller
                     return $information->description;
                 })
                 ->addColumn('action', function($information) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('information/'.$information['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/information/'.$information['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                     $action .= '<button class="btn btn-danger btn-sm" data-id="'.$information['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                     return $action;
                 })
@@ -61,7 +61,7 @@ class InformationController extends Controller
         Information::create([
             'description' => $request->description
         ]);
-        return redirect('information')->with('status', 'Data success created !');
+        return redirect('admin/information')->with('status', 'Data success created !');
     }
 
     /**
@@ -104,7 +104,7 @@ class InformationController extends Controller
         Information::where('id', $id)->update([
             'description' => $request->description
         ]);
-        return redirect('information')->with('status', 'Data success updated !');
+        return redirect('admin/information')->with('status', 'Data success updated !');
     }
 
     /**

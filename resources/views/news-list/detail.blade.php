@@ -1,7 +1,7 @@
 @extends('admin')
 
 @section('content')
-<h1>Detail News</h1>
+<h1>Detail News</h1><hr>
 <div class="content">
     <div class="card-body">
         <h2>{{ $news->categoryNews->title }}</h2>

@@ -21,7 +21,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($faq)) {{ route('faq.store') }} @else {{ url('faq/'.$faq->id) }} @endif" method="POST" enctype="multipart/form-data">
+                    <form action="@if(is_null($faq)) {{ route('faq.store') }} @else {{ url('admin/faq/'.$faq->id) }} @endif" method="POST" enctype="multipart/form-data">
                         @if (!is_null($faq))
                             @method('PATCH')
                         @endif
@@ -49,7 +49,7 @@
                                     <label>Description</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($faq)) {{ old('description', $faq->description) }} @else {{ old('description') }} @endif</textarea>
+                                    <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="10" cols="80">@if(!is_null($faq)){{ old('description', $faq->description) }}@else{{ old('description') }}@endif</textarea>
                                     @error('description')
                                         <div class="invalid-feedback">
                                             {{ $message }}

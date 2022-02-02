@@ -108,7 +108,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('faq') }}" + '/' + faqId,
+                        url: "{{ url('admin/faq') }}" + '/' + faqId,
                         data: {
                             faqId : faqId,
                         },

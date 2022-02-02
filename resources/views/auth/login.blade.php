@@ -48,13 +48,13 @@
                                                 <label for="show_password"> Show Password </label>
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        {{-- <div class="col-md-6">
                                             <div class="show">
                                                 <a href="{{ route('register') }}" class="register justify-content-end">
                                                     Register Here
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                 </div>
                                 <div class="form-group">

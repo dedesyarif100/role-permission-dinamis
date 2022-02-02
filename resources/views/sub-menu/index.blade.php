@@ -108,7 +108,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('sub-menu') }}" + '/' + subMenuId,
+                        url: "{{ url('admin/sub-menu') }}" + '/' + subMenuId,
                         data: {
                             subMenuId : subMenuId,
                         },

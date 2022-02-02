@@ -22,7 +22,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($trusted)) {{ route('trusted.store') }} @else {{ url('trusted/'.$trusted->id) }} @endif" method="POST" enctype="multipart/form-data">
+                    <form action="@if(is_null($trusted)) {{ route('trusted.store') }} @else {{ url('admin/trusted/'.$trusted->id) }} @endif" method="POST" enctype="multipart/form-data">
                         @if (!is_null($trusted))
                             @method('PATCH')
                         @endif

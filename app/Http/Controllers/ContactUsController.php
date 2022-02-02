@@ -20,7 +20,7 @@ class ContactUsController extends Controller
             return DataTables::of($contactUs)
                 ->addIndexColumn()
                 ->addColumn('action', function($contactUs) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('contact-us/'.$contactUs['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/contact-us/'.$contactUs['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                     $action .= '<button class="btn btn-danger btn-sm" data-id="'.$contactUs['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                     return $action;
                 })
@@ -66,7 +66,7 @@ class ContactUsController extends Controller
             'link' => $request->link
         ]);
 
-        return redirect('contact-us')->with('status', 'Data success created !');
+        return redirect('admin/contact-us')->with('status', 'Data success created !');
     }
 
     /**
@@ -117,7 +117,7 @@ class ContactUsController extends Controller
             'link' => $request->link
         ]);
 
-        return redirect('contact-us')->with('status', 'Data success updated !');
+        return redirect('admin/contact-us')->with('status', 'Data success updated !');
     }
 
     /**

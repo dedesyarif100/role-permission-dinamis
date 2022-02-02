@@ -25,7 +25,7 @@ class SubMenuController extends Controller
                 return $subMenu->menu->name;
             })
             ->addColumn('action', function($subMenu) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('sub-menu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/sub-menu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 if ( Content::where('sub_menu_id', $subMenu->id)->exists() ) {
                     $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
                 } else {
@@ -73,7 +73,7 @@ class SubMenuController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect('sub-menu')->with('status', 'Data success created!');
+        return redirect('admin/sub-menu')->with('status', 'Data success created!');
     }
 
     /**
@@ -121,7 +121,7 @@ class SubMenuController extends Controller
             'name' => $request->name
         ]);
 
-        return redirect('sub-menu')->with('status', 'Data success updated!');
+        return redirect('admin/sub-menu')->with('status', 'Data success updated!');
     }
 
     /**

@@ -29,8 +29,8 @@ class SlideShowController extends Controller
                 return $is_active;
             })
             ->addColumn('action', function($slideShow) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('slide-show/'.$slideShow['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('slide-show/'.$slideShow['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/slide-show/'.$slideShow['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action .= '<a href="'.url('admin/slide-show/'.$slideShow['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$slideShow['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
                 return $action;
             })
@@ -77,7 +77,7 @@ class SlideShowController extends Controller
             'is_active' => 1
         ]);
 
-        return redirect('slide-show')->with('status', 'Data success created !');
+        return redirect('admin/slide-show')->with('status', 'Data success created !');
     }
 
     /**
@@ -133,7 +133,7 @@ class SlideShowController extends Controller
             'is_active' => is_null($request->is_active) ? '0' : '1'
         ]);
 
-        return redirect('slide-show')->with('status', 'Data success updated !');
+        return redirect('admin/slide-show')->with('status', 'Data success updated !');
     }
 
     /**

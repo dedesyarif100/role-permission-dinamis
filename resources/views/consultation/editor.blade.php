@@ -13,7 +13,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{ url('consultations/'.$consultations->id) }}" method="POST">
+                    <form action="{{ url('admin/consultations/'.$consultations->id) }}" method="POST">
                         @if (!is_null($consultations))
                             @method('PATCH')
                         @endif

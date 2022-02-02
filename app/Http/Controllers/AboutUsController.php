@@ -21,8 +21,8 @@ class AboutUsController extends Controller
             return DataTables::of($aboutUs)
             ->addIndexColumn()
             ->addColumn('action', function($aboutUs) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('about-us/'.$aboutUs['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/about-us/'.$aboutUs['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action .= '<a href="'.url('admin/about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$aboutUs['id'].'" id="delete"> <i class="fas fa-trash"></i> </button>';
                 return $action;
             })
@@ -75,7 +75,7 @@ class AboutUsController extends Controller
             'image' => $path
         ]);
 
-        return redirect('about-us')->with('status', 'Data success created !');
+        return redirect('admin/about-us')->with('status', 'Data success created !');
     }
 
     /**
@@ -139,7 +139,7 @@ class AboutUsController extends Controller
             'image' => $path
         ]);
 
-        return redirect('about-us')->with('status', 'Data success updated !');
+        return redirect('admin/about-us')->with('status', 'Data success updated !');
     }
 
     /**

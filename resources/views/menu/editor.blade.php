@@ -18,6 +18,7 @@
                             @method('PATCH')
                         @endif
                         @csrf
+
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-2">
@@ -33,6 +34,7 @@
                                 </div>
                             </div>
                         </div><br>
+                        
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" id="submit" class="btn btn-block btn-success">
                                 <span class="submit" role="status" aria-hidden="true"></span> Save Changes

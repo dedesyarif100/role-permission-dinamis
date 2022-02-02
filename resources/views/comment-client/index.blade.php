@@ -36,7 +36,7 @@
                 <div class="col-md-10 align-self-end">
                     <h1>Comment Client</h1>
                 </div>
-            </div>
+            </div><hr>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
@@ -110,7 +110,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('comment-client') }}" + '/' + commentClientId,
+                        url: "{{ url('admin/comment-client') }}" + '/' + commentClientId,
                         data: {
                             commentClientId : commentClientId,
                         },

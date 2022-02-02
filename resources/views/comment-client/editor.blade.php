@@ -22,7 +22,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($commentClient)) {{ route('comment-client.store') }} @else {{ url('comment-client/'.$commentClient->id) }} @endif" method="POST" enctype="multipart/form-data">
+                    <form action="@if(is_null($commentClient)) {{ route('comment-client.store') }} @else {{ url('admin/comment-client/'.$commentClient->id) }} @endif" method="POST" enctype="multipart/form-data">
                         @if (!is_null($commentClient))
                             @method('PATCH')
                         @endif
@@ -113,10 +113,8 @@
 @endsection
 
 @section('js')
-{{-- <script src="https://cdn.ckeditor.com/4.17.1/standard/ckeditor.js"></script> --}}
 <script src="https://unpkg.com/file-upload-with-preview@4.1.0/dist/file-upload-with-preview.min.js"></script>
 <script>
-    // CKEDITOR.replace( 'description' );
     var upload = new FileUploadWithPreview("myUniqueUploadId");
 </script>
 @endsection

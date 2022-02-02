@@ -13,7 +13,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="{{ url('contact-our/'.$contactOur->id) }}" method="POST">
+                    <form action="{{ url('admin/contact-our/'.$contactOur->id) }}" method="POST">
                         @if (!is_null($contactOur))
                             @method('PATCH')
                         @endif
@@ -89,7 +89,7 @@
                                     <label for="">Message</label>
                                 </div>
                                 <div class="col-md-10">
-                                    <textarea name="message" class="form-control" id="message" rows="10" cols="80">@if(!is_null($contactOur)){{ old('message', $contactOur->message) }}@else{{ old('message') }}@endif</textarea><br>
+                                    <textarea name="message" class="form-control" id="message" rows="10" cols="80">@if(!is_null($contactOur)){{ old('message', $contactOur->message) }}@else{{ old('message') }}@endif</textarea>
                                     @error('message')
                                         <div class="invalid-feedback">
                                             {{ $message }}

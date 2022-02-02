@@ -50,8 +50,8 @@ class ConsultationController extends Controller
                     }
                 })
                 ->addColumn('action', function($consultations) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('consultation/'.$consultations['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                    $action .= '<a href="'.url('consultation/'.$consultations['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/consultation/'.$consultations['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                    $action .= '<a href="'.url('admin/consultation/'.$consultations['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                     $action .= '<button class="btn btn-danger btn-sm" data-id="'.$consultations['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                     return $action;
                 })
@@ -103,7 +103,6 @@ class ConsultationController extends Controller
         Consultations::where('id', $id)->update([
             'read_at' => now()
         ]);
-        
 
         $consultations = Consultations::find($id);
 
@@ -149,7 +148,7 @@ class ConsultationController extends Controller
             'consultation_type' => $request->consultation_type,
         ]);
 
-        return redirect('consultation')->with('status', 'Data success updated!');
+        return redirect('admin/consultation')->with('status', 'Data success updated!');
     }
 
     /**

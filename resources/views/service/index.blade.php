@@ -36,7 +36,7 @@
                 <div class="col-md-10 align-self-end">
                     <h1>Service</h1>
                 </div>
-            </div>
+            </div><hr>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
@@ -106,7 +106,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('service') }}" + '/' + serviceId,
+                        url: "{{ url('admin/service') }}" + '/' + serviceId,
                         data: {
                             serviceId : serviceId,
                         },

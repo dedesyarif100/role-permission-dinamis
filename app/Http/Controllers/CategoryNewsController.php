@@ -21,7 +21,7 @@ class CategoryNewsController extends Controller
             return DataTables::of($categoryNews)
             ->addIndexColumn()
             ->addColumn('action', function($categoryNews) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('category-news/'.$categoryNews['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/category-news/'.$categoryNews['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 if ( News::where('category_news_id', $categoryNews->id)->exists() ) {
                     $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete" disabled> <i class="fas fa-trash"></i> </button> </div>';
                 } else {
@@ -68,7 +68,7 @@ class CategoryNewsController extends Controller
             'slug' => $slugCategoryNews
         ]);
 
-        return redirect('category-news')->with('status', 'Data success created !');
+        return redirect('admin/category-news')->with('status', 'Data success created !');
     }
 
     /**
@@ -115,7 +115,7 @@ class CategoryNewsController extends Controller
             'slug' => $slugCategoryNews
         ]);
 
-        return redirect('category-news')->with('status', 'Data success updated !');
+        return redirect('admin/category-news')->with('status', 'Data success updated !');
     }
 
     /**

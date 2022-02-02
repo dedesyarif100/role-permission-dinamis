@@ -28,8 +28,8 @@ class NewsController extends Controller
             //     return $news->user->name;
             // })
             ->addColumn('action', function($news) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('news-list/'.$news['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('news-list/'.$news['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/news-list/'.$news['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action .= '<a href="'.url('admin/news-list/'.$news['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$news['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 return $action;
             })
@@ -86,7 +86,7 @@ class NewsController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('news-list')->with('status', 'Data success created !');
+        return redirect('admin/news-list')->with('status', 'Data success created !');
     }
 
     /**
@@ -154,7 +154,7 @@ class NewsController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('news-list')->with('status', 'Data success updated !');
+        return redirect('admin/news-list')->with('status', 'Data success updated !');
     }
 
     /**

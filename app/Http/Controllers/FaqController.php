@@ -20,8 +20,8 @@ class FaqController extends Controller
             return DataTables::of($faq)
                 ->addIndexColumn()
                 ->addColumn('action', function($faq) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('faq/'.$faq['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                    $action .= '<a href="'.url('faq/'.$faq['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/faq/'.$faq['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                    $action .= '<a href="'.url('admin/faq/'.$faq['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                     $action .= '<button class="btn btn-danger btn-sm" data-id="'.$faq['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                     return $action;
                 })
@@ -64,7 +64,7 @@ class FaqController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('faq')->with('status', 'Data success created!');
+        return redirect('admin/faq')->with('status', 'Data success created!');
     }
 
     /**
@@ -73,9 +73,9 @@ class FaqController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Faq $faq)
     {
-        //
+        return view('faq.detail', compact('faq'));
     }
 
     /**
@@ -111,7 +111,7 @@ class FaqController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('faq')->with('status', 'Data success updated!');
+        return redirect('admin/faq')->with('status', 'Data success updated!');
     }
 
     /**

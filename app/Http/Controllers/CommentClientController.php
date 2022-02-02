@@ -21,8 +21,8 @@ class CommentClientController extends Controller
             return DataTables::of($commentClient)
             ->addIndexColumn()
             ->addColumn('action', function($commentClient) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('comment-client/'.$commentClient['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('comment-client/'.$commentClient['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/comment-client/'.$commentClient['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action .= '<a href="'.url('admin/comment-client/'.$commentClient['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$commentClient['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 return $action;
             })
@@ -74,7 +74,7 @@ class CommentClientController extends Controller
             'message' => $request->message
         ]);
 
-        return redirect('comment-client')->with('status', 'Data success created !');
+        return redirect('admin/comment-client')->with('status', 'Data success created !');
     }
 
     /**
@@ -135,7 +135,7 @@ class CommentClientController extends Controller
             'message' => $request->message
         ]);
 
-        return redirect('comment-client')->with('status', 'Data success updated !');
+        return redirect('admin/comment-client')->with('status', 'Data success updated !');
     }
 
     /**

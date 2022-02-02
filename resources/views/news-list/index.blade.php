@@ -42,9 +42,7 @@
                     <tr>
                         <th class="serial">#</th>
                         <th>Category News</th>
-                        {{-- <th>User</th> --}}
                         <th>Title</th>
-                        <th>Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -74,9 +72,7 @@
             columns     : [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'categoryNews', name: 'categoryNews.title'},
-                // {data: 'user', name: 'user.name'},
                 {data: 'title', name: 'title'},
-                {data: 'description', name: 'description'},
                 {
                     data: 'action',
                     name: 'action',
@@ -112,7 +108,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('news-list') }}" + '/' + newsId,
+                        url: "{{ url('admin/news-list') }}" + '/' + newsId,
                         data: {
                             newsId : newsId,
                         },

@@ -112,7 +112,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('contact-us') }}" + '/' + contactUsId,
+                        url: "{{ url('admin/contact-us') }}" + '/' + contactUsId,
                         data: {
                             contactUsId : contactUsId,
                         },

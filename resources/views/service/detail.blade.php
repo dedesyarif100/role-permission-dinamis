@@ -1,7 +1,7 @@
 @extends('admin')
 
 @section('content')
-<h1>Detail Content</h1>
+<h1>Detail Content</h1><hr>
 <div class="content">
     <div class="card-body">
         <h5>Short Description</h5>

@@ -29,8 +29,8 @@ class ContentController extends Controller
                 return $content->subMenu->name;
             })
             ->addColumn('action', function($content) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('content/'.$content['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/content/'.$content['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action .= '<a href="'.url('admin/content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 return $action;
             })
@@ -87,7 +87,7 @@ class ContentController extends Controller
             'image' => $path
         ]);
 
-        return redirect('content')->with('status', 'Data success created!');
+        return redirect('admin/content')->with('status', 'Data success created!');
     }
 
     /**
@@ -153,7 +153,7 @@ class ContentController extends Controller
             'image' => $path
         ]);
 
-        return redirect('content')->with('status', 'Data success updated!');
+        return redirect('admin/content')->with('status', 'Data success updated!');
     }
 
     /**

@@ -106,7 +106,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('category-news') }}" + '/' + categoryNewsId,
+                        url: "{{ url('admin/category-news') }}" + '/' + categoryNewsId,
                         data: {
                             categoryNewsId : categoryNewsId,
                         },

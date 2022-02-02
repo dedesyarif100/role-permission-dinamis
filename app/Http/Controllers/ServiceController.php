@@ -21,8 +21,8 @@ class ServiceController extends Controller
             return DataTables::of($service)
             ->addIndexColumn()
             ->addColumn('action', function($service) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('service/'.$service['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('service/'.$service['id']).'/edit" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/service/'.$service['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action .= '<a href="'.url('admin/service/'.$service['id']).'/edit" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
                 $action .= '<button class="btn btn-danger btn-sm" data-id="'.$service['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
                 return $action;
             })
@@ -77,7 +77,7 @@ class ServiceController extends Controller
             'long_description' => $request->long_description
         ]);
 
-        return redirect('service')->with('status', 'Data success created !');
+        return redirect('admin/service')->with('status', 'Data success created !');
     }
 
     /**
@@ -141,7 +141,7 @@ class ServiceController extends Controller
             'long_description' => $request->long_description
         ]);
 
-        return redirect('service')->with('status', 'Data success updated !');
+        return redirect('admin/service')->with('status', 'Data success updated !');
     }
 
     /**

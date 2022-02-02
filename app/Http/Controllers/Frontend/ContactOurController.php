@@ -140,10 +140,10 @@ class ContactOurController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'subject' => $request->subject,
-            'message' => $request->message,
+            'message' => $request->message
         ]);
 
-        return redirect('contact-our')->with('status', 'Data success updated!');
+        return redirect('admin/contact-our')->with('status', 'Data success updated!');
     }
 
     /**
