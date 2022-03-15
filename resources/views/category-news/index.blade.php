@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-1">
-                    <a href="{{ route('category-news.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                    <a href="{{ route('categorynews.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
                         <i class="fas fa-plus"></i> Create
                     </a>
                 </div>
@@ -83,7 +83,7 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('category-news.index') }}";
+            sendData.ajax = "{{ route('categorynews.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
@@ -106,7 +106,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('admin/category-news') }}" + '/' + categoryNewsId,
+                        url: "{{ url('admin/categorynews') }}" + '/' + categoryNewsId,
                         data: {
                             categoryNewsId : categoryNewsId,
                         },

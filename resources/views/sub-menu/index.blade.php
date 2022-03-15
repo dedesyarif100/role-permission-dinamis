@@ -28,11 +28,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-1">
-                    <a href="{{ route('sub-menu.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
-                        <i class="fas fa-plus"></i> Create
-                    </a>
-                </div>
+                @if ( auth()->user()->userRole->role->permission->submenu_create )
+                    <div class="col-md-1">
+                        <a href="{{ route('submenu.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                            <i class="fas fa-plus"></i> Create
+                        </a>
+                    </div>
+                @endif
                 <div class="col-md-10 align-self-end">
                     <h1>Sub Menu</h1>
                 </div>
@@ -85,7 +87,7 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('sub-menu.index') }}";
+            sendData.ajax = "{{ route('submenu.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
@@ -108,7 +110,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('admin/sub-menu') }}" + '/' + subMenuId,
+                        url: "{{ url('admin/submenu') }}" + '/' + subMenuId,
                         data: {
                             subMenuId : subMenuId,
                         },

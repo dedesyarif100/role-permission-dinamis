@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-1">
-                    <a href="{{ route('comment-client.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                    <a href="{{ route('commentclient.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
                         <i class="fas fa-plus"></i> Create
                     </a>
                 </div>
@@ -87,7 +87,7 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('comment-client.index') }}";
+            sendData.ajax = "{{ route('commentclient.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
@@ -110,7 +110,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('admin/comment-client') }}" + '/' + commentClientId,
+                        url: "{{ url('admin/commentclient') }}" + '/' + commentClientId,
                         data: {
                             commentClientId : commentClientId,
                         },

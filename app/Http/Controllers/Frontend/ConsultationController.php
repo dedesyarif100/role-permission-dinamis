@@ -51,8 +51,12 @@ class ConsultationController extends Controller
                 })
                 ->addColumn('action', function($consultations) {
                     $action = '<div class="btn-group" role="group"> <a href="'.url('admin/consultation/'.$consultations['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                    $action .= '<a href="'.url('admin/consultation/'.$consultations['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$consultations['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    if ( auth()->user()->userRole->role->permission->consultation_edit ) {
+                        $action .= '<a href="'.url('admin/consultation/'.$consultations['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    }
+                    if ( auth()->user()->userRole->role->permission->consultation_delete ) {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$consultations['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    }
                     return $action;
                 })
                 ->rawColumns(['DT_Row_Index', 'name', 'email', 'company', 'consultation_type', 'action'])
@@ -161,5 +165,39 @@ class ConsultationController extends Controller
     {
         Consultations::where('id', $id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'consultationdata.index' ) {
+            if (auth()->user()->userRole->role->permission->consultation_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'consultationdata.create' ) {
+            if (auth()->user()->userRole->role->permission->consultation_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'consultationdata.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'consultationdata.edit' ) {
+            if (auth()->user()->userRole->role->permission->consultation_edit) {
+                $consultation = new Consultations();
+                return $this->edit($consultation);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'consultationdata.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'consultationdata.delete' ) {
+            if (auth()->user()->userRole->role->permission->consultation_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

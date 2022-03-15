@@ -30,8 +30,12 @@ class SlideShowController extends Controller
             })
             ->addColumn('action', function($slideShow) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('admin/slide-show/'.$slideShow['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('admin/slide-show/'.$slideShow['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$slideShow['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
+                if ( auth()->user()->userRole->role->permission->slideshow_edit ) {
+                    $action .= '<a href="'.url('admin/slide-show/'.$slideShow['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->slideshow_delete ) {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$slideShow['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'is_active', 'action'])
@@ -148,5 +152,39 @@ class SlideShowController extends Controller
         Storage::disk('public')->delete($outputFile, $slideShow->image);
         SlideShow::where('id', $slideShow->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'slideshow.index' ) {
+            if (auth()->user()->userRole->role->permission->slideshow_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'slideshow.create' ) {
+            if (auth()->user()->userRole->role->permission->slideshow_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'slideshow.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'slideshow.edit' ) {
+            if (auth()->user()->userRole->role->permission->slideshow_edit) {
+                $slideshow = new SlideShow();
+                return $this->edit($slideshow);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'slideshow.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'slideshow.delete' ) {
+            if (auth()->user()->userRole->role->permission->slideshow_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

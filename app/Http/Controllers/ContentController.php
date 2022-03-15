@@ -30,8 +30,12 @@ class ContentController extends Controller
             })
             ->addColumn('action', function($content) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('admin/content/'.$content['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('admin/content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                if ( auth()->user()->userRole->role->permission->content_edit ) {
+                    $action .= '<a href="'.url('admin/content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->content_delete ) {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'menu', 'sub_menu', 'action'])
@@ -168,5 +172,39 @@ class ContentController extends Controller
         Storage::disk('public')->delete($outputFile, $content->image);
         Content::where('id', $content->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Content Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'content.index' ) {
+            if (auth()->user()->userRole->role->permission->content_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'content.create' ) {
+            if (auth()->user()->userRole->role->permission->content_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'content.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'content.edit' ) {
+            if (auth()->user()->userRole->role->permission->content_edit) {
+                $content = new Content;
+                return $this->edit($content);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'content.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'content.delete' ) {
+            if (auth()->user()->userRole->role->permission->content_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

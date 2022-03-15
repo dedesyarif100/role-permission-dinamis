@@ -25,8 +25,13 @@ class TrustedController extends Controller
                 return $image;
             })
             ->addColumn('action', function($trusted) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/trusted/'.$trusted['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$trusted['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                $action = null;
+                if ( auth()->user()->userRole->role->permission->trusted_edit ) {
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/trusted/'.$trusted['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->trusted_delete ) {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$trusted['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'image', 'action'])
@@ -135,5 +140,39 @@ class TrustedController extends Controller
         Storage::disk('public')->delete($outputFile, $trusted->image);
         Trusted::where('id', $trusted->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'trusted.index' ) {
+            if (auth()->user()->userRole->role->permission->trusted_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'trusted.create' ) {
+            if (auth()->user()->userRole->role->permission->trusted_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'trusted.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'trusted.edit' ) {
+            if (auth()->user()->userRole->role->permission->trusted_edit) {
+                $trusted = new Trusted();
+                return $this->edit($trusted);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'trusted.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'trusted.delete' ) {
+            if (auth()->user()->userRole->role->permission->trusted_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

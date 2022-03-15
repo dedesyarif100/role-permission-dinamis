@@ -74,7 +74,7 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('about-us.index') }}";
+            sendData.ajax = "{{ route('aboutus.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>

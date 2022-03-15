@@ -25,11 +25,16 @@ class SubMenuController extends Controller
                 return $subMenu->menu->name;
             })
             ->addColumn('action', function($subMenu) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/sub-menu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                if ( Content::where('sub_menu_id', $subMenu->id)->exists() ) {
-                    $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
-                } else {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
+                $action = null;
+                if ( auth()->user()->userRole->role->permission->submenu_edit ) {
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/submenu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->submenu_delete ) {
+                    if ( Content::where('sub_menu_id', $subMenu->id)->exists() ) {
+                        $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
+                    } else {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button></div>';
+                    }
                 }
                 return $action;
             })
@@ -134,5 +139,39 @@ class SubMenuController extends Controller
     {
         SubMenu::where('id', $id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Sub Menu Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'submenu.index' ) {
+            if (auth()->user()->userRole->role->permission->submenu_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'submenu.create' ) {
+            if (auth()->user()->userRole->role->permission->submenu_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'submenu.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'submenu.edit' ) {
+            if (auth()->user()->userRole->role->permission->submenu_edit) {
+                $submenu = new SubMenu;
+                return $this->edit($submenu);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'submenu.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'submenu.delete' ) {
+            if (auth()->user()->userRole->role->permission->submenu_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

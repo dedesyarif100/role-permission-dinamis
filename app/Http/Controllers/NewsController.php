@@ -29,8 +29,12 @@ class NewsController extends Controller
             // })
             ->addColumn('action', function($news) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('admin/news-list/'.$news['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('admin/news-list/'.$news['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$news['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                if ( auth()->user()->userRole->role->permission->newsdata_edit ) {
+                    $action .= '<a href="'.url('admin/news-list/'.$news['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->newsdata_delete ) {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$news['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'categoryNews', 'action'])
@@ -169,5 +173,39 @@ class NewsController extends Controller
         Storage::disk('public')->delete($outputFile, $news->image);
         News::where('id', $news->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'newsdata.index' ) {
+            if (auth()->user()->userRole->role->permission->newsdata_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'newsdata.create' ) {
+            if (auth()->user()->userRole->role->permission->newsdata_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'newsdata.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'newsdata.edit' ) {
+            if (auth()->user()->userRole->role->permission->newsdata_edit) {
+                $newsdata = new News();
+                return $this->edit($newsdata);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'newsdata.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'newsdata.delete' ) {
+            if (auth()->user()->userRole->role->permission->newsdata_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

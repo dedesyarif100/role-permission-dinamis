@@ -20,8 +20,13 @@ class ContactUsController extends Controller
             return DataTables::of($contactUs)
                 ->addIndexColumn()
                 ->addColumn('action', function($contactUs) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/contact-us/'.$contactUs['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$contactUs['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    $action = null;
+                    if ( auth()->user()->userRole->role->permission->contactus_edit ) {
+                        $action = '<div class="btn-group" role="group"> <a href="'.url('admin/contact-us/'.$contactUs['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    }
+                    if ( auth()->user()->userRole->role->permission->contactus_delete ) {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$contactUs['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    }
                     return $action;
                 })
                 ->rawColumns(['DT_Row_Index', 'action'])
@@ -130,5 +135,39 @@ class ContactUsController extends Controller
     {
         ContactUs::where('id', $id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'contactus.index' ) {
+            if (auth()->user()->userRole->role->permission->contactus_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'contactus.create' ) {
+            if (auth()->user()->userRole->role->permission->contactus_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'contactus.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'contactus.edit' ) {
+            if (auth()->user()->userRole->role->permission->contactus_edit) {
+                $contactus = new ContactUs();
+                return $this->edit($contactus);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'contactus.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'contactus.delete' ) {
+            if (auth()->user()->userRole->role->permission->contactus_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

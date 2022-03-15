@@ -21,7 +21,10 @@ class AboutUsController extends Controller
             return DataTables::of($aboutUs)
             ->addIndexColumn()
             ->addColumn('action', function($aboutUs) {
-                $action = '<a href="'.url('admin/about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm" id="edit"> <i class="fa fa-edit"></i> </a>';
+                $action = null;
+                if ( auth()->user()->userRole->role->permission->aboutus_edit ) {
+                    $action = '<a href="'.url('admin/about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm" id="edit"> <i class="fa fa-edit"></i> </a>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])
@@ -38,7 +41,7 @@ class AboutUsController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -49,7 +52,7 @@ class AboutUsController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -60,7 +63,7 @@ class AboutUsController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -123,6 +126,40 @@ class AboutUsController extends Controller
      */
     public function destroy($id)
     {
-        
+
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'aboutus.index' ) {
+            if (auth()->user()->userRole->role->permission->aboutus_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'aboutus.create' ) {
+            if (auth()->user()->userRole->role->permission->aboutus_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'aboutus.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'aboutus.edit' ) {
+            if (auth()->user()->userRole->role->permission->aboutus_edit) {
+                $aboutus = new AboutUs();
+                return $this->edit($aboutus);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'aboutus.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'aboutus.delete' ) {
+            if (auth()->user()->userRole->role->permission->aboutus_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

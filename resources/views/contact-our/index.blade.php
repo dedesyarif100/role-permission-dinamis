@@ -84,7 +84,7 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('contact-our.index') }}";
+            sendData.ajax = "{{ route('contactour.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
@@ -107,7 +107,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('admin/contact-our') }}" + '/' + contactOurId,
+                        url: "{{ url('admin/contactour') }}" + '/' + contactOurId,
                         data: {
                             contactOurId : contactOurId,
                         },

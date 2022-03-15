@@ -22,8 +22,12 @@ class CommentClientController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($commentClient) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('admin/comment-client/'.$commentClient['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('admin/comment-client/'.$commentClient['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$commentClient['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                if ( auth()->user()->userRole->role->permission->commentclient_edit ) {
+                    $action .= '<a href="'.url('admin/comment-client/'.$commentClient['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->commentclient_delete ) {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$commentClient['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])
@@ -150,5 +154,39 @@ class CommentClientController extends Controller
         Storage::disk('public')->delete($outputFile, $commentClient->image);
         CommentClient::where('id', $commentClient->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'commentclient.index' ) {
+            if (auth()->user()->userRole->role->permission->commentclient_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'commentclient.create' ) {
+            if (auth()->user()->userRole->role->permission->commentclient_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'commentclient.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'commentclient.edit' ) {
+            if (auth()->user()->userRole->role->permission->commentclient_edit) {
+                $commentclient = new CommentClient();
+                return $this->edit($commentclient);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'commentclient.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'commentclient.delete' ) {
+            if (auth()->user()->userRole->role->permission->commentclient_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

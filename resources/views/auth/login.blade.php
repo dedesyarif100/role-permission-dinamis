@@ -32,13 +32,18 @@
                                 @csrf
                                 <div class="form-group mb-3">
                                     <label class="label" for="name">Email</label>
-                                    <input type="text" name="email" class="form-control" placeholder="Email" required="">
-                                    <span class="text-danger error-text email_error"></span>
+                                    <input type="text" name="email" class="form-control" @error('email') is-invalid @enderror placeholder="Email" required="">
+                                    {{-- <span class="text-danger error-text email_error"></span> --}}
+                                    @error('email')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
                                 </div>
                                 <div class="form-group mb-3">
                                     <label class="label" for="password">Password</label>
                                     <div class="input-group-append">
-                                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required="">
+                                        <input type="password" name="password" class="form-control" @error('password') is-invalid @enderror id="password" placeholder="Password" required="">
                                         <span class="text-danger error-text password_error"></span>
                                     </div> <br>
                                     <div class="row">

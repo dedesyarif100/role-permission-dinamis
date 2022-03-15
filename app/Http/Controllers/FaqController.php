@@ -21,8 +21,12 @@ class FaqController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($faq) {
                     $action = '<div class="btn-group" role="group"> <a href="'.url('admin/faq/'.$faq['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                    $action .= '<a href="'.url('admin/faq/'.$faq['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$faq['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    if ( auth()->user()->userRole->role->permission->faq_edit ) {
+                        $action .= '<a href="'.url('admin/faq/'.$faq['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    }
+                    if ( auth()->user()->userRole->role->permission->faq_delete ) {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$faq['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    }
                     return $action;
                 })
                 ->rawColumns(['DT_Row_Index', 'action'])
@@ -124,5 +128,39 @@ class FaqController extends Controller
     {
         Faq::where('id', $id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'faq.index' ) {
+            if (auth()->user()->userRole->role->permission->faq_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'faq.create' ) {
+            if (auth()->user()->userRole->role->permission->faq_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'faq.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'faq.edit' ) {
+            if (auth()->user()->userRole->role->permission->faq_edit) {
+                $faq = new Faq();
+                return $this->edit($faq);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'faq.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'faq.delete' ) {
+            if (auth()->user()->userRole->role->permission->faq_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

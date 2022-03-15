@@ -24,27 +24,24 @@
             {{ session('status') }}
         </div>
     @endif
-    {{-- @dd(auth()->user()); --}}
 
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                @if ( auth()->user()->userRole->role->permission->menu_create )
-                    <div class="col-md-1">
-                        <a href="{{ route('menu.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
-                            <i class="fas fa-plus"></i> Create
-                        </a>
-                    </div>
-                @endif
+                <div class="col-md-1">
+                    <a href="{{ route('role.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                        <i class="fas fa-plus"></i> Create
+                    </a>
+                </div>
                 <div class="col-md-10 align-self-end">
-                    <h1>Menu</h1>
+                    <h1>Role</h1>
                 </div>
             </div><hr>
             <table class="table" id="datatable">
                 <thead>
                     <tr>
                         <th class="serial">#</th>
-                        <th>Name</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -86,17 +83,17 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('menu.index') }}";
+            sendData.ajax = "{{ route('role.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
 
         // DELETE >>>>>>>>>>>>>>>>>>
         $(document).on('click', '#delete', function() {
-            let menuId = $(this).data('id');
+            let newsId = $(this).data('id');
             swal.fire({
                 title: 'Are you sure?',
-                html: 'You want to <b>delete</b> this Menu ',
+                html: 'You want to <b>delete</b> this Role ',
                 showCancelButton: true,
                 showCloseButton: true,
                 cancelButtonText: 'Cancel',
@@ -109,9 +106,9 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('admin/menu') }}" + '/' + menuId,
+                        url: "{{ url('admin/role') }}" + '/' + roleId,
                         data: {
-                            menuId : menuId,
+                            roleId : roleId,
                         },
                         success: function(data) {
                             toastr.success(data.msg);

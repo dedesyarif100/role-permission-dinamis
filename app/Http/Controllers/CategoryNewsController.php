@@ -21,11 +21,16 @@ class CategoryNewsController extends Controller
             return DataTables::of($categoryNews)
             ->addIndexColumn()
             ->addColumn('action', function($categoryNews) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/category-news/'.$categoryNews['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                if ( News::where('category_news_id', $categoryNews->id)->exists() ) {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete" disabled> <i class="fas fa-trash"></i> </button> </div>';
-                } else {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                $action = null;
+                if ( auth()->user()->userRole->role->permission->categorynews_edit ) {
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/category-news/'.$categoryNews['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->categorynews_delete ) {
+                    if ( News::where('category_news_id', $categoryNews->id)->exists() ) {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete" disabled> <i class="fas fa-trash"></i> </button> </div>';
+                    } else {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    }
                 }
                 return $action;
             })
@@ -128,5 +133,39 @@ class CategoryNewsController extends Controller
     {
         CategoryNews::where('id', $id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'categorynews.index' ) {
+            if (auth()->user()->userRole->role->permission->categorynews_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'categorynews.create' ) {
+            if (auth()->user()->userRole->role->permission->categorynews_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'categorynews.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'categorynews.edit' ) {
+            if (auth()->user()->userRole->role->permission->categorynews_edit) {
+                $categorynews = new CategoryNews();
+                return $this->edit($categorynews);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'categorynews.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'categorynews.delete' ) {
+            if (auth()->user()->userRole->role->permission->categorynews_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

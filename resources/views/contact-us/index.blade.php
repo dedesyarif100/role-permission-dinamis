@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="row">
                 <div class="col-md-1">
-                    <a href="{{ route('contact-us.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                    <a href="{{ route('contactus.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
                         <i class="fas fa-plus"></i> Create
                     </a>
                 </div>
@@ -89,7 +89,7 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('contact-us.index') }}";
+            sendData.ajax = "{{ route('contactus.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
@@ -112,7 +112,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('admin/contact-us') }}" + '/' + contactUsId,
+                        url: "{{ url('admin/contactus') }}" + '/' + contactUsId,
                         data: {
                             contactUsId : contactUsId,
                         },

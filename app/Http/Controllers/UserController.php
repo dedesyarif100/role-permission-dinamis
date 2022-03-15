@@ -30,11 +30,16 @@ class UserController extends Controller
                     }
                 })
                 ->addColumn('action', function($user) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/user/'.$user['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    if (auth()->user()->id === $user->id) {
-                        $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fas fa-trash"></i> </button> </div>';
-                    } else {
-                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$user['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                    $action = null;
+                    if ( auth()->user()->userRole->role->permission->user_edit ) {
+                        $action = '<div class="btn-group" role="group"> <a href="'.url('admin/user/'.$user['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    }
+                    if ( auth()->user()->userRole->role->permission->user_delete ) {
+                        if (auth()->user()->id === $user->id) {
+                            $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fas fa-trash"></i> </button> </div>';
+                        } else {
+                            $action .= '<button class="btn btn-danger btn-sm" data-id="'.$user['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                        }
                     }
                     return $action;
                 })
@@ -82,13 +87,13 @@ class UserController extends Controller
         if ($request->password !== $request->password_confirmation) {
             return redirect()->back()->with('status', 'Password Confirmasi harus sama');
         }
-        
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        
+
         UserRole::create([
             'user_id' => $user->id,
             'role_id' => $request->role_id
@@ -162,5 +167,43 @@ class UserController extends Controller
     {
         User::where('id', $id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'user.index' ) {
+            if (auth()->user()->userRole->role->permission->user_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'user.create' ) {
+            if (auth()->user()->userRole->role->permission->user_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'user.store' ) {
+            if (auth()->user()->userRole->role->permission->user_create) {
+                return $this->store($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'user.edit' ) {
+            if (auth()->user()->userRole->role->permission->user_edit) {
+                $user = new User();
+                return $this->edit($user);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'user.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'user.delete' ) {
+            if (auth()->user()->userRole->role->permission->user_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

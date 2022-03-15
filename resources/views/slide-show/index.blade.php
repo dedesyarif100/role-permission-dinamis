@@ -28,11 +28,13 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-1">
-                    <a href="{{ route('slide-show.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
-                        <i class="fas fa-plus"></i> Create
-                    </a>
-                </div>
+                @if ( auth()->user()->userRole->role->permission->slideshow_create )
+                    <div class="col-md-1">
+                        <a href="{{ route('slideshow.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                            <i class="fas fa-plus"></i> Create
+                        </a>
+                    </div>
+                @endif
                 <div class="col-md-10 align-self-end">
                     <h1>Slide Show</h1>
                 </div>
@@ -85,7 +87,7 @@
         reload();
 
         function reload() {
-            sendData.ajax = "{{ route('slide-show.index') }}";
+            sendData.ajax = "{{ route('slideshow.index') }}";
             table = $('#datatable').DataTable(sendData);
         }
         // SHOW ALL DATA >>>>>>>>>>>>>>>>>>
@@ -108,7 +110,7 @@
                 if (result.value) {
                     $.ajax({
                         type: 'DELETE',
-                        url: "{{ url('admin/slide-show') }}" + '/' + slideShowId,
+                        url: "{{ url('admin/slideshow') }}" + '/' + slideShowId,
                         data: {
                             slideShowId : slideShowId,
                         },

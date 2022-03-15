@@ -23,7 +23,10 @@ class InformationController extends Controller
                     return $information->description;
                 })
                 ->addColumn('action', function($information) {
-                    $action = '<a href="'.url('admin/information/'.$information['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $action = null;
+                    if ( auth()->user()->userRole->role->permission->information_edit ) {
+                        $action = '<a href="'.url('admin/information/'.$information['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    }
                     return $action;
                 })
                 ->rawColumns(['DT_Row_Index', 'description', 'action'])
@@ -39,7 +42,7 @@ class InformationController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -50,7 +53,7 @@ class InformationController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -89,7 +92,7 @@ class InformationController extends Controller
         ], [
             'description.required' => 'This field is required'
         ]);
-        
+
         Information::where('id', $id)->update([
             'description' => $request->description
         ]);
@@ -104,6 +107,40 @@ class InformationController extends Controller
      */
     public function destroy($id)
     {
-        
+
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'information.index' ) {
+            if (auth()->user()->userRole->role->permission->information_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'information.create' ) {
+            if (auth()->user()->userRole->role->permission->information_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'information.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'information.edit' ) {
+            if (auth()->user()->userRole->role->permission->information_edit) {
+                $information = new Information();
+                return $this->edit($information);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'information.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'information.delete' ) {
+            if (auth()->user()->userRole->role->permission->information_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

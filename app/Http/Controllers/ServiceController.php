@@ -22,8 +22,12 @@ class ServiceController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($service) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('admin/service/'.$service['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                $action .= '<a href="'.url('admin/service/'.$service['id']).'/edit" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$service['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
+                if ( auth()->user()->userRole->role->permission->service_edit ) {
+                    $action .= '<a href="'.url('admin/service/'.$service['id']).'/edit" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->service_delete ) {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$service['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
+                }
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])
@@ -156,5 +160,39 @@ class ServiceController extends Controller
         Storage::disk('public')->delete($outputFile, $service->image);
         Service::where('id', $service->id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'service.index' ) {
+            if (auth()->user()->userRole->role->permission->service_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'service.create' ) {
+            if (auth()->user()->userRole->role->permission->service_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'service.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'service.edit' ) {
+            if (auth()->user()->userRole->role->permission->service_edit) {
+                $service = new Service();
+                return $this->edit($service);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'service.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'service.delete' ) {
+            if (auth()->user()->userRole->role->permission->service_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

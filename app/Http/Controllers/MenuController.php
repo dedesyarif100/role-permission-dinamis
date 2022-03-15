@@ -6,6 +6,7 @@ use App\Models\Content;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route as FacadesRoute;
 use Yajra\DataTables\Facades\DataTables;
 
 class MenuController extends Controller
@@ -22,11 +23,16 @@ class MenuController extends Controller
             return DataTables::of($menu)
             ->addIndexColumn()
             ->addColumn('action', function($menu) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/menu/'.$menu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                if ( SubMenu::where('menu_id', $menu->id)->exists() || Content::where('menu_id', $menu->id)->exists() ) {
-                    $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
-                } else {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$menu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
+                $action = null;
+                if ( auth()->user()->userRole->role->permission->menu_edit ) {
+                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/menu/'.$menu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                }
+                if ( auth()->user()->userRole->role->permission->menu_delete ) {
+                    if ( SubMenu::where('menu_id', $menu->id)->exists() || Content::where('menu_id', $menu->id)->exists() ) {
+                        $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
+                    } else {
+                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$menu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
+                    }
                 }
                 return $action;
             })
@@ -123,5 +129,39 @@ class MenuController extends Controller
     {
         Menu::where('id', $id)->delete();
         return response()->json(['code' => 1, 'msg' => 'Menu Has Been Deleted']);
+    }
+
+    public function accessUrl(Request $request)
+    {
+        if ( $request->route()->getName() === 'menu.index' ) {
+            if (auth()->user()->userRole->role->permission->menu_view) {
+                return $this->index($request);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'menu.create' ) {
+            if (auth()->user()->userRole->role->permission->menu_create) {
+                return $this->create();
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'menu.store' ) {
+            return $this->store($request);
+        } elseif ( $request->route()->getName() === 'menu.edit' ) {
+            if (auth()->user()->userRole->role->permission->menu_edit) {
+                $menu = new Menu;
+                return $this->edit($menu);
+            } else {
+                return view('permission-access-page');
+            }
+        } elseif ( $request->route()->getName() === 'menu.update' ) {
+            return $this->update($request, $request->id);
+        } elseif ( $request->route()->getName() === 'menu.delete' ) {
+            if (auth()->user()->userRole->role->permission->menu_delete) {
+                return $this->destroy($request->id);
+            } else {
+                return view('permission-access-page');
+            }
+        }
     }
 }

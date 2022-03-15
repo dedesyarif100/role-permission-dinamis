@@ -70,112 +70,150 @@
         <ul class="sidebar-nav" id="sidebar-nav">
             @if( auth()->user()->userRole->role_id === 1 )
                 <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('role.index') }}">
+                        <i class="bi bi-person"></i>
+                        <span>Role</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->user_view )
+                <li class="nav-item">
                     <a class="nav-link collapsed" href="{{ route('user.index') }}">
                         <i class="bi bi-person"></i>
                         <span>User</span>
                     </a>
                 </li>
             @endif
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('menu.index') }}">
-                    <i class="bi bi-person"></i>
-                    <span>Menu</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('sub-menu.index') }}">
-                    <i class="bi bi-person"></i>
-                    <span>Sub Menu</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('content.index') }}">
-                    <i class="bi bi-question-circle"></i>
-                    <span>Content</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('about-us.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>About Us</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('slide-show.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Slide Show</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('service.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Service</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('trusted.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Trusted</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('comment-client.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Comment Client</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('category-news.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Category News</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('news-list.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>News</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('faq.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Faq</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('contact-us.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contact Us</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('information.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Information</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                @php
-                    $consultations = \App\Models\Consultations::where('read_at', null)->count();
-                @endphp
-                <a class="nav-link collapsed" href="{{ route('consultations.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Consultation</span>
-                    <span> | </span>
-                    <span class="badge bg-primary"> {{ $consultations }} </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                @php
-                    $contactOur = \App\Models\ContactOur::where('read_at', null)->count();
-                @endphp
-                <a class="nav-link collapsed" href="{{ route('contact-our.index') }}">
-                    <i class="bi bi-envelope"></i>
-                    <span>Contact Our</span>
-                    <span class="d-flex justify-content-end"> | </span>
-                    <span class="badge bg-primary"> {{ $contactOur }} </span>
-                </a>
-            </li>
+            @if ( auth()->user()->userRole->role->permission->menu_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('menu.index') }}">
+                        <i class="bi bi-person"></i>
+                        <span>Menu</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->submenu_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('submenu.index') }}">
+                        <i class="bi bi-person"></i>
+                        <span>Sub Menu</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->content_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('content.index') }}">
+                        <i class="bi bi-question-circle"></i>
+                        <span>Content</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->aboutus_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('aboutus.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>About Us</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->slideshow_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('slideshow.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Slide Show</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->service_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('service.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Service</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->trusted_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('trusted.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Trusted</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->commentclient_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('commentclient.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Comment Client</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->categorynews_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('categorynews.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Category News</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->newsdata_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('newsdata.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>News</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->faq_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('faq.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Faq</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->contactus_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('contactus.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Contact Us</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->information_view )
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('information.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Information</span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->consultation_view )
+                <li class="nav-item">
+                    @php
+                        $consultations = \App\Models\Consultations::where('read_at', null)->count();
+                    @endphp
+                    <a class="nav-link collapsed" href="{{ route('consultationdata.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Consultation</span>
+                        <span> | </span>
+                        <span class="badge bg-primary"> {{ $consultations }} </span>
+                    </a>
+                </li>
+            @endif
+            @if ( auth()->user()->userRole->role->permission->contactour_view )
+                <li class="nav-item">
+                    @php
+                        $contactOur = \App\Models\ContactOur::where('read_at', null)->count();
+                    @endphp
+                    <a class="nav-link collapsed" href="{{ route('contactour.index') }}">
+                        <i class="bi bi-envelope"></i>
+                        <span>Contact Our</span>
+                        <span class="d-flex justify-content-end"> | </span>
+                        <span class="badge bg-primary"> {{ $contactOur }} </span>
+                    </a>
+                </li>
+            @endif
         </ul>
     </aside>
     <main id="main" class="main">
