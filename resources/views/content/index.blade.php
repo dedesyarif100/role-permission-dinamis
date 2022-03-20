@@ -16,7 +16,7 @@
     }
 </style>
 @endsection
-
+{{-- @dd($datacontent) --}}
 @section('content')
     {{-- Flash Message Laravel --}}
     @if (session('status'))
@@ -28,13 +28,11 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                @if ( auth()->user()->userRole->role->permission->content_create )
-                    <div class="col-md-1">
-                        <a href="{{ route('content.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
-                            <i class="fas fa-plus"></i> Create
-                        </a>
-                    </div>
-                @endif
+                <div class="col-md-1">
+                    <a href="{{ route('content.create') }}" class="btn btn-success btn-sm" style="width: 80px;">
+                        <i class="fas fa-plus"></i> Create
+                    </a>
+                </div>
                 <div class="col-md-10 align-self-end">
                     <h1>Content</h1>
                 </div>

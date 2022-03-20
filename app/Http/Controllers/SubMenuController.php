@@ -25,16 +25,11 @@ class SubMenuController extends Controller
                 return $subMenu->menu->name;
             })
             ->addColumn('action', function($subMenu) {
-                $action = null;
-                if ( auth()->user()->userRole->role->permission->submenu_edit ) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/submenu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                }
-                if ( auth()->user()->userRole->role->permission->submenu_delete ) {
-                    if ( Content::where('sub_menu_id', $subMenu->id)->exists() ) {
-                        $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
-                    } else {
-                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button></div>';
-                    }
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/submenu/'.$subMenu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                if ( Content::where('sub_menu_id', $subMenu->id)->exists() ) {
+                    $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
+                } else {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$subMenu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button></div>';
                 }
                 return $action;
             })

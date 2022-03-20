@@ -30,12 +30,8 @@ class ContentController extends Controller
             })
             ->addColumn('action', function($content) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('admin/content/'.$content['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                if ( auth()->user()->userRole->role->permission->content_edit ) {
-                    $action .= '<a href="'.url('admin/content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                }
-                if ( auth()->user()->userRole->role->permission->content_delete ) {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
-                }
+                $action .= '<a href="'.url('admin/content/'.$content['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$content['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'menu', 'sub_menu', 'action'])
@@ -66,6 +62,105 @@ class ContentController extends Controller
      */
     public function store(Request $request)
     {
+        // REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // Accessing The Request
+        // dd($request->input('description'));
+
+        // Retrieving The Request Path
+        // dd($request->path());
+
+        // Inspecting The Request Path / Route
+        // dd($request->is('admin/*'), $request->routeIs('admin.*'));
+
+        // Retrieving The Request URL
+        // dd($request->url(), $request->fullUrl(), $request->fullUrlWithQuery(['type' => 'phone']));
+
+        // Retrieving The Request Method
+        // dd($request->method(), $request->isMethod('post'));
+
+        // Request Headers
+        // dd($request->header(), $request->hasHeader('X-Header-Name'), $request->bearerToken());
+
+        // Request IP Address
+        // dd($request->ip());
+
+        // Content Negotiation
+        // dd(
+        //     $request->getAcceptableContentTypes(),
+        //     $request->accepts(['text/html', 'application/json']),
+        //     $request->prefers(['text/html', 'application/json']),
+        //     $request->expectsJson()
+        // );
+
+        // Input
+        // Retrieving All Input Data
+        // dd(
+        //     $request->all(),
+        //     $request->collect(),
+        //     $request->collect('content')->each(function ($user) {
+        //         dd($user);
+        //     })
+        // );
+
+        // Retrieving An Input Value
+        // dd(
+        //     $request->input(),
+        //     $request->input('description'),
+        //     $request->input('products.0.name'),
+        //     $request->input('products.*.name'),
+        // );
+
+        // Retrieving Input From The Query String
+        // dd(
+        //     $request->query('name'),
+        //     $request->query(),
+        // );
+
+        // Retrieving JSON Input Values
+        // dd($request->input('user.name'));
+
+        // Retrieving Boolean Input Values
+        // dd($request->boolean('description'));
+
+        // Retrieving Date Input Values
+        // dd($request->date('birthday'), $request->date('elapsed', '!H:i', 'Europe/Madrid'));
+
+        // Retrieving Input Via Dynamic Properties
+        // dd($request->name);
+
+        // Retrieving A Portion Of The Input Data
+        // dd($request->only(['menu_id', 'sub_menu_id']), $request->except(['menu_id', 'sub_menu_id']));
+
+        // Determining If Input Is Present
+        // dd($request->has('menu_id'), $request->has('menu_id', 'sub_menu_id'));
+        // $request->whenHas('menu_id', function($input) {
+        //     dd('exists');
+        // });
+
+        // $request->whenHas('menu_id', function($input) {
+        //     dd('exists');
+        // }, function() {
+        //     dd('not exists');
+        // });
+
+        // hasAny, JIKA SALAH SATU VALUE ARRAY BERNILAI TRUE, MAKA RETURN TYPE ADALAH TRUE
+        // dd($request->hasAny(['menu', 'sub_menu_id']));
+        // dd($request->filled('menu_id'));
+        // $request->whenFilled('menu_id', function ($input) {
+        //     dd('true');
+        // });
+
+        // $request->whenFilled('menu_id', function ($input) {
+        //     dd('true');
+        // }, function() {
+        //     dd('false');
+        // });
+
+        // dd($request->missing('menu_id'));
+
+        // Merging Additional Input
+        dd($request->merge(['votes' => 0]), $request->all());
+
         $request->validate([
             'menu_id' => 'required',
             'sub_menu_id' => 'required',

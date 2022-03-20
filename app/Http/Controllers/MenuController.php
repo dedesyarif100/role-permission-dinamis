@@ -6,6 +6,7 @@ use App\Models\Content;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route as FacadesRoute;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -23,16 +24,11 @@ class MenuController extends Controller
             return DataTables::of($menu)
             ->addIndexColumn()
             ->addColumn('action', function($menu) {
-                $action = null;
-                if ( auth()->user()->userRole->role->permission->menu_edit ) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/menu/'.$menu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                }
-                if ( auth()->user()->userRole->role->permission->menu_delete ) {
-                    if ( SubMenu::where('menu_id', $menu->id)->exists() || Content::where('menu_id', $menu->id)->exists() ) {
-                        $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
-                    } else {
-                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$menu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
-                    }
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/menu/'.$menu['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                if ( SubMenu::where('menu_id', $menu->id)->exists() || Content::where('menu_id', $menu->id)->exists() ) {
+                    $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fa fa-trash"></i> </button>';
+                } else {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$menu['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button>';
                 }
                 return $action;
             })
@@ -106,6 +102,7 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Gate::allows('menu.update', $)
         $request->validate([
             'name' => 'required'
         ], [

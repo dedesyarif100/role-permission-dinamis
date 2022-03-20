@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Role
 {
@@ -17,13 +18,13 @@ class Role
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        // dd( str_contains($request->route()->getName(), 'edit') );
-        // $user = User::where('email', $request->email)->first();
-        // if ( str_contains($request->route()->getName(), 'user') ) {
-        //     // if (condition) {
-        //     //     # code...
-        //     // }
-        // }
-        return $next($request);
+        // dd( Auth::user()->userRoles->toArray() );
+        foreach (Auth::user()->userRoles as $userRole) {
+            // dd($userRole->name, $roles);
+            if (in_array($userRole->name, $roles)) {
+                return $next($request);
+            }
+        }
+        abort(403);
     }
 }
