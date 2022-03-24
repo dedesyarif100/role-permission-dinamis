@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Faq extends Model
+class ActivityFeed extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
+    protected $table = 'activity_feeds';
 
-    public function faqMorphToMany()
+    public function parentable()
     {
-        return $this->morphToMany(Menu::class, 'menuables');
+        return $this->morphTo();
     }
 }

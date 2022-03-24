@@ -13,12 +13,20 @@ class SubMenu extends Model
 
     protected $guarded = ['id'];
 
-    public function menu() 
+    public function menu()
     {
+        // return $this->belongsTo(Menu::class, 'menu_id')->withDefault(function($menu, $subMenu) {
+        //     $menu->name = 'Dede Syarifudin';
+        // });
+
+        // return $this->belongsTo(Menu::class, 'menu_id')->withDefault([
+        //     'name' => 'Guest Author',
+        // ]);
+
         return $this->belongsTo(Menu::class, 'menu_id')->withDefault();
     }
 
-    public function content() 
+    public function content()
     {
         return $this->hasOne(Content::class, 'sub_menu_id');
     }

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class RoleController extends Controller
@@ -83,7 +84,24 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
+        $role = Role::find($id)->permissions()->where('permissions.id', 2)->get();
+        $role = Role::find($id)->permissions()->orderBy('permissions.id', 'DESC')->get();
+        $role = Role::find($id);
+        $role = Role::find($id)->permissionWithTimeStamp->toArray();
+        $role = Role::find($id)->permissionWithAsTimeStamp;
+        // $role = Role::find($id)->with('permissionWithAsTimeStamp')->get();
+        // DB::enableQueryLog();
+        $role = Role::find($id)->permissionWithUsing;
+        // $query = DB::getQueryLog();
+        dd($role);
+
+        $permissionName = [];
+        foreach ($role as $permission) {
+            // dd($permission->pivot->created_at->format('Y-m-d'));
+            dd($permission->permissionWithAs->created_at->format('Y-m-d'));
+            $permissionName[] = $permission->name;
+        }
+        dd($permissionName);
     }
 
     /**

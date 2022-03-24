@@ -6,7 +6,10 @@ use App\Models\Content;
 use App\Models\Menu;
 use App\Models\SubMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 use Yajra\DataTables\Facades\DataTables;
 
 class ContentController extends Controller
@@ -38,7 +41,12 @@ class ContentController extends Controller
             ->make(true);
         }
 
-        return view('content.index');
+        $content = Content::all();
+        $messageComponent = 'message.success';
+        return view('content.index', [
+            'content' => $content,
+            'messageComponent' => $messageComponent
+        ]);
     }
 
     /**
@@ -159,7 +167,108 @@ class ContentController extends Controller
         // dd($request->missing('menu_id'));
 
         // Merging Additional Input
-        dd($request->merge(['votes' => 0]), $request->all());
+        // dd($request->merge(['votes' => 0]), $request->mergeIfMissing(['menu_id' => 0]), $request->all());
+
+        // Old Input
+        // Flashing Input To The Session
+        // dd($request->flash(), $request->flashOnly(['username', 'email']), $request->flashExcept('password'));
+
+        // Flashing Input Then Redirecting
+        // return redirect('admin/content/create')->withInput();
+        // return redirect()->route('content.create')->withInput();
+        // return redirect('admin/content/create')->withInput(
+        //     $request->except('sub_menu_id')
+        // );
+
+        // Retrieving Old Input
+        // dd($request->old('menu_id'));
+
+        // Cookies
+        // dd($request->cookie('menu_id'));
+
+
+        // VIEWS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // Creating & Rendering Views
+        // return View::make('content.index', ['name' => 'James']);
+
+        // Nested View Directories
+        // $data = [
+        //     'name' => 'dede',
+        //     'age' => 25
+        // ];
+        // return view('content.index', compact('data'));
+
+        // Creating The First Available View
+        // View first, jika view pertama tidak ditemukan, akan menjalankan view yang kedua
+        // return View::first(['content.test', 'content.editor'], ['name' => 'James']);
+
+        // Determining If A View Exists
+        // dd(View::exists('content.index'));
+
+        // Passing Data To Views
+        // return view('content.index', ['name' => 'dede']);
+        // return view('content.index')->with('name', 'dede')->with('age', 25);
+
+        // RESPONSE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        // Attaching Headers To Responses
+        $content = [
+            'name' => 'dede',
+            'age' => 25,
+            [
+                'vocation' => 'software engineer',
+                'skill' => ['html', 'css', 'javascript', 'php', 'mysql', 'laravel', 'typescript']
+            ]
+        ];
+        // return response($content, 200)->header('Content-Type', 'text/plain');
+
+        // Attaching Cookies To Responses
+        // return response('Hello World')->cookie(
+        //     'dede', 'value'
+        // );
+
+        // $minutes = 'one minutes';
+        // Cookie::queue('cookie2', 'value', $minutes);
+
+        // Generating Cookie Instances
+        // $_COOKIE = cookie('name2', 'DEDE SYARIFUDIN', 10000);
+        // return response('hello world')->cookie($_COOKIE);
+
+        // Expiring Cookies Early
+        // return response('Hello World')->withoutCookie('name');
+        // Cookie::expire('name');
+
+        // Redirects
+        // Redirecting To Named Routes
+        // return redirect()->route('content.index');
+
+        // Populating Parameters Via Eloquent Models
+        // $id = 4;
+        // return redirect()->route('content.show', [$id]);
+
+        // Redirecting To Controller Actions
+        // return redirect()->action([ContentController::class, 'index']);
+        // $id = 3;
+        // return redirect()->action(
+        //     [ContentController::class, 'show'],
+        //     [$id]
+        // );
+
+        // Redirecting To External Domains
+        // return redirect()->away('https://laravel.com/');
+
+        // Redirecting With Flashed Session Data
+        // return redirect()->route('content.index')->with('status', 'Content updated!');
+
+        // Redirecting With Input
+        // return back()->withInput();
+
+        $content = Content::all();
+        $messageComponent = 'message.success';
+        return view('content.index', [
+            'content' => $content,
+            'messageComponent' => $messageComponent
+        ]);
+        dd('stop');
 
         $request->validate([
             'menu_id' => 'required',

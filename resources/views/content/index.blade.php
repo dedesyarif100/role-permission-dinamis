@@ -16,7 +16,7 @@
     }
 </style>
 @endsection
-{{-- @dd($datacontent) --}}
+
 @section('content')
     {{-- Flash Message Laravel --}}
     @if (session('status'))
@@ -24,7 +24,6 @@
             {{ session('status') }}
         </div>
     @endif
-
     <div class="row">
         <div class="col-md-12">
             <div class="row">
@@ -52,12 +51,129 @@
             </table>
         </div>
     </div>
+
+    {{-- BLADE  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> --}}
+    {{-- Conditional Classes --}}
+    @php
+        $isActive = true;
+        $status = 'oke';
+        $conditionIsTrue = false;
+        $conditionIsFalse = true;
+        $jobs = [1, 2, 3, 4, 5, 6, 7, 8];
+        $jobsIsNull = [1, 2, 3];
+    @endphp
+
+    <p @class([
+        'text-white' => 1,
+        'bg-primary' => 1
+    ])>text-danger</p>
+
+    {{-- Including Subviews --}}
+    @include('content.include')<br>
+    @include('content.include', [$status])<br>
+    @includeIf('content.test', [$status])<br>
+    @includeWhen($conditionIsTrue, 'view.name', [$status])<br>
+    @includeUnless($conditionIsFalse, 'view.name', [$status])<br>
+    @includeFirst(['content', 'content.include'], [$status])<br>
+
+    {{-- Rendering Views For Collections --}}
+    @each('content.job', $jobs, 'job')<br>
+    @each('content.job', $jobsIsNull, 'job', 'content.include')
+
+    {{-- The @once Directive --}}
+    @once
+        @push('js')
+            <script>
+                let i = 'nol';
+                console.log(i);
+            </script>
+        @endpush
+    @endonce
+
+    {{-- Components --}}
+    <x-input.text-field type="text" class="control" placeholder="form input" value="DEDE SYARIFUDIN" />
+    <x-button-submit type="success" title="Button Submit" />
+    {{-- <x-package-alert/> --}}
+    {{-- <x-nightshade::calendar /> --}}
+    @php
+        $message = 'HELLO DEDE';
+        // $slot = 'Submit Test';
+        // $attribute = 'INI ATRIBUTE';
+        // $alertType = 'test';
+    @endphp
+    {{-- Passing Data To Components --}}
+    <x-alert type="error" :message="$message">
+        <strong>Whoops!</strong> Something went wrong!
+    </x-alert>
+    --------------------------------------------------------------------------------------------------<br>
+    {{-- <x-alert :alertType="$alertType"/> --}}
+
+    {{-- Escaping Attribute Rendering --}}
+    <x-button ::class="{ danger: isDeleting }">
+        Submit
+    </x-button>
+
+    <button :class="{ danger: isDeleting }">
+        Submit
+    </button>
+    {{-- <span class="p-4 text-gray-500 bg-red"></span> --}}
+
+    {{-- Default / Merged Attributes --}}
+    <x-alert type="error" :message="$message" class="mt-4">
+        {{-- Slots --}}
+        <x-slot name="judul">
+            INI VARIABEL JUDUL
+        </x-slot>
+        <x-slot name="title">
+            INI VARIABEL TITLE
+            {{-- @dd($component) --}}
+        </x-slot>
+        <x-slot name="component1">
+            {{ $component->formatAlert('Server Error') }}
+        </x-slot>
+
+        <strong>Whoops!</strong> Something went wrong!
+    </x-alert>
+
+    {{-- Slot Attributes --}}
+    <x-card class="shadow-sm">
+        <x-slot name="heading" class="font-bold">
+            Heading
+        </x-slot>
+
+        Content
+
+        <x-slot name="footer" class="text-sm">
+            Footer
+        </x-slot>
+    </x-card>
+
+    {{-- Accessing Parent Data --}}
+    <x-menu color="red">
+        <x-menu.item></x-menu.item>
+    </x-menu>
+
+    {{-- Dynamic Components --}}
+    <x-dynamic-component :component="$messageComponent">
+        Message
+    </x-dynamic-component>
+
+    <x-button>
+        Submit
+    </x-button>
+    {{-- <x-alert type="error" :message="$message" class="mt-4"/> --}}
 @endsection
 
 @section('js')
 <script>
     let table;
     let cell;
+    let test = 'test 123';
+
+    // var app = <?php echo json_encode($content); ?>;
+    // var app = {{ Illuminate\Support\Js::from($content) }};
+    var app = {{ Js::from($content) }};
+    console.log(app);
 
     $.ajaxSetup({
         headers: {

@@ -309,23 +309,23 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::patch('categorynews/{id}', [CategoryNewsController::class, 'accessUrl'])->name('categorynews.update');
     Route::delete('categorynews/{id}', [CategoryNewsController::class, 'accessUrl'])->name('categorynews.delete');
 
-    // Route::resource('news-list',        NewsController::class);
-    Route::get('newsdata', [NewsController::class, 'accessUrl'])->name('newsdata.index');
-    Route::get('newsdata/create', [NewsController::class, 'accessUrl'])->name('newsdata.create');
-    Route::post('newsdata/store', [NewsController::class, 'accessUrl'])->name('newsdata.store');
-    Route::get('newsdata/{id}/edit', [NewsController::class, 'accessUrl'])->name('newsdata.edit');
-    Route::get('newsdata/{id}', [NewsController::class, 'accessUrl'])->name('newsdata.show');
-    Route::patch('newsdata/{id}', [NewsController::class, 'accessUrl'])->name('newsdata.update');
-    Route::delete('newsdata/{id}', [NewsController::class, 'accessUrl'])->name('newsdata.delete');
+    Route::resource('newsdata',        NewsController::class);
+    // Route::get('newsdata', [NewsController::class, 'accessUrl'])->name('newsdata.index');
+    // Route::get('newsdata/create', [NewsController::class, 'accessUrl'])->name('newsdata.create');
+    // Route::post('newsdata/store', [NewsController::class, 'accessUrl'])->name('newsdata.store');
+    // Route::get('newsdata/{id}/edit', [NewsController::class, 'accessUrl'])->name('newsdata.edit');
+    // Route::get('newsdata/{id}', [NewsController::class, 'accessUrl'])->name('newsdata.show');
+    // Route::patch('newsdata/{id}', [NewsController::class, 'accessUrl'])->name('newsdata.update');
+    // Route::delete('newsdata/{id}', [NewsController::class, 'accessUrl'])->name('newsdata.delete');
 
-    // Route::resource('faq',              FaqController::class);
-    Route::get('faq', [FaqController::class, 'accessUrl'])->name('faq.index');
-    Route::get('faq/create', [FaqController::class, 'accessUrl'])->name('faq.create');
-    Route::post('faq/store', [FaqController::class, 'accessUrl'])->name('faq.store');
-    Route::get('faq/{id}/edit', [FaqController::class, 'accessUrl'])->name('faq.edit');
-    Route::get('faq/{id}', [FaqController::class, 'accessUrl'])->name('faq.show');
-    Route::patch('faq/{id}', [FaqController::class, 'accessUrl'])->name('faq.update');
-    Route::delete('faq/{id}', [FaqController::class, 'accessUrl'])->name('faq.delete');
+    Route::resource('faq',              FaqController::class);
+    // Route::get('faq', [FaqController::class, 'accessUrl'])->name('faq.index');
+    // Route::get('faq/create', [FaqController::class, 'accessUrl'])->name('faq.create');
+    // Route::post('faq/store', [FaqController::class, 'accessUrl'])->name('faq.store');
+    // Route::get('faq/{id}/edit', [FaqController::class, 'accessUrl'])->name('faq.edit');
+    // Route::get('faq/{id}', [FaqController::class, 'accessUrl'])->name('faq.show');
+    // Route::patch('faq/{id}', [FaqController::class, 'accessUrl'])->name('faq.update');
+    // Route::delete('faq/{id}', [FaqController::class, 'accessUrl'])->name('faq.delete');
 
     // Route::resource('contact-us',       ContactUsController::class);
     Route::get('contactus', [ContactUsController::class, 'accessUrl'])->name('contactus.index');

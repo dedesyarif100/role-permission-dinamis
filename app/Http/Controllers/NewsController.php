@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryNews;
+use App\Models\Faq;
 use App\Models\News;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -28,20 +29,16 @@ class NewsController extends Controller
             //     return $news->user->name;
             // })
             ->addColumn('action', function($news) {
-                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/news-list/'.$news['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                if ( auth()->user()->userRole->role->permission->newsdata_edit ) {
-                    $action .= '<a href="'.url('admin/news-list/'.$news['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                }
-                if ( auth()->user()->userRole->role->permission->newsdata_delete ) {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$news['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
-                }
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/newsdata/'.$news['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
+                $action .= '<a href="'.url('admin/newsdata/'.$news['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$news['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'categoryNews', 'action'])
             ->make(true);
         }
 
-        return view('news-list.index');
+        return view('newsdata.index');
     }
 
     /**
@@ -53,7 +50,7 @@ class NewsController extends Controller
     {
         $news = null;
         $categoryNews = CategoryNews::all();
-        return view('news-list.editor', compact('news', 'categoryNews'));
+        return view('newsdata.editor', compact('news', 'categoryNews'));
     }
 
     /**
@@ -90,7 +87,7 @@ class NewsController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('admin/news-list')->with('status', 'Data success created !');
+        return redirect('admin/newsdata')->with('status', 'Data success created !');
     }
 
     /**
@@ -101,8 +98,9 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        $news = News::find($id);
-        return view('news-list.detail', compact('news'));
+        $news = News::find($id)->newsMorphToMany;
+        dd($news, (new Faq)->getMorphClass());
+        return view('newsdata.detail', compact('news'));
     }
 
     /**
@@ -115,7 +113,7 @@ class NewsController extends Controller
     {
         $categoryNews = CategoryNews::all();
         $news = News::find($id);
-        return view('news-list.editor', compact('news', 'categoryNews'));
+        return view('newsdata.editor', compact('news', 'categoryNews'));
     }
 
     /**
@@ -158,7 +156,7 @@ class NewsController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect('admin/news-list')->with('status', 'Data success updated !');
+        return redirect('admin/newsdata')->with('status', 'Data success updated !');
     }
 
     /**

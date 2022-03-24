@@ -40,4 +40,26 @@ class News extends Model
         }
         return $slugNews;
     }
+
+    public function menuNews()
+    {
+        // return $this->morphOne(MenuNews::class, 'menuNews');
+        return $this->morphOne(MenuNews::class, 'menuNews')->ofMany('id', 'min');
+    }
+
+    public function menuNewsMany()
+    {
+        return $this->morphMany(MenuNews::class, 'menuNews');
+    }
+
+    public function menuNewsWithLatestOfMany()
+    {
+        // return $this->morphOne(MenuNews::class, 'menuNews')->latestOfMany();
+        return $this->morphOne(MenuNews::class, 'menuNews')->oldestOfMany();
+    }
+
+    public function newsMorphToMany()
+    {
+        return $this->morphToMany(Menu::class, 'menuables');
+    }
 }
