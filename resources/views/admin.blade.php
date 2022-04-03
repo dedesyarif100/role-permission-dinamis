@@ -37,13 +37,13 @@
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
-        @can('role', 'superadmin')
+        {{-- @can('role', 'superadmin')
             <h6>SUPER ADMIN</h6>
         @elsecan('role', 'admin')
             <h6>ADMIN</h6>
         @else
             <h6>USER</h6>
-        @endcan
+        @endcan --}}
         {{-- |
         @if(Gate::allows('isSuperAdmin'))
             <h6>SUPER ADMIN</h6>

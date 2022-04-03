@@ -71,28 +71,28 @@ class ContentController extends Controller
     public function store(Request $request)
     {
         // REQUEST >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        // Accessing The Request
+        # Accessing The Request
         // dd($request->input('description'));
 
-        // Retrieving The Request Path
+        # Retrieving The Request Path
         // dd($request->path());
 
-        // Inspecting The Request Path / Route
+        # Inspecting The Request Path / Route
         // dd($request->is('admin/*'), $request->routeIs('admin.*'));
 
-        // Retrieving The Request URL
+        # Retrieving The Request URL
         // dd($request->url(), $request->fullUrl(), $request->fullUrlWithQuery(['type' => 'phone']));
 
-        // Retrieving The Request Method
+        # Retrieving The Request Method
         // dd($request->method(), $request->isMethod('post'));
 
-        // Request Headers
+        # Request Headers
         // dd($request->header(), $request->hasHeader('X-Header-Name'), $request->bearerToken());
 
-        // Request IP Address
+        # Request IP Address
         // dd($request->ip());
 
-        // Content Negotiation
+        # Content Negotiation
         // dd(
         //     $request->getAcceptableContentTypes(),
         //     $request->accepts(['text/html', 'application/json']),
@@ -100,8 +100,8 @@ class ContentController extends Controller
         //     $request->expectsJson()
         // );
 
-        // Input
-        // Retrieving All Input Data
+        # Input
+        # Retrieving All Input Data
         // dd(
         //     $request->all(),
         //     $request->collect(),
@@ -110,7 +110,7 @@ class ContentController extends Controller
         //     })
         // );
 
-        // Retrieving An Input Value
+        # Retrieving An Input Value
         // dd(
         //     $request->input(),
         //     $request->input('description'),
@@ -118,28 +118,28 @@ class ContentController extends Controller
         //     $request->input('products.*.name'),
         // );
 
-        // Retrieving Input From The Query String
+        # Retrieving Input From The Query String
         // dd(
         //     $request->query('name'),
         //     $request->query(),
         // );
 
-        // Retrieving JSON Input Values
+        # Retrieving JSON Input Values
         // dd($request->input('user.name'));
 
-        // Retrieving Boolean Input Values
+        # Retrieving Boolean Input Values
         // dd($request->boolean('description'));
 
-        // Retrieving Date Input Values
+        # Retrieving Date Input Values
         // dd($request->date('birthday'), $request->date('elapsed', '!H:i', 'Europe/Madrid'));
 
-        // Retrieving Input Via Dynamic Properties
+        # Retrieving Input Via Dynamic Properties
         // dd($request->name);
 
-        // Retrieving A Portion Of The Input Data
+        # Retrieving A Portion Of The Input Data
         // dd($request->only(['menu_id', 'sub_menu_id']), $request->except(['menu_id', 'sub_menu_id']));
 
-        // Determining If Input Is Present
+        # Determining If Input Is Present
         // dd($request->has('menu_id'), $request->has('menu_id', 'sub_menu_id'));
         // $request->whenHas('menu_id', function($input) {
         //     dd('exists');
@@ -151,7 +151,7 @@ class ContentController extends Controller
         //     dd('not exists');
         // });
 
-        // hasAny, JIKA SALAH SATU VALUE ARRAY BERNILAI TRUE, MAKA RETURN TYPE ADALAH TRUE
+        # hasAny, JIKA SALAH SATU VALUE ARRAY BERNILAI TRUE, MAKA RETURN TYPE ADALAH TRUE
         // dd($request->hasAny(['menu', 'sub_menu_id']));
         // dd($request->filled('menu_id'));
         // $request->whenFilled('menu_id', function ($input) {
@@ -166,51 +166,51 @@ class ContentController extends Controller
 
         // dd($request->missing('menu_id'));
 
-        // Merging Additional Input
+        # Merging Additional Input
         // dd($request->merge(['votes' => 0]), $request->mergeIfMissing(['menu_id' => 0]), $request->all());
 
-        // Old Input
-        // Flashing Input To The Session
+        # Old Input
+        # Flashing Input To The Session
         // dd($request->flash(), $request->flashOnly(['username', 'email']), $request->flashExcept('password'));
 
-        // Flashing Input Then Redirecting
+        # Flashing Input Then Redirecting
         // return redirect('admin/content/create')->withInput();
         // return redirect()->route('content.create')->withInput();
         // return redirect('admin/content/create')->withInput(
         //     $request->except('sub_menu_id')
         // );
 
-        // Retrieving Old Input
+        # Retrieving Old Input
         // dd($request->old('menu_id'));
 
-        // Cookies
+        # Cookies
         // dd($request->cookie('menu_id'));
 
 
         // VIEWS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        // Creating & Rendering Views
+        # Creating & Rendering Views
         // return View::make('content.index', ['name' => 'James']);
 
-        // Nested View Directories
+        # Nested View Directories
         // $data = [
         //     'name' => 'dede',
         //     'age' => 25
         // ];
         // return view('content.index', compact('data'));
 
-        // Creating The First Available View
+        # Creating The First Available View
         // View first, jika view pertama tidak ditemukan, akan menjalankan view yang kedua
         // return View::first(['content.test', 'content.editor'], ['name' => 'James']);
 
-        // Determining If A View Exists
+        # Determining If A View Exists
         // dd(View::exists('content.index'));
 
-        // Passing Data To Views
+        # Passing Data To Views
         // return view('content.index', ['name' => 'dede']);
         // return view('content.index')->with('name', 'dede')->with('age', 25);
 
         // RESPONSE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        // Attaching Headers To Responses
+        # Attaching Headers To Responses
         $content = [
             'name' => 'dede',
             'age' => 25,
@@ -221,7 +221,7 @@ class ContentController extends Controller
         ];
         // return response($content, 200)->header('Content-Type', 'text/plain');
 
-        // Attaching Cookies To Responses
+        # Attaching Cookies To Responses
         // return response('Hello World')->cookie(
         //     'dede', 'value'
         // );
@@ -229,23 +229,23 @@ class ContentController extends Controller
         // $minutes = 'one minutes';
         // Cookie::queue('cookie2', 'value', $minutes);
 
-        // Generating Cookie Instances
+        # Generating Cookie Instances
         // $_COOKIE = cookie('name2', 'DEDE SYARIFUDIN', 10000);
         // return response('hello world')->cookie($_COOKIE);
 
-        // Expiring Cookies Early
+        # Expiring Cookies Early
         // return response('Hello World')->withoutCookie('name');
         // Cookie::expire('name');
 
-        // Redirects
-        // Redirecting To Named Routes
+        # Redirects
+        # Redirecting To Named Routes
         // return redirect()->route('content.index');
 
-        // Populating Parameters Via Eloquent Models
+        # Populating Parameters Via Eloquent Models
         // $id = 4;
         // return redirect()->route('content.show', [$id]);
 
-        // Redirecting To Controller Actions
+        # Redirecting To Controller Actions
         // return redirect()->action([ContentController::class, 'index']);
         // $id = 3;
         // return redirect()->action(
@@ -253,13 +253,13 @@ class ContentController extends Controller
         //     [$id]
         // );
 
-        // Redirecting To External Domains
+        # Redirecting To External Domains
         // return redirect()->away('https://laravel.com/');
 
-        // Redirecting With Flashed Session Data
+        # Redirecting With Flashed Session Data
         // return redirect()->route('content.index')->with('status', 'Content updated!');
 
-        // Redirecting With Input
+        # Redirecting With Input
         // return back()->withInput();
 
         $content = Content::all();

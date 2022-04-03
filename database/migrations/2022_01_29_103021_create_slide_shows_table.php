@@ -14,7 +14,7 @@ class CreateSlideShowsTable extends Migration
     public function up()
     {
         Schema::create('slide_shows', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->unsigned();
             $table->string('description');
             $table->text('image');
             $table->boolean('is_active');

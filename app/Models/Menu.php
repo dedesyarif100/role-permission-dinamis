@@ -16,12 +16,14 @@ class Menu extends Model
     {
         // return $this->hasOne(SubMenu::class, 'menu_id')->latestOfMany();
         // return $this->hasOne(SubMenu::class, 'menu_id')->oldestOfMany();
+        // return $this->hasOne(SubMenu::class, 'menu_id')->ofMany('name', 'min');
         // return $this->hasOne(SubMenu::class, 'menu_id')->ofMany('name', 'max');
         // return $this->hasOne(SubMenu::class, 'menu_id')->ofMany([
         //     'created_at' => 'min',
         //     'id' => 'min'
         // ],  function($query) {
         //         $query->where('created_at', '=', '2022-03-23 00:50:28');
+        //         // $query->where('id', '=', '4');
         //     }
         // );
         return $this->hasMany(SubMenu::class, 'menu_id');

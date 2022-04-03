@@ -14,7 +14,7 @@ class CreateCommentClientsTable extends Migration
     public function up()
     {
         Schema::create('comment_clients', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->unsigned();
             $table->text('image');
             $table->string('name');
             $table->string('title');

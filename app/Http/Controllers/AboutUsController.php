@@ -22,9 +22,7 @@ class AboutUsController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($aboutUs) {
                 $action = null;
-                if ( auth()->user()->userRole->role->permission->aboutus_edit ) {
-                    $action = '<a href="'.url('admin/about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm" id="edit"> <i class="fa fa-edit"></i> </a>';
-                }
+                $action = '<a href="'.url('admin/about-us/'.$aboutUs['id'].'/edit').'" class="btn btn-primary btn-sm" id="edit"> <i class="fa fa-edit"></i> </a>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])

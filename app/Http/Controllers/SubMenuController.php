@@ -96,16 +96,8 @@ class SubMenuController extends Controller
     public function edit($id)
     {
         $subMenu = SubMenu::find($id);
-        // dd($subMenu);
         $menu = Menu::find($subMenu->menu_id);
-        // dd($menu->id, $menu->contentSubMenuHasManyThrough);
-        // dd(SubMenu::whereBelongsTo($menu)->get());
         $allMenu = Menu::all();
-
-        // $cek = SubMenu::resolveRelationUsing('menu', function($menuModel) {
-        //     return $menuModel->belongsTo(Menu::class, 'menu_id');
-        // });
-        // dd($cek);
 
         return view('sub-menu.editor', compact('subMenu', 'allMenu'));
     }

@@ -22,12 +22,8 @@ class ServiceController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($service) {
                 $action = '<div class="btn-group" role="group"> <a href="'.url('admin/service/'.$service['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                if ( auth()->user()->userRole->role->permission->service_edit ) {
-                    $action .= '<a href="'.url('admin/service/'.$service['id']).'/edit" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                }
-                if ( auth()->user()->userRole->role->permission->service_delete ) {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$service['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
-                }
+                $action .= '<a href="'.url('admin/service/'.$service['id']).'/edit" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$service['id'].'" id="delete" title="Delete"> <i class="fa fa-trash"></i> </button> </div>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'action'])

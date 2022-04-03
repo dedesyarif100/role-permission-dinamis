@@ -29,5 +29,11 @@ class SubMenu extends Model
     public function content()
     {
         return $this->hasOne(Content::class, 'sub_menu_id');
+        // return $this->hasMany(Content::class, 'sub_menu_id');
+    }
+
+    public function contentHasMany()
+    {
+        return $this->hasMany(Content::class, 'sub_menu_id');
     }
 }

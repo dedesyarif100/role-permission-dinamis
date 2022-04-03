@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Book extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The relationships that should always be loaded.
      *
      * @var array
      */
-    protected $with = ['author', 'publisher', 'genre'];
+    // protected $with = ['author', 'publisher', 'genre'];
 
     /**
      * Get author relation

@@ -88,6 +88,7 @@ class RoleController extends Controller
         $role = Role::find($id)->permissions()->orderBy('permissions.id', 'DESC')->get();
         $role = Role::find($id);
         $role = Role::find($id)->permissionWithTimeStamp->toArray();
+        dd(Role::find($id)->manyPermission);
         $role = Role::find($id)->permissionWithAsTimeStamp;
         // $role = Role::find($id)->with('permissionWithAsTimeStamp')->get();
         // DB::enableQueryLog();

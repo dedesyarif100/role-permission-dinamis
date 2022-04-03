@@ -14,7 +14,7 @@ class CreateConsultationsTable extends Migration
     public function up()
     {
         Schema::create('consultations', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->unsigned();
             $table->string('name');
             $table->string('email');
             $table->string('company');
@@ -22,6 +22,7 @@ class CreateConsultationsTable extends Migration
             $table->text('message');
             $table->string('consultation_type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
