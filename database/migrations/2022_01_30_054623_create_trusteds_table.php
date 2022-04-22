@@ -14,7 +14,7 @@ class CreateTrustedsTable extends Migration
     public function up()
     {
         Schema::create('trusteds', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->unsigned();
             $table->text('image');
             $table->timestamps();
             $table->softDeletes();

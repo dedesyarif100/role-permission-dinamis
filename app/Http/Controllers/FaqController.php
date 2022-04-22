@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faq;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -21,12 +22,8 @@ class FaqController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($faq) {
                     $action = '<div class="btn-group" role="group"> <a href="'.url('admin/faq/'.$faq['id']).'" class="btn btn-success btn-sm"> <i class="fa fa-eye"></i> </a>';
-                    if ( auth()->user()->userRole->role->permission->faq_edit ) {
-                        $action .= '<a href="'.url('admin/faq/'.$faq['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    }
-                    if ( auth()->user()->userRole->role->permission->faq_delete ) {
-                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$faq['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
-                    }
+                    $action .= '<a href="'.url('admin/faq/'.$faq['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$faq['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                     return $action;
                 })
                 ->rawColumns(['DT_Row_Index', 'action'])
@@ -79,6 +76,8 @@ class FaqController extends Controller
      */
     public function show(Faq $faq)
     {
+        $alias = (new Faq)->getMorphClass();
+        dd(Relation::getMorphedModel($alias), $faq->faqMorphToMany->toArray());
         return view('faq.detail', compact('faq'));
     }
 

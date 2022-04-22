@@ -14,9 +14,10 @@ class CreateSubMenuTable extends Migration
     public function up()
     {
         Schema::create('sub_menu', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('menu_id');
+            $table->bigIncrements('id')->unsigned();
+            $table->bigInteger('menu_id')->nullable()->unsigned();
             $table->string('name');
+            $table->bigInteger('quantity')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

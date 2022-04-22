@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -42,8 +43,45 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function userRole()
+    public function roles()
     {
-        return $this->hasOne(UserRole::class, 'user_id', 'id');
+        return $this->belongsTo(UserRole::class);
+    }
+
+    public function userRoles()
+    {
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'user_permission', 'user_id', 'permission_id');
+    }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param  mixed  $value
+     * @param  string|null  $field
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where('id', $value)->firstOrFail();
+    }
+
+    public function account()
+    {
+        return $this->belongsTo(Account::class);
     }
 }

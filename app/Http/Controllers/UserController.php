@@ -5,12 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        // $request = new Request();
+
+        // $user = new User();
+        // $response = Gate::inspect('view', $user->all());
+        // dd($response->allowed());
+
+        // $this->middleware('log')->only('index');
+        // $this->middleware('subscribed')->except('store');
+
+        $this->middleware('permission:user view,user create,user store,user edit,user update,user destroy');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,35 +34,70 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->ajax()) {
-            $user = User::orderBy('id', 'DESC')->get();
-            return DataTables::of($user)
-                ->addIndexColumn()
-                ->addColumn('role', function($user) {
-                    if ( $user->userRole->role->name == 'admin' ) {
-                        return '<span class="name badge bg-success" style="color: white;">'.$user->userRole->role->name.'</span>';
-                    } else {
-                        return '<span class="name badge bg-primary" style="color: white;">'.$user->userRole->role->name.'</span>';
-                    }
-                })
-                ->addColumn('action', function($user) {
-                    $action = null;
-                    if ( auth()->user()->userRole->role->permission->user_edit ) {
-                        $action = '<div class="btn-group" role="group"> <a href="'.url('admin/user/'.$user['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                    }
-                    if ( auth()->user()->userRole->role->permission->user_delete ) {
-                        if (auth()->user()->id === $user->id) {
-                            $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fas fa-trash"></i> </button> </div>';
+        $role = new Role();
+        $user = new User();
+        // dd(
+        //     // $request->all(),
+        //     // Gate::allows('isSuperAdmin'),
+        //     // $user->can('create', $user),
+        //     // $this->authorize('view', $user),
+        //     // $user->can('view', $user),
+        //     // $role->can('create', $role),
+        //     // $role->can('view', $role),
+        //     // Gate::allows('role', 'superadmin') || Gate::allows('role', 'admin')
+        // );
+        if ( Gate::allows('role', 'superadmin') || Gate::allows('role', 'admin') ) {
+            if ($request->ajax()) {
+                $user = User::orderBy('id', 'ASC')->get();
+                // dd($user[0]->userRoles->toArray());
+                $role = Role::where('name', 'user')->first();
+                return DataTables::of($user)
+                    ->addIndexColumn()
+                    ->addColumn('role', function($user) {
+                        // dd($user->userRoles->toArray(), $user->userRoles()->where('user_id', $user->id)->get()->toArray());
+                        if ( $user->userRoles->count() !== 1 ) {
+                            $apply = [];
+                            foreach ($user->userRoles as $value) {
+                                if ( $value->name === 'superadmin' ) {
+                                    $apply[] = '<span class="name badge bg-success" style="color: white;">'.$value->name.'</span>';
+                                } elseif ( $value->name === 'admin' ) {
+                                    $apply[] = '<span class="name badge bg-primary" style="color: white;">'.$value->name.'</span>';
+                                } else {
+                                    $apply[] = '<span class="name badge bg-info" style="color: white;">'.$value->name.'</span>';
+                                }
+                            }
+                            return implode('<br>', $apply);
                         } else {
-                            $action .= '<button class="btn btn-danger btn-sm" data-id="'.$user['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                            foreach ($user->userRoles as $value) {
+                                if ( $value->name === 'superadmin' ) {
+                                    return '<span class="name badge bg-success" style="color: white;">'.$value->name.'</span>';
+                                } elseif ( $value->name === 'admin' ) {
+                                    return '<span class="name badge bg-primary" style="color: white;">'.$value->name.'</span>';
+                                } else {
+                                    return '<span class="name badge bg-info" style="color: white;">'.$value->name.'</span>';
+                                }
+                            }
                         }
-                    }
-                    return $action;
-                })
-                ->rawColumns(['DT_Raw_Column', 'role', 'action'])
-                ->make(true);
+                    })
+                    ->addColumn('action', function($user) {
+                        $action = null;
+                        if ( Gate::allows('role', 'superadmin') ) {
+                            $action = '<div class="btn-group" role="group"> <a href="'.url('admin/user/'.$user['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                            if (auth()->user()->id === $user->id) {
+                                $action .= '<button class="btn btn-danger btn-sm" disabled> <i class="fas fa-trash"></i> </button> </div>';
+                            } else {
+                                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$user['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
+                            }
+                        }
+                        return $action;
+                    })
+                    ->rawColumns(['DT_Raw_Column', 'role', 'action'])
+                    ->make(true);
+            }
+            return view('user.index');
+        } else {
+            return view('permission-access-page');
         }
-        return view('user.index');
     }
 
     /**
@@ -56,9 +107,13 @@ class UserController extends Controller
      */
     public function create()
     {
-        $user = null;
-        $roles = Role::all();
-        return view('user.editor', compact('user', 'roles'));
+        if ( Gate::allows('role', 'superadmin') ) {
+            $user = null;
+            $roles = Role::all();
+            return view('user.editor', compact('user', 'roles'));
+        } else {
+            return view('permission-access-page');
+        }
     }
 
     /**
@@ -69,37 +124,41 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'password_confirmation' => 'required',
-            'role_id' => 'required'
-        ], [
-            'name.required' => 'This field is required',
-            'email.required' => 'This field is required',
-            'password.required' => 'This field is required',
-            'password_confirmation.required' => 'This field is required',
-            'role_id.required' => 'This field is required',
-        ]);
+        if ( Gate::allows('role', 'superadmin') ) {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'password' => 'required',
+                'password_confirmation' => 'required',
+                'role_id' => 'required'
+            ], [
+                'name.required' => 'This field is required',
+                'email.required' => 'This field is required',
+                'password.required' => 'This field is required',
+                'password_confirmation.required' => 'This field is required',
+                'role_id.required' => 'This field is required',
+            ]);
 
-        // dd($request->all());
-        if ($request->password !== $request->password_confirmation) {
-            return redirect()->back()->with('status', 'Password Confirmasi harus sama');
+            // dd($request->all());
+            if ($request->password !== $request->password_confirmation) {
+                return redirect()->back()->with('status', 'Password Confirmasi harus sama');
+            }
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            UserRole::create([
+                'user_id' => $user->id,
+                'role_id' => $request->role_id
+            ]);
+
+            return redirect('admin/user')->with('status', 'Data success created !');
+        } else {
+            abort(403);
         }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
-        UserRole::create([
-            'user_id' => $user->id,
-            'role_id' => $request->role_id
-        ]);
-
-        return redirect('admin/user')->with('status', 'Data success created !');
     }
 
     /**
@@ -110,7 +169,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        dd($id);
     }
 
     /**
@@ -121,8 +180,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::all();
-        return view('user.editor', compact('user', 'roles'));
+        if ( Gate::allows('role', 'superadmin') ) {
+            $roles = Role::all();
+            return view('user.editor', compact('user', 'roles'));
+        } else {
+            return view('permission-access-page');
+        }
     }
 
     /**
@@ -134,27 +197,31 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'role_id' => 'required'
-        ], [
-            'name.required' => 'This field is required',
-            'email.required' => 'This field is required',
-            'role_id.required' => 'This field is required',
-        ]);
+        if ( Gate::allows('role', 'superadmin') ) {
+            $request->validate([
+                'name' => 'required',
+                'email' => 'required',
+                'role_id' => 'required'
+            ], [
+                'name.required' => 'This field is required',
+                'email.required' => 'This field is required',
+                'role_id.required' => 'This field is required',
+            ]);
 
-        User::where('id', $id)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
-        $user = User::find($id);
+            User::where('id', $id)->update([
+                'name' => $request->name,
+                'email' => $request->email,
+            ]);
+            $user = User::find($id);
 
-        UserRole::where('user_id', $user->id)->update([
-            'role_id' => $request->role_id
-        ]);
+            UserRole::where('user_id', $user->id)->update([
+                'role_id' => $request->role_id
+            ]);
 
-        return redirect('admin/user')->with('status', 'Data success updated !');
+            return redirect('admin/user')->with('status', 'Data success updated !');
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -165,12 +232,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::where('id', $id)->delete();
-        return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+        if ( Gate::allows('role', 'superadmin') ) {
+            User::where('id', $id)->delete();
+            return response()->json(['code' => 1, 'msg' => 'Data Has Been Deleted']);
+        } else {
+            abort(403);
+        }
     }
 
     public function accessUrl(Request $request)
     {
+        // dd(auth()->user()->userRole);
         if ( $request->route()->getName() === 'user.index' ) {
             if (auth()->user()->userRole->role->permission->user_view) {
                 return $this->index($request);

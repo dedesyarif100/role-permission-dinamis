@@ -17,23 +17,38 @@ class SubMenuSeeder extends Seeder
         DB::table('sub_menu')->insert([
             [
                 'menu_id' => 1,
-                'name' => 'Working Visa'
+                'name' => 'Working Visa',
+                'quantity' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'menu_id' => 1,
-                'name' => 'Dependent Visa'
+                'name' => 'Dependent Visa',
+                'quantity' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'menu_id' => 1,
-                'name' => 'Spouse Visa'
+                'name' => 'Spouse Visa',
+                'quantity' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'menu_id' => 1,
-                'name' => 'Retirement Visa'
+                'name' => 'Retirement Visa',
+                'quantity' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ],
             [
                 'menu_id' => 1,
-                'name' => 'Calling Visa'
+                'name' => 'Calling Visa',
+                'quantity' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
             ],
         ]);
     }

@@ -173,6 +173,7 @@ return [
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\ComponentServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
@@ -230,7 +231,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
+
         'SEOMeta'       => Artesaos\SEOTools\Facades\SEOMeta::class,
         'OpenGraph'     => Artesaos\SEOTools\Facades\OpenGraph::class,
         'Twitter'       => Artesaos\SEOTools\Facades\TwitterCard::class,

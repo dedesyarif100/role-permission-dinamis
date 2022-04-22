@@ -22,15 +22,11 @@ class CategoryNewsController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function($categoryNews) {
                 $action = null;
-                if ( auth()->user()->userRole->role->permission->categorynews_edit ) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/category-news/'.$categoryNews['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                }
-                if ( auth()->user()->userRole->role->permission->categorynews_delete ) {
-                    if ( News::where('category_news_id', $categoryNews->id)->exists() ) {
-                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete" disabled> <i class="fas fa-trash"></i> </button> </div>';
-                    } else {
-                        $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
-                    }
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/categorynews/'.$categoryNews['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                if ( News::where('category_news_id', $categoryNews->id)->exists() ) {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete" disabled> <i class="fas fa-trash"></i> </button> </div>';
+                } else {
+                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$categoryNews['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 }
                 return $action;
             })
@@ -73,7 +69,7 @@ class CategoryNewsController extends Controller
             'slug' => $slugCategoryNews
         ]);
 
-        return redirect('admin/category-news')->with('status', 'Data success created !');
+        return redirect('admin/categorynews')->with('status', 'Data success created !');
     }
 
     /**
@@ -120,7 +116,7 @@ class CategoryNewsController extends Controller
             'slug' => $slugCategoryNews
         ]);
 
-        return redirect('admin/category-news')->with('status', 'Data success updated !');
+        return redirect('admin/categorynews')->with('status', 'Data success updated !');
     }
 
     /**

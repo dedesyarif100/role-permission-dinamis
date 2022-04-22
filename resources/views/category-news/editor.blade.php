@@ -22,7 +22,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($categoryNews)) {{ route('category-news.store') }} @else {{ url('admin/category-news/'.$categoryNews->id) }} @endif" method="POST" enctype="multipart/form-data">
+                    <form action="@if(is_null($categoryNews)) {{ route('categorynews.store') }} @else {{ url('admin/categorynews/'.$categoryNews->id) }} @endif" method="POST" enctype="multipart/form-data">
                         @if (!is_null($categoryNews))
                             @method('PATCH')
                         @endif
@@ -56,4 +56,3 @@
     </div>
 </div>
 @endsection
-

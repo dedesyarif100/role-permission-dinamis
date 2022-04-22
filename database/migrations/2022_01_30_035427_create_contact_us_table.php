@@ -14,7 +14,7 @@ class CreateContactUsTable extends Migration
     public function up()
     {
         Schema::create('contact_us', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->unsigned();
             $table->string('icon')->nullable();
             $table->string('title');
             $table->string('sub_title')->nullable();

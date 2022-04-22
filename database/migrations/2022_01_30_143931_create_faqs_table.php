@@ -14,10 +14,11 @@ class CreateFaqsTable extends Migration
     public function up()
     {
         Schema::create('faqs', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id')->unsigned();
             $table->string('title');
             $table->longText('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

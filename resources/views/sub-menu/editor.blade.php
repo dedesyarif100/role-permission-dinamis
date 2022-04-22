@@ -13,7 +13,7 @@
             </h1><hr><br>
             <div class="row">
                 <div class="col-md-12">
-                    <form action="@if(is_null($subMenu)) {{ route('sub-menu.store') }} @else {{ url('admin/sub-menu/'.$subMenu->id) }} @endif" method="POST">
+                    <form action="@if(is_null($subMenu)) {{ route('submenu.store') }} @else {{ url('admin/submenu/'.$subMenu->id) }} @endif" method="POST">
                         @if (!is_null($subMenu))
                             @method('PATCH')
                         @endif
@@ -59,7 +59,7 @@
                                 </div>
                             </div>
                         </div><br>
-                        
+
                         <div class="form-group d-flex justify-content-end">
                             <button type="submit" id="submit" class="btn btn-block btn-success">
                                 <span class="submit" role="status" aria-hidden="true"></span> Save Changes

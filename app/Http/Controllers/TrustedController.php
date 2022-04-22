@@ -26,12 +26,8 @@ class TrustedController extends Controller
             })
             ->addColumn('action', function($trusted) {
                 $action = null;
-                if ( auth()->user()->userRole->role->permission->trusted_edit ) {
-                    $action = '<div class="btn-group" role="group"> <a href="'.url('admin/trusted/'.$trusted['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
-                }
-                if ( auth()->user()->userRole->role->permission->trusted_delete ) {
-                    $action .= '<button class="btn btn-danger btn-sm" data-id="'.$trusted['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
-                }
+                $action = '<div class="btn-group" role="group"> <a href="'.url('admin/trusted/'.$trusted['id'].'/edit').'" class="btn btn-primary btn-sm"> <i class="fa fa-edit"></i> </a>';
+                $action .= '<button class="btn btn-danger btn-sm" data-id="'.$trusted['id'].'" id="delete"> <i class="fas fa-trash"></i> </button> </div>';
                 return $action;
             })
             ->rawColumns(['DT_Row_Index', 'image', 'action'])
