@@ -84,7 +84,7 @@ class AssetsSeeder extends Seeder
             'qty_in' => $assets->quantity,
             'qty_out' => 0,
             'notes' => $assets->notes,
-            'json' => '',
+            'jsoncolumn' => null,
             'created_at' => now(),
             'updated_at' => now()
         ]);

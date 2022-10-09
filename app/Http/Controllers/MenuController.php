@@ -110,8 +110,9 @@ class MenuController extends Controller
         # Chaining orWhere Clauses After Relationships
         DB::enableQueryLog();
         // $value = $menu->subMenu()->where('created_at', NULL)->orWhere('updated_at', NULL)->get()->toArray();
-        // Ambil SubMenu berdasarkan menu_id yang dimana created_at & updated_at = NULL
+        // // Ambil SubMenu berdasarkan menu_id yang dimana created_at & updated_at = NULL
         // dd($menu->contentSubMenuHasManyThrough);
+        // $menu->contentSubMenuHasManyThrough;
 
         // $value = $menu->subMenu()->where(function(Builder $query) {
         //     return $query->where('created_at', NULL)->orWhere('updated_at', NULL);
@@ -120,12 +121,13 @@ class MenuController extends Controller
         // dd($value);
 
         # Dynamic Relationships
-        // $cek = SubMenu::resolveRelationUsing('menu', function($menuModel) {
+        // $cek = SubMenu::resolveRelationUsing('menu', function(Builder $menuModel) {
         //     return $menuModel->belongsTo(Menu::class, 'menu_id');
         // });
         // dd($cek);
         // dd($menu->id, $menu->contentSubMenuHasManyThrough);
         // dd(SubMenu::whereBelongsTo($menu)->get());
+        // SubMenu::whereBelongsTo($menu)->get();
 
         # Querying Relationship Existence
         // dd(
@@ -137,13 +139,18 @@ class MenuController extends Controller
         //     // Ambil menu yang setidaknya subMenu memiliki satu content
         //     SubMenu::has('content')->get(),
         // );
+        // Menu::has('subMenu')->get();
+        // Menu::has('subMenu', '>=', 3)->get();
+        // Menu::has('subMenu.content')->get();
+        // SubMenu::has('content')->get();
+
 
         // $menu = Menu::whereHas('subMenu', function(Builder $query) {
-        //     // $query->where('name', 'like', '%calling%');
-        //     // $query->where('updated_at', NULL);
+        //     $query->where('name', 'like', '%calling%');
+        //     $query->where('updated_at', NULL);
         //     $query->where('id', '=', 3);
         // })->get();
-        // Ambil data menu berdasarkan subMenu, menu_id, dimana value name memiliki kalimat open
+        // // Ambil data menu berdasarkan subMenu, menu_id, dimana value name memiliki kalimat open
         // $menu = Menu::whereHas('content', function(Builder $query) {
         //     $query->where('sub_title', 'like', '%software%');
         // })->get();
@@ -309,6 +316,7 @@ class MenuController extends Controller
         // dd($menu);
 
         // $menu = Menu::find(1);
+        // TADI JALAN DARI SINI ------------------------------------
         // dd(
         //     $menu->loadSum('subMenu', 'quantity')->toArray(),
         //     $menu->loadMin('subMenu', 'quantity')->toArray(),
@@ -316,6 +324,11 @@ class MenuController extends Controller
         //     $menu->loadAvg('subMenu', 'quantity')->toArray(),
         //     $menu->loadExists('subMenu', 'quantity')->toArray(),
         // );
+        // $menu->loadSum('subMenu', 'quantity')->toArray();
+        // $menu->loadMin('subMenu', 'quantity')->toArray();
+        // $menu->loadMax('subMenu', 'quantity')->toArray();
+        // $menu->loadAvg('subMenu', 'quantity')->toArray();
+        // $menu->loadExists('subMenu', 'quantity')->toArray();
 
         // $menu = Menu::select(['id', 'name'])->withExists('subMenu')->get();
         // dd($menu);

@@ -24,7 +24,7 @@ class AssetController extends Controller
         DB::enableQueryLog();
         // $logs = Log::select('qty_in', 'qty_out')->sum('qty_in', 'qty_out');
         // $logs = Log::select(DB::raw('SUM(qty_in) AS qty_in, SUM(qty_out) AS qty_out'))->get();
-        // $logs = DB::select("SELECT SUM(qty_in) AS qty_in, SUM(qty_out) AS qty_out FROM logs");
+        $logs = DB::select("SELECT SUM(qty_in) AS qty_in, SUM(qty_out) AS qty_out FROM logs");
 
         # Retrieving A Single Row / Column From A Table
         // $logs = DB::table('categories')->where('code', 'GA')->value('name');
@@ -36,29 +36,29 @@ class AssetController extends Controller
 
         # Chunking Results
         // dd(DB::table('users')->chunk());
-        // $data = DB::table('users')->orderBy('id')->offset(3)->chunkById(3, function($data) {
-        //     foreach ($data as $key => $user) {
-        //         $dataUser[] = DB::table('users')->where('id', $user->id)->update(['is_active' => false]);
-        //     }
-        //     return false;
-        // });
+        $data = DB::table('users')->orderBy('id')->offset(3)->chunkById(3, function($data) {
+            foreach ($data as $key => $user) {
+                $dataUser[] = DB::table('users')->where('id', $user->id)->update(['is_active' => false]);
+            }
+            return false;
+        });
 
         # Streaming Results Lazily
-        // $data = DB::table('users')->orderBy('id')->lazy()->each(function($user) {
-        //     DB::table('users')->where('id', $user->id)->update(['is_active' => true]);
-        // });
+        $data = DB::table('users')->orderBy('id')->lazy()->each(function($user) {
+            DB::table('users')->where('id', $user->id)->update(['is_active' => true]);
+        });
 
         $data = DB::table('users')->orderBy('id')->lazyById()->each(function($user) {
             DB::table('users')->where('id', $user->id)->update(['is_active' => true]);
         });
 
         // $logs = Log::latest('id')->select('id as id_log', 'date as date_log', 'asset_id as asset', 'qty_in as jumlah_masuk')->first();
-        // $logs = DB::select('select `id` as `id_log`, `date` as `date_log` from `logs` order by `id` desc limit 1');
+        $logs = DB::select('select `id` as `id_log`, `date` as `date_log` from `logs` order by `id` desc limit 1');
         // $logs = Log::latest('id')->select('id as id_log', 'date as date_log', 'asset_id as asset', 'qty_in as jumlah_masuk')->get()->chunk(30);
         // $map = collect([1, 2, 3, 4, 5]);
 
         ## Aggregates
-        // $data = DB::table('assets')->count();
+        $data = DB::table('assets')->count();
         $data = DB::table('assets')->max('code');
         $data = DB::table('assets')->min('code');
         $data = DB::table('assets')->where('code', 'LIKE', '%IT%')->sum('quantity');
@@ -395,7 +395,7 @@ class AssetController extends Controller
 
         ## Debugging
         // DB::table('users')->where('account_id', '>=', 2)->get()->dd();
-        DB::table('users')->where('account_id', '>=', 2)->get()->dump();
+        // DB::table('users')->where('account_id', '>=', 2)->get()->dump();
 
         // dd($data);
         dd($data, DB::getQueryLog());
